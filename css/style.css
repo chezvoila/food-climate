@@ -1,0 +1,16 @@
+:root {
+        --color-darke3: #160508;
+        --color-darke2: #581420;
+        --color-dark1: #992437;
+        --color-main: #db334f;
+        --color-light1: #e67084;
+        --color-light2: #f1adb9;
+        --color-light3: #fbebed;
+        --color-icon-bg: #a8243a;
+        --color-icon-hover: #6b101f;
+}
+
+body {
+        font-family: "bavro";
+        background-color: var(--color-main);
+}

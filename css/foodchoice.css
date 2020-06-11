@@ -1,0 +1,44 @@
+#food_choice {
+        color: var(--color-light3);
+        padding: 200px 0;
+}
+
+#food_choice h1 {
+        font-size: 2em;
+        font-weight: 100;
+        text-align: center;
+        margin-bottom: 300px;
+        line-height: 1.3;
+}
+
+#food_choice nav {
+        margin: 0 auto;
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        
+}
+
+#food_choice nav a {
+        flex: 1;
+        text-align: center;
+        max-width: 200px;
+        height: 200px;
+        background-color: var(--color-icon-bg);
+        line-height: 200px
+}
+
+#food_choice nav a:hover {
+        background-color: var(--color-icon-hover);
+}
+
+#food_choice .fish{
+/* svg element animated */
+}
+
+#food_choice .meat{
+/* svg element animated */
+}
+#food_choice .veggie{
+/* svg element animated */
+}
