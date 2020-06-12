@@ -20,7 +20,7 @@
     // promises.push(d3.csv("./data/globalwarming.csv"));
     promises.push(d3.csv("./data/globalwarming_emissions.csv"));
     promises.push(d3.csv("./data/globalwarming_temperature.csv"));
-    // promises.push(d3.csv("./data/chainco2.csv"));
+    promises.push(d3.json("./data/chainco2.json"));
     // promises.push(d3.csv("./data/land.csv"));
 
 
@@ -29,8 +29,8 @@
         .then(function (data) {
             foodco2(data[0]);
             const data_GW = globalwarming(data[1], data[2]);
-            // chainco2(data[2]);
-            // land(data[3]);
+            chainco2(data[3]);
+            // land(data[4]);
 
 
 
