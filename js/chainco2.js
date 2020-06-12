@@ -11,7 +11,7 @@ async function chainco2(data) {
     //Define the size of the svg element
     let sizeSettings = { width: document.documentElement.clientWidth,
                          height: document.documentElement.clientHeight }
-
+    
     //Initialize the svg element
     let svg = d3.select("#chain_co2").append("svg")
     .attr("width", sizeSettings.width)
@@ -24,7 +24,7 @@ async function chainco2(data) {
                     thickness: sizeSettings.width / 15 }  
     
     //draw the highlighted background when second level is discovered
-    drawScope(svg, donutSettings, data.level1)
+    drawScope(svg, donutSettings, data)
     
     //draw the visualization title
     const title = {text: "The food CO2 emissions",
@@ -32,24 +32,33 @@ async function chainco2(data) {
                                y: sizeSettings.height/5 }
                   }
     drawTitle(svg, title);
+    
+    //define tooltip
+    let tip = d3.tip()
+                .attr("class", "d3-tip")
+                .html(function(d) { return d.value*100+"%"; });
 
     //define the group that will be used to draw the donut chart
     let g = svg.append("g")
                 .attr("transform", `translate(${donutSettings.position.x}, ${donutSettings.position.y})`)
-
+                .call(tip)
+    
     //draw level 1 with specified angles settings
     const anglesLevel1 = {
         startAngle: -Math.PI/2,
         endAngle: Math.PI/2
     }
-    plotLevel(g, donutSettings, anglesLevel1, 1, data.level1)
+    plotLevel(g, donutSettings, anglesLevel1, 1, data.level1, tip)
     
     //draw level 2 with specified angles settings
     const anglesLevel2 = {
         startAngle: -Math.PI/2,
         endAngle: -Math.PI/2+Math.PI*data.level1[0].v
     }
-    plotLevel(g, donutSettings, anglesLevel2, 2, data.level2)
+    plotLevel(g, donutSettings, anglesLevel2, 2, data.level2, tip)
+
+    //draw the dashed line
+    drawSeparatingLine(svg, donutSettings, data);
 }
 
 /**
@@ -60,9 +69,10 @@ async function chainco2(data) {
  * @param angles          The angles object specifying the startAngle and endAngle.
  * @param level           The level number starting from level 1 as the base level.
  * @param data            The data from this specific level. (data.levelx)
+ * @param tip             The D3 tooltip to display information
  *
  */
-function plotLevel(g, settings, angles, level, data){
+function plotLevel(g, settings, angles, level, data, tip){
     
     //Define the color scale
     let color = d3.scaleOrdinal();
@@ -94,6 +104,8 @@ function plotLevel(g, settings, angles, level, data){
           .attr("id", (_,i) => `level${level}_${i}`)
           .attr("fill", d => color(d.index))
           .attr("d", arc)
+          .on('mouseover', tip.show)
+          .on('mouseout', tip.hide)
 
     //add the text on the arc
     groups.selectAll("text")
@@ -114,12 +126,12 @@ function plotLevel(g, settings, angles, level, data){
  *
  * @param svg             The SVG element in which the background has to be drawn.
  * @param settings        The settings object containing position, base radius and thickness.
- * @param data            The data from level1 to compute angles.
+ * @param data            The data to compute angles.
  *
  */
 function drawScope(svg, settings, data){
     //compute the angle of the donut chart
-    const tanAngle = Math.tan(Math.PI*data[0].v);
+    const tanAngle = Math.tan(Math.PI*data.level1[0].v);
 
     //define the points and the path command associated with
     const points = [
@@ -149,6 +161,39 @@ function drawScope(svg, settings, data){
     .classed("highlightedBackground", true)
 }
 
+/**
+ * Draws a dash line that extends from the first level towards the 
+ * left side of the chart using the second level angle.
+ *
+ * @param svg             The SVG element in which the background has to be drawn.
+ * @param settings        The settings object containing position, base radius and thickness.
+ * @param data            The data to compute angles.
+ *
+ */
+function drawSeparatingLine(svg, settings, data){
+    const angle = Math.PI*data.level1[0].v*data.level2[0].v;
+    const tanAngle = Math.tan(angle);
+    const cosAngle = Math.cos(angle);
+    const sinAngle = Math.sin(angle);
+    const linePoints = [
+        {
+            x: 0, 
+            y: settings.position.y - tanAngle*settings.position.x
+        },
+        {
+            x: settings.position.x-cosAngle*(settings.radius-settings.thickness), 
+            y: settings.position.y - sinAngle*(settings.radius-settings.thickness)}
+   ]
+
+    svg.append("line")
+       .attr("x1", linePoints[0].x)
+       .attr("y1", linePoints[0].y)
+       .attr("x2", linePoints[1].x)
+       .attr("y2", linePoints[1].y)
+       .attr("stroke-dasharray", 4)
+       .attr("stroke-width", 2)
+       .attr("stroke", "#6b101f")
+}
 
 /**
  * function that adds the title on the svg element
