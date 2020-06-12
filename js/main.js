@@ -21,7 +21,10 @@
     promises.push(d3.csv("./data/globalwarming_emissions.csv"));
     promises.push(d3.csv("./data/globalwarming_temperature.csv"));
     promises.push(d3.json("./data/chainco2.json"));
-    // promises.push(d3.csv("./data/land.csv"));
+    promises.push(d3.csv("./data/land_world.csv"));
+    promises.push(d3.csv("./data/land_arable.csv"));
+    promises.push(d3.csv("./data/land_meadows&pastures.csv"));
+    promises.push(d3.csv("./data/land_agriculture.csv"));
 
 
     Promise.all(promises)
@@ -30,7 +33,7 @@
             foodco2(data[0]);
             const data_GW = globalwarming(data[1], data[2]);
             chainco2(data[3]);
-            // land(data[4]);
+            land(data[4], data[5], data[6], data[7]);
 
 
 
