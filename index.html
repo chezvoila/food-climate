@@ -1,42 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Chez Voila!</title>
-        <link rel=stylesheet href="css/reset.css">
-        <link rel=stylesheet href="css/style.css">
-        <link rel=stylesheet href="css/foodchoice.css">
-        <link rel=stylesheet href="css/foodco2.css">
-        <link rel=stylesheet href="css/globalwarming.css">
-        <link rel=stylesheet href="css/chainco2.css">
-        <link rel=stylesheet href="css/land.css">
-</head>
-<body>
-        <!-- <section id="intro"></section> -->
-        <section id="food_choice">
-                <h1>Which one of these foods you prefer<br>to have for your next meal?</h1>
-                <nav>
-                        <a class="fish" href="javascript:void(0)">MEAT</a>
-                        <a class="meat" href="javascript:void(0)">VEGAN</a>
-                        <a class="veggie" href="javascript:void(0)">FISH</a>
-                </nav>
-        </section>
-        <section id="food_co2"></section>
-        <section id="global_warming"></section>
-        <section id="chain_co2"></section>
-        <section id="land"></section>
-        <!-- <section id="extra_vis"></section> -->
-        <!-- <section id="outro"></section> -->
 
-        <script src="//d3js.org/d3.v5.min.js"></script>
-        <script src="//d3js.org/d3-hexbin.v0.2.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
-        <script src="js/foodchoice.js"></script>
-        <script src="js/foodco2.js"></script>
-        <script src="js/globalwarming.js"></script>
-        <script src="js/chainco2.js"></script>
-        <script src="js/land.js"></script>
-        <script src="js/main.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chez Voila!</title>
+    <link rel=stylesheet href="css/reset.css">
+    <link rel=stylesheet href="css/style.css">
+    <link rel=stylesheet href="css/foodchoice.css">
+    <link rel=stylesheet href="css/foodco2.css">
+    <link rel=stylesheet href="css/globalwarming.css">
+    <link rel=stylesheet href="css/chainco2.css">
+    <link rel=stylesheet href="css/land.css">
+</head>
+
+<body>
+    <!-- <section id="intro"></section> -->
+    <section id="food_choice">
+        <h1>Which one of these foods you prefer<br>to have for your next meal?</h1>
+        <nav>
+            <a class="fish" href="javascript:void(0)">MEAT</a>
+            <a class="meat" href="javascript:void(0)">VEGAN</a>
+            <a class="veggie" href="javascript:void(0)">FISH</a>
+        </nav>
+    </section>
+    <section id="food_co2"></section>
+    <section id="global_warming"></section>
+    <section id="chain_co2"></section>
+    <section id="land">
+        <div class="row">
+            <div class="col">
+                <div class="search" id="search-bar">
+                    <input title="search-input" type="text" placeholder="Average surface. Search a country here...">
+                    <button title="Search">
+                        Search
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <h3>World</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="leftTotal"></div>
+            <div class="col" id="rightTotal"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6>1px² = 100km²</h6>
+            </div>
+            <div class="col">
+                <h6>1px² = 500km²</h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="leftDivision"></div>
+            <div class="col" id="rightDivision"></div>
+        </div>
+    </section>
+    <!-- <section id="extra_vis"></section> -->
+    <!-- <section id="outro"></section> -->
+
+    <script src="//d3js.org/d3.v5.min.js"></script>
+    <script src="//d3js.org/d3-hexbin.v0.2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script type="text/javascript" src="libs/auto-complete.min.js"></script>
+
+
+    <script src="js/foodchoice.js"></script>
+    <script src="js/foodco2.js"></script>
+    <script src="js/globalwarming.js"></script>
+    <script src="js/chainco2.js"></script>
+    <script src="js/land.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

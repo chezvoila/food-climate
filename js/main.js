@@ -4,11 +4,14 @@
 
 
     /* GLOBAL WARMING */
-
     var elements = create_GW(d3);
     var svg_GW = elements.svg,
         x_GW = elements.x,
         y_GW = elements.y;
+
+    /* LAND */
+
+    var color = d3.scaleOrdinal(d3.schemePaired).range(['white','#992437']); // TO DEFINE
 
     /***** bind events *****/
 
@@ -33,7 +36,7 @@
             foodco2(data[0]);
             const data_GW = globalwarming(data[1], data[2]);
             chainco2(data[3]);
-            land(data[4], data[5], data[6], data[7]);
+            const data_land = land(data[4], data[5], data[6], data[7]);
 
 
 
@@ -47,6 +50,48 @@
             chart_GW(svg_GW, x_GW, y_GW, data_GW);
 
 
+            /* LAND */
+
+            // Get different sets of data
+            const data_world = data_land.world;
+            const data_agriculture = data_land.agriculture;
+            const data_arable = data_land.arable;
+            const data_mead_past = data_land.mead_past;
+
+            const lands_available = make_list_land(data_world, data_agriculture, data_arable, data_mead_past);
+
+            // update color domain
+            land_color_domain(color, data_land.world);
+
+            // create both charts with world data
+            var area_world = chart_land_world(data_world, color); // world's area for the food industry
+            chart_division_world(data_agriculture, data_arable, data_mead_past, area_world, color);
+            mean_land_country(data_world);
+
+            new autoComplete({
+                selector: "#search-bar input",
+                minChars: 1,
+                source: function (term, suggest) {
+                    term = term.toLowerCase();
+                    var matches = [];
+                    lands_available.forEach(function (d) {
+                        if (~d.toLowerCase().indexOf(term)) {
+                            matches.push(d);
+                        }
+                    });
+                    suggest(matches);
+                },
+                renderItem: function (item, search) {
+                    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+                    return '<div class="autocomplete-suggestion" data-val="'
+                        + item + '">' + item.replace(re, "<b>$1</b>") + "</div>";
+                },
+                onSelect: function (e, term, item) {
+                    chart_land_country(data_world, color, term)
+                    chart_division_country(data_agriculture, data_arable, data_mead_past, area_world, term, color)
+                }
+            });
         });
 
 
