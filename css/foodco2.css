@@ -1,0 +1,15 @@
+#food_co2 {
+    text-align: center;
+}
+
+#food_co2 svg {
+    /* max-width: 60%; */
+    width: 60%;
+    height: 700px;
+}
+
+#food_co2 svg text {
+    font-size: 1.2em;
+    font-weight: 700;
+    font-family: Montserrat;
+}
