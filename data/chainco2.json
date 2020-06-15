@@ -1,0 +1,26 @@
+{
+    "level1": [
+                {
+                    "name": "food CO2", 
+                    "v": 0.26, 
+                    "color": "#cccccc"
+                }, 
+                {
+                    "name": "All CO2", 
+                    "v": 0.74, 
+                    "color": "#a3a3a3"
+                }
+            ],
+    "level2": [
+                {
+                    "name": "meat CO2", 
+                    "v": 0.53, 
+                    "color": "#992437"
+                }, 
+                {
+                    "name": "Others", 
+                    "v": 0.47, 
+                    "color": "#581420"
+                }
+            ]
+}

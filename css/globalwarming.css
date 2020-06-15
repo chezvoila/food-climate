@@ -1,0 +1,9 @@
+#global_warming {
+    background-color: var( --color-light3);
+    padding: 30px;
+}
+
+#global_warming > svg{
+    margin-left: 50%;
+    transform: translate(-50%);
+}
