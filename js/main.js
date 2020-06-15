@@ -11,7 +11,7 @@
 
     /* LAND */
 
-    var color = d3.scaleOrdinal(d3.schemePaired).range(['white','#992437']); // TO DEFINE
+    var color = d3.scaleOrdinal(d3.schemePaired).range(['white', '#992437']); // TO DEFINE
 
     /***** bind events *****/
 
@@ -65,7 +65,13 @@
 
             // create both charts with world data
             var area_world = chart_land_world(data_world, color); // world's area for the food industry
-            chart_division_world(data_agriculture, data_arable, data_mead_past, area_world, color);
+            var svg_world = init_division_world(area_world, color, true);
+            svg_world.on("mouseover", _ => {
+                chart_division_world(svg_world, data_agriculture, data_arable, data_mead_past, area_world, color);
+            })
+                .on("mouseout", _ => {
+                    init_division_world(area_world, color, false, svg_world);
+                })
             mean_land_country(data_world);
 
             new autoComplete({
