@@ -7,6 +7,10 @@
     color: white;
 }
 
+#land h3 {
+    font-size: 20px;
+}
+
 /* Search bar */
 
 .search {
