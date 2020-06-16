@@ -81,23 +81,23 @@ const scale_land_world = 1 / 500;
 
 function chart_land_world(data_surface, color) {
 
-    var svg = d3.select("#land #rightTotal")
-        .append('svg')
-        .attr('height', height_land);
+    // var svg = d3.select("#land #rightTotal")
+    //     .append('svg')
+    //     .attr('height', height_land);
 
     var world = data_surface.find(d => d.Entity == "World");
     var area_world = world.surface * scale_land_world;
     var size_world = Math.sqrt(area_world); // length of one side
     // console.log(size_world);
 
-    svg.append('rect')
-        .attr('id', 'rect_world')
-        .attr('width', size_world)
-        .attr('height', size_world)
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .attr('transform', `translate(${-size_world / 2},${-size_world / 2})`)
-        .attr('fill', color("World"));
+    // svg.append('rect')
+    //     .attr('id', 'rect_world')
+    //     .attr('width', size_world)
+    //     .attr('height', size_world)
+    //     .attr('x', '50%')
+    //     .attr('y', '50%')
+    //     .attr('transform', `translate(${-size_world / 2},${-size_world / 2})`)
+    //     .attr('fill', color("World"));
 
     return area_world;
 }
@@ -106,38 +106,43 @@ function chart_land_world(data_surface, color) {
 const scale_land_country = 1 / 100;
 
 function mean_land_country(data_surface) {
-    var svg = d3.select("#land #leftTotal")
-        .append('svg')
-        .attr('height', height_land);
+    // var svg = d3.select("#land #leftTotal")
+    //     .append('svg')
+    //     .attr('height', height_land);
 
-    var mean_size = d3.mean(data_surface.map(d => d.surface));
-    mean_size = mean_size * scale_land_country;
-    mean_size = Math.sqrt(mean_size); // length of one side
+    var mean = d3.mean(data_surface.map(d => d.surface));
+    var mean_area = mean * scale_land_country;
+    var mean_size = Math.sqrt(mean_area); // length of one side
 
-    svg.append('rect')
-        .attr('id', 'rect_country')
-        .attr('width', mean_size)
-        .attr('height', mean_size)
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .attr('transform', `translate(${-mean_size / 2},${-mean_size / 2})`)
-        .attr('fill', 'grey');
+    // svg.append('rect')
+    //     .attr('id', 'rect_country')
+    //     .attr('width', mean_size)
+    //     .attr('height', mean_size)
+    //     .attr('x', '50%')
+    //     .attr('y', '50%')
+    //     .attr('transform', `translate(${-mean_size / 2},${-mean_size / 2})`)
+    //     .attr('fill', 'grey');
+
+    return mean_area;
 }
 
 function chart_land_country(data_surface, color, country) {
 
     var element = data_surface.find(d => d.Entity == country);
-    var size = element.surface * scale_land_country;
-    size = Math.sqrt(size); // length of one side
+    var area = element.surface * scale_land_country;
+    var size = Math.sqrt(area); // length of one side
     // console.log(size);
 
-    d3.select('#rect_country')
-        .transition()
-        .duration(500)
-        .attr('width', size)
-        .attr('height', size)
-        .attr('transform', `translate(${-size / 2},${-size / 2})`)
-        .attr('fill', color(country));
+    // d3.select('#rect_country')
+    //     .transition()
+    //     .duration(500)
+    //     .attr('width', size)
+    //     .attr('height', size)
+    //     .attr('transform', `translate(${-size / 2},${-size / 2})`)
+    //     .attr('fill', color(country));
+
+    return area;
+
 }
 
 var avg_agriculture = { name: "Agriculture" };
@@ -150,7 +155,7 @@ const height_division_land = 700;
 
 
 // FIRST notifies if we have to create the svg or if it is an mouseout transition
-function init_division_world(init_area, color, first = false, svg) {
+function init_division_world(init_area, color, first, svg) {
 
     if (first) {
         svg = d3.select("#land #rightDivision")
@@ -165,7 +170,7 @@ function init_division_world(init_area, color, first = false, svg) {
         .attr('height', size)
         .attr('x', '50%')
         .attr('y', '50%')
-        .attr('transform', (d,i) => {
+        .attr('transform', (d, i) => {
             var left,
                 top;
             switch (i) {
@@ -189,6 +194,49 @@ function init_division_world(init_area, color, first = false, svg) {
             return `translate(${left},${top})`;
         })
         .attr('fill', color("World"));
+
+    return svg;
+}
+
+function init_division_country(init_area, color, first, svg, country) {
+
+    if (first) {
+        svg = d3.select("#land #leftDivision")
+            .append('svg')
+            .attr('height', height_division_land);
+    }
+
+    var size = Math.sqrt(init_area * 25 / 100)
+    var data = [size, size, size, size]
+    var rects = first ? svg.selectAll('rect').data(data).enter().append('rect') : svg.selectAll('rect').data(data).transition().duration(500);
+    rects.attr('width', size)
+        .attr('height', size)
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .attr('transform', (d, i) => {
+            var left,
+                top;
+            switch (i) {
+                case 0:
+                    left = - size;
+                    top = - size;
+                    break;
+                case 1:
+                    left = 0;
+                    top = - size;
+                    break;
+                case 2:
+                    left = 0;
+                    top = 0;
+                    break;
+                case 3:
+                    left = - size;
+                    top = 0;
+                    break;
+            }
+            return `translate(${left},${top})`;
+        })
+        .attr('fill', color(country));
 
     return svg;
 }
@@ -242,29 +290,20 @@ function chart_division_world(svg, data_agriculture, data_arable, data_mead_past
         })
 }
 
-function chart_division_country(data_agriculture, data_arable, data_mead_past, init_area, country, color) {
-
-    var svg = d3.select("#land #leftDivision")
-        .html('')
-        .append('svg')
-        .attr('height', height_division_land);
-
+function chart_division_country(svg, data_agriculture, data_arable, data_mead_past, init_area, country, color) {
 
     var ag = data_agriculture.find(d => d.Entity == country);
-    // avg_agriculture.value = ag.land_area_perc * scale_land_country;
-    avg_agriculture.value = ag.land_area_perc;
+    avg_agriculture.value = parseFloat(ag.land_area_perc);
     var ar = data_arable.find(d => d.Entity == country);
-    // avg_arable.value = ar.percentage_land_area * scale_land_country;
-    avg_arable.value = ar.percentage_land_area;
+    avg_arable.value = parseFloat(ar.percentage_land_area);
     var mp = data_mead_past.find(d => d.Entity == country);
-    // avg_mead_past.value = mp.land_use_perc * scale_land_country;
-    avg_mead_past.value = mp.land_use_perc;
+    avg_mead_past.value = parseFloat(mp.land_use_perc);
     rest.value = 100 - (d3.sum([avg_agriculture, avg_arable, avg_mead_past].map(d => d.value)));
 
+    if (rest.value < 0) // glitch with percentages
+        rest.value = 0 // don't show rest
     var avgs = [avg_agriculture, avg_arable, avg_mead_past, rest];
     avgs = avgs.sort((a, b) => b.value - a.value)
-    if (rest.value < 0) // glitch with percentages
-        avgs.pop() // don't show rest
 
     console.log(avgs)
     var biggest_area = init_area * avgs[0].value / 100;
@@ -272,57 +311,63 @@ function chart_division_country(data_agriculture, data_arable, data_mead_past, i
 
     svg.selectAll('rect')
         .data(avgs)
-        .enter()
-        .append('rect')
+        .transition()
+        .duration(500)
         .attr('width', d => Math.sqrt(init_area * d.value / 100))
         .attr('height', d => Math.sqrt(init_area * d.value / 100))
+        .attr('x', '50%')
+        .attr('y', '50%')
         .attr('transform', (d, i) => {
-            var left = 0,
-                top = 0,
+            var left,
+                top,
                 area = init_area * d.value / 100;
             var size = Math.sqrt(area)
             switch (i) {
+                case 0:
+                    left = - (biggest_size + margin_chart_land);
+                    top = - (biggest_size + margin_chart_land);
+                    break;
                 case 1:
-                    left = biggest_size + margin_chart_land;
-                    top = biggest_size - size;
+                    left = margin_chart_land;
+                    top = - (size + margin_chart_land);
                     break;
                 case 2:
-                    left = biggest_size + margin_chart_land;
-                    top = biggest_size + margin_chart_land;
+                    left = margin_chart_land;
+                    top = margin_chart_land;
                     break;
                 case 3:
-                    left = biggest_size - size;
-                    top = biggest_size + margin_chart_land;
+                    left = - (margin_chart_land + size);
+                    top = margin_chart_land;
                     break;
             }
             return `translate(${left},${top})`;
         })
         .attr('fill', color(country));
 
-    svg.selectAll('text')
-        .data(avgs)
-        .enter()
-        .append('text')
-        .attr('transform', (d, i) => {
-            var left = margin_chart_land,
-                top = biggest_size - margin_chart_land,
-                area = init_area * d.value / 100;
-            var size = Math.sqrt(area)
-            switch (i) {
-                case 1:
-                    left = biggest_size + 2 * margin_chart_land;
-                    top = biggest_size - margin_chart_land;
-                    break;
-                case 2:
-                    left = biggest_size + 2 * margin_chart_land;
-                    top = biggest_size + +size;
-                    break;
-                case 3:
-                    left = biggest_size - size + margin_chart_land;
-                    top = biggest_size + size;
-                    break;
-            }
-            return `translate(${left},${top})`;
-        })
-        .text(d => d.name);
+    // svg.selectAll('text')
+    //     .data(avgs)
+    //     .enter()
+    //     .append('text')
+    //     .attr('transform', (d, i) => {
+    //         var left = margin_chart_land,
+    //             top = biggest_size - margin_chart_land,
+    //             area = init_area * d.value / 100;
+    //         var size = Math.sqrt(area)
+    //         switch (i) {
+    //             case 1:
+    //                 left = biggest_size + 2 * margin_chart_land;
+    //                 top = biggest_size - margin_chart_land;
+    //                 break;
+    //             case 2:
+    //                 left = biggest_size + 2 * margin_chart_land;
+    //                 top = biggest_size + +size;
+    //                 break;
+    //             case 3:
+    //                 left = biggest_size - size + margin_chart_land;
+    //                 top = biggest_size + size;
+    //                 break;
+    //         }
+    //         return `translate(${left},${top})`;
+    //     })
+    //     .text(d => d.name);
 }

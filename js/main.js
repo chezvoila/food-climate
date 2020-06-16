@@ -65,14 +65,18 @@
 
             // create both charts with world data
             var area_world = chart_land_world(data_world, color); // world's area for the food industry
+            var area_country = mean_land_country(data_world);
             var svg_world = init_division_world(area_world, color, true);
-            svg_world.on("mouseover", _ => {
+            var svg_country = init_division_country(area_country, color, true);
+            var country = "World";
+            d3.select("#land_charts").on("mouseover", _ => {
                 chart_division_world(svg_world, data_agriculture, data_arable, data_mead_past, area_world, color);
+                chart_division_country(svg_country, data_agriculture, data_arable, data_mead_past, area_country, country, color);
             })
                 .on("mouseout", _ => {
                     init_division_world(area_world, color, false, svg_world);
+                    init_division_country(area_country, color, false, svg_country, country);
                 })
-            mean_land_country(data_world);
 
             new autoComplete({
                 selector: "#search-bar input",
@@ -94,12 +98,12 @@
                         + item + '">' + item.replace(re, "<b>$1</b>") + "</div>";
                 },
                 onSelect: function (e, term, item) {
-                    chart_land_country(data_world, color, term)
-                    chart_division_country(data_agriculture, data_arable, data_mead_past, area_world, term, color)
+                    country = term;
+                    area_country = chart_land_country(data_world, color, country)
+                    init_division_country(area_country, color, false, svg_country, country);
                 }
             });
         });
-
 
 
 })(d3);
