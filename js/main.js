@@ -11,7 +11,7 @@
 
     /* LAND */
 
-    var color = d3.scaleOrdinal(d3.schemePaired).range(['white', '#992437']); // TO DEFINE
+    var color = d3.scaleOrdinal(d3.schemePaired).range(['#ffffff', '#992437']); // TO DEFINE
 
     /***** bind events *****/
 
@@ -58,17 +58,21 @@
             const data_arable = data_land.arable;
             const data_mead_past = data_land.mead_past;
 
+            // Make a list of the countries that are in the 4 datasets
             const lands_available = make_list_land(data_world, data_agriculture, data_arable, data_mead_past);
 
             // update color domain
-            land_color_domain(color, data_land.world);
+            land_color_domain(color, lands_available);
 
-            // create both charts with world data
-            var area_world = chart_land_world(data_world, color); // world's area for the food industry
-            var area_country = mean_land_country(data_world);
-            var svg_world = init_division_world(area_world, color, true);
-            var svg_country = init_division_country(area_country, color, true);
+            // get areas
+            var area_world = getAreaWorld(data_world);
+            var area_country = getMeanArea(data_world);
+            // default display is the mean surface of a country
             var country = "World";
+            // display the 2 charts
+            var svg_world = init_division_world(area_world, color, true);
+            var svg_country = init_division_country(area_country, color, true, null, country);
+            // transitions on mouseover and mouseout
             d3.select("#land_charts").on("mouseover", _ => {
                 chart_division_world(svg_world, data_agriculture, data_arable, data_mead_past, area_world, color);
                 chart_division_country(svg_country, data_agriculture, data_arable, data_mead_past, area_country, country, color);
@@ -78,6 +82,7 @@
                     init_division_country(area_country, color, false, svg_country, country);
                 })
 
+            // Autocomplete for the search bar
             new autoComplete({
                 selector: "#search-bar input",
                 minChars: 1,
@@ -99,7 +104,7 @@
                 },
                 onSelect: function (e, term, item) {
                     country = term;
-                    area_country = chart_land_country(data_world, color, country)
+                    area_country = getAreaCountry(data_world, country)
                     init_division_country(area_country, color, false, svg_country, country);
                 }
             });

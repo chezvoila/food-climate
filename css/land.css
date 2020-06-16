@@ -11,13 +11,14 @@
 
 .search {
     display: flex;
+    justify-content: center;
 }
 
 .search>input {
     line-height: 35px;
     padding: 0 10px;
     border: 1px solid #999;
-    flex: 1;
+    flex: 0.8;
     font-size: 11pt;
 }
 
