@@ -1,6 +1,7 @@
 #food_choice {
         color: var(--color-light3);
         padding: 200px 0;
+        height: 100vh;
 }
 
 #food_choice h1 {

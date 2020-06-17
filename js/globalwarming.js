@@ -110,9 +110,12 @@ function chart_GW(svg, x, y, data) {
         inputForHexbinFun.push([x(d.emission), y(d.temperature)])  // Note that we had the transform value of X and Y !
     })
 
-    var color = d3.scaleLinear()
+    /*var color = d3.scaleLinear()
         .domain([0, 6]) // Number of points in the bin?
-        .range(["#f1adb9", "#581420"]);
+        .range(["#f1adb9", "#581420"]);*/
+    var color = d3.scaleOrdinal()
+    .domain([0, 6])
+    .range(["#fbebed", "#f1adb9", "#e67084", "#db334f", "#992437", "#581420"])    
     // color-light2, color-dark2
 
     var hexbin = d3.hexbin()
@@ -135,7 +138,7 @@ function chart_GW(svg, x, y, data) {
         .attr("d", hexbin.hexagon())
         .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
         .attr("fill", d => color(d.length))
-        .attr("stroke", "black")
-        .attr("stroke-width", "0.1")
+        // .attr("stroke", "black")
+        // .attr("stroke-width", "0.1")
 
 }
