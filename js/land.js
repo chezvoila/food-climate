@@ -90,15 +90,26 @@ function getAreaWorld(data_surface) {
 }
 
 // for a country, 1px² is 100km²
-const scale_land_country = 1 / 100;
+const scale_land_country = 100;
 
 function getMeanArea(data_surface) {
     var mean = d3.mean(data_surface.map(d => d.surface));
-    return mean * scale_land_country;
+    return mean / scale_land_country;
 }
 function getAreaCountry(data_surface, country) {
     var element = data_surface.find(d => d.Entity == country);
-    return element.surface * scale_land_country;
+    var init_area = element.surface;
+
+    console.log(init_area)
+    var scale = 1;
+    // area_world = 132048793
+    if (init_area < 25000)
+        scale = 4
+    else if (init_area < 50000)
+        scale = 2
+
+    d3.select("#scale").text(scale_land_country * scale)
+    return init_area * scale / scale_land_country;
 }
 
 var avg_agriculture = { name: "Agriculture" };
@@ -158,6 +169,9 @@ function init_division_world(init_area, color, first, svg) {
         })
         .attr('fill', color("World"));
 
+    svg.selectAll('text')
+        .remove()
+
     return svg;
 }
 
@@ -209,6 +223,9 @@ function init_division_country(init_area, color, first, svg, country) {
         })
         .attr('fill', color(country));
 
+    svg.selectAll('text')
+        .remove()
+
     return svg;
 }
 
@@ -228,10 +245,6 @@ function chart_division_world(svg, data_agriculture, data_arable, data_mead_past
     rest.value = 100 - (d3.sum([avg_agriculture, avg_arable, avg_mead_past].map(d => d.value)));
 
     var avgs = [avg_agriculture, avg_arable, avg_mead_past, rest];
-    avgs = avgs.sort((a, b) => b.value - a.value)
-
-    var biggest_area = init_area * avgs[0].value / 100;
-    var biggest_size = Math.sqrt(biggest_area);
 
     svg.selectAll('rect')
         .data(avgs)
@@ -248,8 +261,8 @@ function chart_division_world(svg, data_agriculture, data_arable, data_mead_past
             var size = Math.sqrt(area)
             switch (i) {
                 case 0:
-                    left = - (biggest_size + margin_chart_land);
-                    top = - (biggest_size + margin_chart_land);
+                    left = - (size + margin_chart_land);
+                    top = - (size + margin_chart_land);
                     break;
                 case 1:
                     left = margin_chart_land;
@@ -266,6 +279,37 @@ function chart_division_world(svg, data_agriculture, data_arable, data_mead_past
             }
             return `translate(${left},${top})`;
         })
+
+    svg.selectAll('text')
+        .data(avgs)
+        .enter()
+        .append('text')
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .classed('anchor_left', (d, i) => i == 0 || i == 3)
+        .attr('transform', (d, i) => {
+            var left, top;
+            switch (i) {
+                case 0:
+                    left = - 2 * margin_chart_land;
+                    top = - 2 * margin_chart_land;
+                    break;
+                case 1:
+                    left = 2 * margin_chart_land;
+                    top = - 2 * margin_chart_land;
+                    break;
+                case 2:
+                    left = 2 * margin_chart_land;
+                    top = 3 * margin_chart_land;
+                    break;
+                case 3:
+                    left = - 2 * margin_chart_land;
+                    top = 3 * margin_chart_land;
+                    break;
+            }
+            return `translate(${left},${top})`;
+        })
+        .text(d => d.name);
 }
 
 /**
@@ -289,11 +333,6 @@ function chart_division_country(svg, data_agriculture, data_arable, data_mead_pa
     if (rest.value < 0) // glitch with percentages
         rest.value = 0 // don't show rest
     var avgs = [avg_agriculture, avg_arable, avg_mead_past, rest];
-    avgs = avgs.sort((a, b) => b.value - a.value)
-
-    // console.log(avgs)
-    var biggest_area = init_area * avgs[0].value / 100;
-    var biggest_size = Math.sqrt(biggest_area);
 
     svg.selectAll('rect')
         .data(avgs)
@@ -310,8 +349,8 @@ function chart_division_country(svg, data_agriculture, data_arable, data_mead_pa
             var size = Math.sqrt(area)
             switch (i) {
                 case 0:
-                    left = - (biggest_size + margin_chart_land);
-                    top = - (biggest_size + margin_chart_land);
+                    left = - (size + margin_chart_land);
+                    top = - (size + margin_chart_land);
                     break;
                 case 1:
                     left = margin_chart_land;
@@ -330,30 +369,34 @@ function chart_division_country(svg, data_agriculture, data_arable, data_mead_pa
         })
         .attr('fill', color(country));
 
-    // svg.selectAll('text')
-    //     .data(avgs)
-    //     .enter()
-    //     .append('text')
-    //     .attr('transform', (d, i) => {
-    //         var left = margin_chart_land,
-    //             top = biggest_size - margin_chart_land,
-    //             area = init_area * d.value / 100;
-    //         var size = Math.sqrt(area)
-    //         switch (i) {
-    //             case 1:
-    //                 left = biggest_size + 2 * margin_chart_land;
-    //                 top = biggest_size - margin_chart_land;
-    //                 break;
-    //             case 2:
-    //                 left = biggest_size + 2 * margin_chart_land;
-    //                 top = biggest_size + +size;
-    //                 break;
-    //             case 3:
-    //                 left = biggest_size - size + margin_chart_land;
-    //                 top = biggest_size + size;
-    //                 break;
-    //         }
-    //         return `translate(${left},${top})`;
-    //     })
-    //     .text(d => d.name);
+    svg.selectAll('text')
+        .data(avgs)
+        .enter()
+        .append('text')
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .classed('anchor_left', (d, i) => i == 0 || i == 3)
+        .attr('transform', (d, i) => {
+            var left, top;
+            switch (i) {
+                case 0:
+                    left = - 2 * margin_chart_land;
+                    top = - 2 * margin_chart_land;
+                    break;
+                case 1:
+                    left = 2 * margin_chart_land;
+                    top = - 2 * margin_chart_land;
+                    break;
+                case 2:
+                    left = 2 * margin_chart_land;
+                    top = 3 * margin_chart_land;
+                    break;
+                case 3:
+                    left = - 2 * margin_chart_land;
+                    top = 3 * margin_chart_land;
+                    break;
+            }
+            return `translate(${left},${top})`;
+        })
+        .text(d => d.name);
 }

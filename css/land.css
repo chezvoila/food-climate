@@ -11,6 +11,10 @@
     font-size: 20px;
 }
 
+#land text.anchor_left{
+    text-anchor: end;
+}
+
 /* Search bar */
 
 .search {
