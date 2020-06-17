@@ -7,7 +7,6 @@
  *
  */
 async function chainco2(data) {
-    
     //Define the size of the svg element
     let sizeSettings = { width: document.documentElement.clientWidth,
                          height: document.documentElement.clientHeight }
@@ -209,4 +208,16 @@ function drawTitle(svg, title){
        .attr("text-anchor", "middle")
        .classed("title", true)
        .text(title.text)
+}
+
+/**
+ * Animations
+ */
+function chainco2_OnEnter(){
+    console.log("Entered chainCo2!")
+    //fullpage.setAutoScrolling(false);
+}
+
+function chainco2_OnLeave(direction){
+    console.log("leaving chainCo2, going", direction)
 }

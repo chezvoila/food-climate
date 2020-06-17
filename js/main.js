@@ -64,3 +64,5 @@
         });
 
 })(d3);
+
+initializeScrolling();
