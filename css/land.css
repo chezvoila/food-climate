@@ -2,13 +2,15 @@
     width: 100%;
 }
 
-#land h3, #land h6{
+#land p{
     text-align: center;
     color: white;
+    font-size: 20px;
+    margin: 15px;
 }
 
-#land h3 {
-    font-size: 20px;
+#country, #value{
+    text-decoration: underline;
 }
 
 #land text.anchor_left{

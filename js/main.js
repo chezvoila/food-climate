@@ -1,20 +1,20 @@
 "use strict";
 
 (function (d3) {
-        /***** settings *****/
-        let _ = {
-                colors: {
-                        dark3: "#160508",
-                        dark2: "#581420",
-                        dark1: "#992437",
-                        main: "#db334f",
-                        light1: "#e67084",
-                        light2: "#f1adb9",
-                        light3: "#fbebed",
-                        icon_bg: "#a8243a",
-                        icon_hover: "#6b101f"
-                }
+    /***** settings *****/
+    let _ = {
+        colors: {
+            dark3: "#160508",
+            dark2: "#581420",
+            dark1: "#992437",
+            main: "#db334f",
+            light1: "#e67084",
+            light2: "#f1adb9",
+            light3: "#fbebed",
+            icon_bg: "#a8243a",
+            icon_hover: "#6b101f"
         }
+    }
 
 
     /***** DOM *****/
@@ -41,10 +41,12 @@
     promises.push(d3.csv("./data/globalwarming_emissions.csv"));
     promises.push(d3.csv("./data/globalwarming_temperature.csv"));
     promises.push(d3.json("./data/chainco2.json"));
-    promises.push(d3.csv("./data/land_world.csv"));
-    promises.push(d3.csv("./data/land_arable.csv"));
-    promises.push(d3.csv("./data/land_meadows&pastures.csv"));
-    promises.push(d3.csv("./data/land_agriculture.csv"));
+    promises.push(d3.csv("./data/land_if_everyone.csv"));
+    // https://ourworldindata.org/agricultural-land-by-global-diets
+    // data from 2011
+    promises.push(d3.csv("./data/land_intake_country.csv"));
+    // http://www.fao.org/faostat/en/#data/FBS
+    // data from 2017
 
 
     Promise.all(promises)
@@ -53,7 +55,8 @@
             foodco2(data[0], _);
             const data_GW = globalwarming(data[1], data[2]);
             chainco2(data[3]);
-            const data_land = land(data[4], data[5], data[6], data[7]);
+            // const data_land = land(data[4], data[5], data[6], data[7]);
+            const data_land = land(data[4], data[5]);
 
 
 
@@ -70,33 +73,33 @@
             /* LAND */
 
             // Get different sets of data
-            const data_world = data_land.world;
-            const data_agriculture = data_land.agriculture;
-            const data_arable = data_land.arable;
-            const data_mead_past = data_land.mead_past;
+            const data_consumption = data_land.consumption;
+            const data_intake = data_land.intake;
 
             // Make a list of the countries that are in the 4 datasets
-            const lands_available = make_list_land(data_world, data_agriculture, data_arable, data_mead_past);
+            const lands_available = make_list_land(data_consumption, data_intake);
+            lands_available.push("World")
 
             // update color domain
             land_color_domain(color, lands_available);
 
             // get areas
-            var area_world = getAreaWorld(data_world);
-            var area_country = getMeanArea(data_world);
-            // default display is the mean surface of a country
-            var country = "World";
+            // var area_world = getAreaWorld(data_world);
+            // default display is Canada
+            var country = "Canada";
+            const defaultArea = 100000;
+            var area_country = getAreaCountry(defaultArea, data_consumption, country);
             // display the 2 charts
-            var svg_world = init_division_world(area_world, color, true);
-            var svg_country = init_division_country(area_country, color, true, null, country);
+            var svg_world = init_division_world(defaultArea, color, true);
+            var svg_country = init_division_country(area_country, color, true, country);
             // transitions on mouseover and mouseout
             d3.select("#land_charts").on("mouseover", _ => {
-                chart_division_world(svg_world, data_agriculture, data_arable, data_mead_past, area_world, color);
-                chart_division_country(svg_country, data_agriculture, data_arable, data_mead_past, area_country, country, color);
+                chart_division_world(svg_world, data_intake, defaultArea);
+                chart_division_country(svg_country, data_intake, defaultArea, country, color);
             })
                 .on("mouseout", _ => {
-                    init_division_world(area_world, color, false, svg_world);
-                    init_division_country(area_country, color, false, svg_country, country);
+                    init_division_world(defaultArea, color, false, svg_world);
+                    init_division_country(area_country, color, false, country, svg_country);
                 })
 
             // Autocomplete for the search bar
@@ -121,8 +124,8 @@
                 },
                 onSelect: function (e, term, item) {
                     country = term;
-                    area_country = getAreaCountry(data_world, country)
-                    init_division_country(area_country, color, false, svg_country, country);
+                    area_country = getAreaCountry(defaultArea, data_consumption, country);
+                    init_division_country(area_country, color, false, country, svg_country);
                 }
             });
         });
