@@ -20,6 +20,7 @@ function land(if_everyone, intake) {
     var data_intake = d3.nest()
         .key(d => d.Area)
         .rollup(a => {
+            // categories
             var cereals = ["Wheat and products", "Rice and products", "Barley and products", "Maize and products",
                 "Rye and products", "Oats", "Millet and products", "Sorghum and products", "Cereals, Other"];
             var roots = ["Cassava and products", "Potatoes and products", "Sweet potatoes", "Yams", "Roots, Other"];
@@ -132,6 +133,7 @@ function land_color_domain(color, data) {
 function getAreaCountry(defaultArea, data_consumption, country) {
     var element = data_consumption.find(d => d.key == country);
     var scale = element.Percentage / 100;
+    // update text display
     d3.select("#country").text(country);
     d3.select("#value").text(scale.toFixed(2));
     return defaultArea * scale;
@@ -151,6 +153,7 @@ const height_division_land = 500;
  */
 function init_division_world(init_area, color, first, svg) {
 
+    // append the svg if it is the first time that the function is called
     if (first) {
         svg = d3.select("#land #rightDivision")
             .append('svg')
@@ -206,6 +209,7 @@ function init_division_world(init_area, color, first, svg) {
  */
 function init_division_country(init_area, color, first, country, svg) {
 
+    // append the svg if it is the first time that the function is called
     if (first) {
         svg = d3.select("#land #leftDivision")
             .append('svg')
@@ -296,11 +300,13 @@ function chart_division_world(svg, data_intake, init_area) {
 
     var categories = [cat1, cat2, cat3, cat4];
     var s = 0;
+    // get the sum of the values of each category
     categories.forEach(cat => {
         var value = d3.sum(cat.columns.map(d => mean_data[d]));
         s += value;
         cat.value = value;
     })
+    // get the value as percentage
     categories.forEach(cat => {
         cat.value = cat.value / s;
     })
@@ -386,11 +392,13 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
 
     var categories = [cat1, cat2, cat3, cat4];
     var s = 0;
+    // get the sum of the values of each category
     categories.forEach(cat => {
         var value = d3.sum(cat.columns.map(d => element.value[d].value));
         s += value;
         cat.value = value;
     })
+    // get the value as percentage
     categories.forEach(cat => {
         cat.value = cat.value / s;
     })

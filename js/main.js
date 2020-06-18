@@ -83,13 +83,12 @@
             // update color domain
             land_color_domain(color, lands_available);
 
-            // get areas
-            // var area_world = getAreaWorld(data_world);
             // default display is Canada
             var country = "Canada";
+            // get areas
             const defaultArea = 100000;
             var area_country = getAreaCountry(defaultArea, data_consumption, country);
-            // display the 2 charts
+            // append (so first = true) and display the 2 charts
             var svg_world = init_division_world(defaultArea, color, true);
             var svg_country = init_division_country(area_country, color, true, country);
             // transitions on mouseover and mouseout
