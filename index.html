@@ -41,20 +41,27 @@
         <div class="row">
             <div class="col">
                 <p>This is how much the world would consumme if everyone was consumming like the average person
-                    in <span id="country"></span>.<br>
-                    We would need <span id="value"></span> Earth</p>
+                    in <span id="country"></span> : <br>
+                    we would need <span id="value"></span> Earth</p>
             </div>
             <div class="col">
                 <p>This is how much consummes the world actually.</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col" id="leftTotal"></div>
-            <div class="col" id="rightTotal"></div>
-        </div>
         <div class="row" id="land_charts">
             <div class="col" id="leftDivision"></div>
+            <div class="half_col" id="div_columns">
+                <span id="columns_percentage"></span>% of <span id="columns_country"></span>'s diet
+                <br>is composed of :
+                <br>
+                <br>
+                <span id="columns"></span>
+                <button id="columns_details">Details</button>
+            </div>
             <div class="col" id="rightDivision"></div>
+        </div>
+        <div class="row">
+            <div class="row" id="details"></div>
         </div>
     </section>
     <!-- <section id="extra_vis"></section> -->

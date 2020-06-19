@@ -45,3 +45,6 @@ body {
 .row>.col {
         flex: 1;
 }
+.row>.half_col {
+        flex: 0.5;
+}

@@ -92,10 +92,11 @@
             var svg_world = init_division_world(defaultArea, color, true);
             var svg_country = init_division_country(area_country, color, true, country);
             // transitions on mouseover and mouseout
-            d3.select("#land_charts").on("mouseover", _ => {
-                chart_division_world(svg_world, data_intake, defaultArea);
-                chart_division_country(svg_country, data_intake, defaultArea, country, color);
-            })
+            d3.select("#land_charts")
+                .on("mouseover", _ => {
+                    chart_division_world(svg_world, data_intake, defaultArea);
+                    chart_division_country(svg_country, data_intake, defaultArea, country, color);
+                })
                 .on("mouseout", _ => {
                     init_division_world(defaultArea, color, false, svg_world);
                     init_division_country(area_country, color, false, country, svg_country);
