@@ -226,7 +226,7 @@ let step = 0;
 
 function chainco2_OnEnter(){
     if(step < 2){
-        fullpage.setAutoScrolling(false);
+        $.fn.fullpage.setAutoScrolling(false);
         const pagePos = window.pageYOffset || document.documentElement.scrollTop;
         window.onscroll = function() {
             console.log("scroll", step)
@@ -238,8 +238,8 @@ function chainco2_OnEnter(){
                 case 1:
                     const scrollPagePos = window.pageYOffset || document.documentElement.scrollTop;
                     if(scrollPagePos < pagePos){
-                        fullpage.setAutoScrolling(true);
-                        fullpage.moveSectionUp();
+                        $.fn.fullpage.setAutoScrolling(true);
+                        $.fn.fullpage.moveSectionUp();
                         step = 0;
                         window.onscroll = function() {};
                         return;
@@ -264,7 +264,7 @@ function chainco2_OnEnter(){
                     .ease(d3.easeLinear)
                     .style("opacity", 100);
 
-                    fullpage.setAutoScrolling(true);
+                    $.fn.fullpage.setAutoScrolling(true);
                     window.onscroll = function() {};
                     step += 1;
                     break;

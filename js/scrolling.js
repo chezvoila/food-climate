@@ -1,5 +1,5 @@
 function initializeScrolling(){
-    fullpage.initialize('#fullpage', {
+	$('#fullpage').fullpage({
         anchors: ['foodChoice', 'foodCo2', 'globalWarming', 'chainCo2', 'landUse'],
         'css3': true,
         'menu': false,
@@ -10,6 +10,9 @@ function initializeScrolling(){
         'touchSensitivity': 5,
         'sectionSelector': 'section',
         'slideSelector': '.slide',
+        
+        scrollOverflow: true,
+		//scrollOverflowReset: false,
         
         //events
         'afterLoad': function(anchorLink, index){

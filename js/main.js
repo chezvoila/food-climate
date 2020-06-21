@@ -128,8 +128,7 @@
                     init_division_country(area_country, color, false, country, svg_country);
                 }
             });
+            initializeScrolling();
         });
 
 })(d3);
-
-initializeScrolling();
