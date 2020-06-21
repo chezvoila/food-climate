@@ -142,3 +142,12 @@ function chart_GW(svg, x, y, data) {
         // .attr("stroke-width", "0.1")
 
 }
+
+function globalwarming_OnEnter(){
+    console.log("Entered globalwarming!")
+    //fullpage.setAutoScrolling(false);
+}
+
+function globalwarming_OnLeave(direction){
+    console.log("leaving globalwarming, going", direction)
+}

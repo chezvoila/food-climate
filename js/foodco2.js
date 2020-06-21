@@ -123,3 +123,13 @@ async function foodco2(data, _) {
 //         d3.select(this).select("text")
 //         .attr("fill", _.colors.dark2);
 //     }
+
+
+function foodco2_OnEnter(){
+    console.log("Entered foodCo2!")
+    //fullpage.setAutoScrolling(false);
+}
+
+function foodco2_OnLeave(direction){
+    console.log("leaving foodCo2, going", direction)
+}

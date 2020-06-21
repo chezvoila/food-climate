@@ -131,3 +131,5 @@
         });
 
 })(d3);
+
+initializeScrolling();

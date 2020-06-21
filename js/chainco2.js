@@ -7,7 +7,6 @@
  *
  */
 async function chainco2(data) {
-    
     //Define the size of the svg element
     let sizeSettings = { width: document.documentElement.clientWidth,
                          height: document.documentElement.clientHeight }
@@ -104,8 +103,16 @@ function plotLevel(g, settings, angles, level, data, tip){
           .attr("id", (_,i) => `level${level}_${i}`)
           .attr("fill", d => color(d.index))
           .attr("d", arc)
-          .on('mouseover', tip.show)
-          .on('mouseout', tip.hide)
+          .style("opacity", 0.85)
+          .on('mouseover', function(d, i){
+              tip.show(d, this);
+              d3.select(this).style("opacity", 100)
+          }
+            )
+          .on('mouseout', function(d, i){
+            tip.hide(d, this);
+            d3.select(this).style("opacity", 0.85)
+        })
 
     //add the text on the arc
     groups.selectAll("text")
@@ -193,6 +200,7 @@ function drawSeparatingLine(svg, settings, data){
        .attr("stroke-dasharray", 4)
        .attr("stroke-width", 2)
        .attr("stroke", "#6b101f")
+       .classed("chainCo2_line", true)
 }
 
 /**
@@ -209,4 +217,62 @@ function drawTitle(svg, title){
        .attr("text-anchor", "middle")
        .classed("title", true)
        .text(title.text)
+}
+
+/**
+ * Animations
+ */
+let step = 0;
+
+function chainco2_OnEnter(){
+    if(step < 2){
+        fullpage.setAutoScrolling(false);
+        const pagePos = window.pageYOffset || document.documentElement.scrollTop;
+        window.onscroll = function() {
+            console.log("scroll", step)
+            switch(step){
+                case 0:
+                    step += 1;
+                    break;
+                
+                case 1:
+                    const scrollPagePos = window.pageYOffset || document.documentElement.scrollTop;
+                    if(scrollPagePos < pagePos){
+                        fullpage.setAutoScrolling(true);
+                        fullpage.moveSectionUp();
+                        step = 0;
+                        window.onscroll = function() {};
+                        return;
+                    }
+                    d3.select(".highlightedBackground")
+                    .transition()
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 1);
+
+                    d3.selectAll(".level2")
+                    .transition()
+                    .delay(1000)
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 1);
+
+                    d3.selectAll(".chainCo2_line")
+                    .transition()
+                    .delay(2000)
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 100);
+
+                    fullpage.setAutoScrolling(true);
+                    window.onscroll = function() {};
+                    step += 1;
+                    break;
+            }
+        }
+    }
+}
+
+function chainco2_OnLeave(direction){
+    console.log("leaving chainCo2, going", direction)
 }
