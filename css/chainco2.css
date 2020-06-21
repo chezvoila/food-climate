@@ -15,4 +15,13 @@
 
 .highlightedBackground{
     fill: var(--color-icon-bg);
+    opacity: 0;
+}
+
+.level2{
+    opacity:0;
+}
+
+.chainCo2_line{
+    opacity: 0;
 }
