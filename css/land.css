@@ -94,6 +94,17 @@
     background-color: #2b4d5b;
 }
 
+#land .row {
+    display: flex;
+}
+
+#land .row>.col {
+    flex: 1;
+}
+#land .row>.half_col {
+    flex: 0.5;
+}
+
 /* autocomplete */
 
 .autocomplete-suggestions {
