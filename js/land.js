@@ -41,6 +41,17 @@ const cat4 = {
 
 const cats = [cat1, cat2, cat3, cat4]
 
+const text_before = "The food industry is a major actor in world's CO2 emissions and thus also responsible for global warming. The next \
+question we want then to answer is who and why. To answer that we want to focus on people's diet. We collected data on each country \
+habits of consumming. This shows, on average, how the country's habitants eat. We saw that each product doesn't emits the same amount of CO2,\
+so depending on how they eat, the country will have its CO2 emissions impacted.\
+In order to have a first impression on a chosen country habit of consumption, we show how much ressource of the Earth global population would need\
+if every one on the planet was consuming as an average person of that country.";
+
+const text_animation = "This division shows how people eat in a specific country. The diet is here divided in four main categories.\
+Hovering on a category will show what percentage of their diet is composed of that category and you will also have the details of what \
+is contained inside that category."
+
 /********************************/
 
 
@@ -189,7 +200,16 @@ function init_division_world(init_area, color, first, svg) {
 
     var size = Math.sqrt(init_area * 25 / 100)
     var data = [size, size, size, size]
-    var rects = first ? svg.selectAll('rect').data(data).enter().append('rect') : svg.selectAll('rect').data(data).transition().duration(500);
+    var rects = first ?
+        svg.selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect') :
+        svg.selectAll('rect')
+            .on('mouseover', _ => { })
+            .data(data)
+            .transition()
+            .duration(500);
     rects.attr('width', size)
         .attr('height', size)
         .attr('x', '50%')
@@ -245,7 +265,16 @@ function init_division_country(init_area, color, first, country, svg) {
 
     var size = Math.sqrt(init_area * 25 / 100)
     var data = [size, size, size, size]
-    var rects = first ? svg.selectAll('rect').data(data).enter().append('rect') : svg.selectAll('rect').data(data).transition().duration(500);
+    var rects = first ?
+        svg.selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect') :
+        svg.selectAll('rect')
+            .on('mouseover', _ => { })
+            .data(data)
+            .transition()
+            .duration(500);
     rects.attr('width', size)
         .attr('height', size)
         .attr('x', '50%')
@@ -504,7 +533,7 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
 
 function display_columns(value, details, columns, country) {
 
-    d3.select("#details").html('');
+    // d3.select("#details").html('');
 
     var g = d3.select("#div_columns");
 
@@ -516,10 +545,10 @@ function display_columns(value, details, columns, country) {
         html += d + "<br>"
     })
     g.select("#columns").html(html);
-    g.select("#columns_details")
-        .on('click', _ => {
-            display_details(details)
-        })
+    // g.select("#columns_details")
+    //     .on('click', _ => {
+    display_details(details)
+    // })
     g.classed("display", true)
 }
 
@@ -533,11 +562,15 @@ function display_details(array) {
     d3.select("#details").html(html)
 }
 
-function land_OnEnter(){
+
+
+// SCROLLING FUNCTIONS //
+
+function land_OnEnter() {
     console.log("Entered land!")
     //fullpage.setAutoScrolling(false);
 }
 
-function land_OnLeave(direction){
+function land_OnLeave(direction) {
     console.log("leaving land, going", direction)
 }

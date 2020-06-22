@@ -32,7 +32,7 @@ function globalwarming(data_emissions, data_temperatures) {
             data.push({
                 year: year.key,
                 temperature: year.value,
-                emission: tryValue.value
+                emission: tryValue.value / 1e6 // in GigaTons and not GigaGrams
             })
         }
     });
@@ -91,7 +91,7 @@ function chart_GW(svg, x, y, data) {
             "translate(" + (width_GW / 2) + " ," +
             (height_GW + margin_GW.top + 40) + ")")
         .style("text-anchor", "middle")
-        .text("Emissions (GigaGrams)");
+        .text("Emissions (GigaTons)");
 
     svg.append("g")
         .call(d3.axisLeft(y));

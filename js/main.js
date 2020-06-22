@@ -93,14 +93,14 @@
             var svg_country = init_division_country(area_country, color, true, country);
             // transitions on mouseover and mouseout
             d3.select("#land_charts")
-                .on("mouseover", _ => {
+                .on("click", _ => {
                     chart_division_world(svg_world, data_intake, defaultArea);
                     chart_division_country(svg_country, data_intake, defaultArea, country, color);
                 })
-                .on("mouseout", _ => {
-                    init_division_world(defaultArea, color, false, svg_world);
-                    init_division_country(area_country, color, false, country, svg_country);
-                })
+            // .on("mouseout", _ => {
+            //     init_division_world(defaultArea, color, false, svg_world);
+            //     init_division_country(area_country, color, false, country, svg_country);
+            // })
 
             // Autocomplete for the search bar
             new autoComplete({
@@ -126,6 +126,8 @@
                     country = term;
                     area_country = getAreaCountry(defaultArea, data_consumption, country);
                     init_division_country(area_country, color, false, country, svg_country);
+                    init_division_world(defaultArea, color, false, svg_world);
+                    d3.select("#div_columns").classed('display', false)
                 }
             });
             initializeScrolling();

@@ -1,6 +1,6 @@
 function initializeScrolling(){
 	$('#fullpage').fullpage({
-        anchors: ['foodChoice', 'foodCo2', 'globalWarming', 'chainCo2', 'landUse'],
+        anchors: ['foodChoice', 'foodCo2', 'globalWarming', 'chainCo2', 'land'],
         'css3': true,
         'menu': false,
         'scrollingSpeed': 700,
@@ -30,7 +30,7 @@ function initializeScrolling(){
                 case "chainCo2":
                     chainco2_OnEnter();
                     break;
-                case "landUse":
+                case "land":
                     land_OnEnter();
                     break;
             }
