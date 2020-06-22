@@ -32,7 +32,7 @@ function globalwarming(data_emissions, data_temperatures) {
             data.push({
                 year: year.key,
                 temperature: year.value,
-                emission: tryValue.value
+                emission: tryValue.value / 1e6 // in GigaTons and not GigaGrams
             })
         }
     });
@@ -55,24 +55,24 @@ function yDomain_GW(d3, y, data) {
 }
 
 
-const margin = { top: 0, right: 50, bottom: 30, left: 50 },
-    width = 600 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom,
-    text_height = 20;
+var margin_GW = { top: 0, right: 50, bottom: 30, left: 50 },
+    width_GW = 600 - margin_GW.left - margin_GW.right,
+    height_GW = 500 - margin_GW.top - margin_GW.bottom,
+    text_height_GW = 20;
 
 function create_GW(d3) {
 
     // append the svg object to the body of the page
     var svg = d3.select("#global_warming")
         .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom + text_height)
+        .attr("width", width_GW + margin_GW.left + margin_GW.right)
+        .attr("height", height_GW + margin_GW.top + margin_GW.bottom + text_height_GW)
         .append("g")
         .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+            "translate(" + margin_GW.left + "," + margin_GW.top + ")");
 
-    var x = d3.scaleLinear().range([0, width]),
-        y = d3.scaleLinear().range([height, 0]);
+    var x = d3.scaleLinear().range([0, width_GW]),
+        y = d3.scaleLinear().range([height_GW, 0]);
 
     return {
         svg: svg,
@@ -84,23 +84,23 @@ function create_GW(d3) {
 function chart_GW(svg, x, y, data) {
     // console.log(data.length)
     svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + height_GW + ")")
         .call(d3.axisBottom(x));
     // text label for the x axis
     svg.append("text")
         .attr("transform",
-            "translate(" + (width / 2) + " ," +
-            (height + margin.top + 40) + ")")
+            "translate(" + (width_GW / 2) + " ," +
+            (height_GW + margin_GW.top + 40) + ")")
         .style("text-anchor", "middle")
-        .text("Emissions (GigaGrams)");
+        .text("Emissions (GigaTons)");
 
     svg.append("g")
         .call(d3.axisLeft(y));
     // text label for the y axis
     svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
-        .attr("x", 0 - (height / 2))
+        .attr("y", 0 - margin_GW.left)
+        .attr("x", 0 - (height_GW / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
         .text("Temperature (°C)");
@@ -121,14 +121,14 @@ function chart_GW(svg, x, y, data) {
 
     var hexbin = d3.hexbin()
         .radius(30) // size of the bin in px
-        .extent([[0, 0], [width, height]])
+        .extent([[0, 0], [width_GW, height_GW]])
 
     // Plot the hexbins
     svg.append("clipPath")
         .attr("id", "clip")
         .append("rect")
-        .attr("width", width)
-        .attr("height", height)
+        .attr("width", width_GW)
+        .attr("height", height_GW)
 
     svg.append("g")
         .attr("clip-path", "url(#clip)")

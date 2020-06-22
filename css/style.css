@@ -23,9 +23,10 @@ body {
         color: #fff;
         border-radius: 2px;
         pointer-events: none;
-      }
-      
+}
+
 /* Creates a small triangle extender for the tooltip */
+
 .d3-tip:after {
         box-sizing: border-box;
         display: inline;

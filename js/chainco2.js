@@ -7,7 +7,6 @@
  *
  */
 async function chainco2(data) {
-    
     //Define the size of the svg element
     let sizeSettings = { width: document.documentElement.clientWidth,
                          height: document.documentElement.clientHeight }
@@ -104,8 +103,16 @@ function plotLevel(g, settings, angles, level, data, tip){
           .attr("id", (_,i) => `level${level}_${i}`)
           .attr("fill", d => color(d.index))
           .attr("d", arc)
-          .on('mouseover', tip.show)
-          .on('mouseout', tip.hide)
+          .style("opacity", 0.85)
+          .on('mouseover', function(d, i){
+              tip.show(d, this);
+              d3.select(this).style("opacity", 100)
+          }
+            )
+          .on('mouseout', function(d, i){
+            tip.hide(d, this);
+            d3.select(this).style("opacity", 0.85)
+        })
 
     //add the text on the arc
     groups.selectAll("text")
@@ -193,6 +200,7 @@ function drawSeparatingLine(svg, settings, data){
        .attr("stroke-dasharray", 4)
        .attr("stroke-width", 2)
        .attr("stroke", "#6b101f")
+       .classed("chainCo2_line", true)
 }
 
 /**
