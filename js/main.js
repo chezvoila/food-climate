@@ -61,7 +61,7 @@
 
 
 
-            /* GLOBAL WARMING */ 
+            /* GLOBAL WARMING */
 
             // update domains
             xDomain_GW(d3, x_GW, data_GW);
@@ -142,128 +142,128 @@
 
 
 
-        /*************************** SCROLLING  *************************/
+    /*************************** SCROLLING  *************************/
 
 
-        /******* Setting *******/
-        let pos = [];
-        let pages = ["food_choice", "food_co2", "global_warming", "chain_co2", "land"]
-        let currentIndex = 0;
-        let direction = undefined;
-        let flag = true;
-        let scrollPosition = undefined;
+    /******* Setting *******/
+    let pos = [];
+    let pages = ["food_choice", "food_co2", "global_warming", "chain_co2", "land"]
+    let currentIndex = 0;
+    let direction = undefined;
+    let flag = true;
+    let scrollPosition = undefined;
 
 
-        /******* DOM *******/
-        let page = document.querySelectorAll(".page");
+    /******* DOM *******/
+    let page = document.querySelectorAll(".page");
 
 
 
 
 
-        /******* Init *******/
-        setTimeout(function() {
-            pages.forEach(el => {
-                sectionCalculate(el);
-            });
-        }, 1000);
-
-        page.forEach(el => {
-            el.addEventListener("wheel", isScrollDown);
-            el.addEventListener("wheel", wheelFunc);
+    /******* Init *******/
+    setTimeout(function () {
+        pages.forEach(el => {
+            sectionCalculate(el);
         });
+    }, 1000);
 
-        page.forEach(el => {
-            el.addEventListener("scroll", scrollFunc);
-        })
+    page.forEach(el => {
+        el.addEventListener("wheel", isScrollDown);
+        el.addEventListener("wheel", wheelFunc);
+    });
+
+    page.forEach(el => {
+        el.addEventListener("scroll", scrollFunc);
+    })
 
 
-        /******* Functions *******/
+    /******* Functions *******/
 
-        function sectionCalculate(sectionId) {
-            let el = document.getElementById(sectionId);
-            let height = window.getComputedStyle(el, null).getPropertyValue("height");
-            pos.push({
-                section: el,
-                height: height
-            });
+    function sectionCalculate(sectionId) {
+        let el = document.getElementById(sectionId);
+        let height = window.getComputedStyle(el, null).getPropertyValue("height");
+        pos.push({
+            section: el,
+            height: height
+        });
+    }
+
+    function isScrollDown(event) {
+        if (event.wheelDelta < 0) {
+            direction = true;
+        } else {
+            direction = false;
         }
+        return direction;
+    }
 
-        function isScrollDown(event) {
-            if (event.wheelDelta < 0) { 
-                direction = true;
-            } else {
-                direction = false;
-            }
-            return direction; 
-        }
+    function wheelFunc(e) {
+        onWheel(direction, currentIndex, e.srcElement.closest("section"));
+    }
 
-        function wheelFunc(e) {
-            onWheel(direction, currentIndex, e.srcElement.closest("section"));
-        }
+    function scrollFunc(e) {
+        scrollPosition = inScroll(e.srcElement.querySelector("section"));
+        // console.log(scrollPosition)
 
-        function scrollFunc(e) {
-            scrollPosition = inScroll(e.srcElement.querySelector("section"));
-            console.log(scrollPosition)
-            
-            switch (currentIndex) {
-                case 0:
-                    food_choice_scroll(scrollPosition);
-                    break;
-                case 1:
-                    food_co2_scroll(scrollPosition);
-                    break;
-                case 2:
-                    global_warming_scroll(scrollPosition);
-                    break;
-                case 3:
-                    chain_co2_scroll(scrollPosition);
-                    break;
-                case 4:
-                    land_scroll(scrollPosition);
+        switch (currentIndex) {
+            case 0:
+                food_choice_scroll(scrollPosition);
                 break;
+            case 1:
+                food_co2_scroll(scrollPosition);
+                break;
+            case 2:
+                global_warming_scroll(scrollPosition);
+                break;
+            case 3:
+                chain_co2_scroll(scrollPosition);
+                break;
+            case 4:
+                land_scroll(scrollPosition);
+                break;
+        }
+    }
+
+    function inScroll(src) {
+        return src.parentNode.scrollTop
+    }
+
+    function onWheel(dir, index, src) {
+        let total;
+        let el = src.parentNode;
+        let element = el.querySelector("section");
+        if (dir) {
+            total = el.scrollTop + el.clientHeight;
+            if ((total >= element.clientHeight - 1) && (index < 4) && flag) {
+                jumpNext(el.nextElementSibling);
+            }
+        } else {
+            if ((el.scrollTop == 0) && (index != 0) && flag) {
+                jumpPrev(el.previousElementSibling);
             }
         }
+    }
 
-        function inScroll(src) {
-            return src.parentNode.scrollTop
-        }
-
-        function onWheel(dir, index, src) {
-            let total;
-            let el = src.parentNode;
-            let element = el.querySelector("section");
-            if(dir) {
-                total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 4) && flag) {    
-                    jumpNext(el.nextElementSibling);
-                }
-            } else {
-                if((el.scrollTop == 0) && (index != 0) && flag) {
-                    jumpPrev(el.previousElementSibling);
-                }
-            }
-        }
-
-        function jumpNext(el) {
-            flag = false;
-            currentIndex++;
-            document.querySelector("#frame").style.transform = `translate3d(0, -${currentIndex * 100}%, 0)`;
-            setTimeout(function() {
-                flag = true;
-            }, 700);
-        }
+    function jumpNext(el) {
+        flag = false;
+        currentIndex++;
+        document.querySelector("#frame").style.transform = `translate3d(0, -${currentIndex * 100}%, 0)`;
+        setTimeout(function () {
+            flag = true;
+        }, 700);
+    }
 
 
-        function jumpPrev(el) {
-            flag = false;
-            currentIndex--;
-            document.querySelector("#frame").style.transform = `translate3d(0, -${currentIndex * 100}%, 0)`;
-            setTimeout(function() {
-                flag = true;
-            }, 700);
-        }
+    function jumpPrev(el) {
+        flag = false;
+        currentIndex--;
+        document.querySelector("#frame").style.transform = `translate3d(0, -${currentIndex * 100}%, 0)`;
+        setTimeout(function () {
+            flag = true;
+        }, 700);
+    }
 
-        /*************************** SCROLLING  *************************/
+    /*************************** SCROLLING  *************************/
 
 })(d3);
