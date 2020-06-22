@@ -6,3 +6,9 @@ function land(data) {
         
     }
 }
+
+/********************* SCROLL ****************/
+
+function land_scroll(position) {
+    console.log(position);
+}

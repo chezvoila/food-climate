@@ -1,45 +1,417 @@
 #food_choice {
         color: var(--color-light3);
-        padding: 200px 0;
-        height: 100vh;
+        padding: 200px 0 50px 0;
+        /* height: 100vh; */
 }
 
 #food_choice h1 {
         font-size: 2em;
         font-weight: 100;
         text-align: center;
-        margin-bottom: 300px;
+        margin-bottom: 200px;
         line-height: 1.3;
 }
 
 #food_choice nav {
         margin: 0 auto;
-        width: 50%;
+        margin-bottom: 10px;
+        width: 35%;
+        max-width: 500px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: relative;
+        /* justify-content: space-between; */
         
 }
 
 #food_choice nav a {
-        flex: 1;
+        font-family: Montserrat;
+        flex: 1 0 calc(33.33% - 6px);
         text-align: center;
-        max-width: 200px;
         height: 200px;
+        font-variant: small-caps;
         background-color: var(--color-icon-bg);
-        line-height: 200px
+        position: relative;
+        overflow: hidden;
 }
 
 #food_choice nav a:hover {
-        background-color: var(--color-icon-hover);
+        overflow: visible;
 }
 
-#food_choice .fish{
-/* svg element animated */
+#food_choice a div {
+        height: 100%;
 }
 
-#food_choice .meat{
-/* svg element animated */
+#food_choice a figure {
+        height: 55%;
+        margin-top: 25%;
 }
-#food_choice .veggie{
-/* svg element animated */
+
+#food_choice a figure:first-child svg {
+        transition: all 0.1s ease-in;
+        display: block;
+}
+
+#food_choice a figure:last-child svg {
+        transition: all 0.4s ease-out;
+}
+
+#food_choice a:hover figure:first-child svg {
+        /* filter: blur(28px);
+        opacity: 0.5; 
+        animation: shake 2.5s infinite; */
+
+        filter: blur(0);
+        opacity: 1;
+        animation: shake2 2.5s infinite;
+        
+        animation-delay: 0.2s;
+        
+}
+
+#food_choice a:hover figure:first-child path, #food_choice a:hover figure:first-child polygon {
+        fill: var(--color-dark1);
+}
+
+#food_choice a figure:last-child {
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+        transform: translateY(100%)
+}
+
+#food_choice a:hover figure:last-child {
+        transform: translateY(0);
+        opacity: 1;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+#food_choice a:hover figure:last-child path, #food_choice a:hover figure:last-child polygon {
+        fill: none;
+        stroke: var(--color-light3);
+        stroke-width: 3px;
+        stroke-dasharray:  300 , 0, 3000;
+}
+
+#food_choice a.oil:hover figure:last-child path {
+        stroke-width: 4px;
+}
+
+
+
+#food_choice a.meat:hover figure:last-child path {
+        animation: meat 1.4s;
+}
+
+@keyframes meat { 10% {stroke-dasharray:  300, 500, 3000} 100% { stroke-dasharray:3300, 500, 3000;} }
+
+
+
+#food_choice a.oil:hover figure:last-child path {
+        animation: oil 1.4s;
+}
+@keyframes oil { 10% {stroke-dasharray:    0, 500, 2300} 100% { stroke-dasharray:2300, 500, 2300;} }
+
+
+
+
+#food_choice a.other:hover figure:last-child path, #food_choice a.other:hover figure:last-child polygon {
+        animation: other 1.4s;
+}
+
+@keyframes other { 10% {stroke-dasharray:    0, 500, 2900;} 100% { stroke-dasharray:2900, 500, 2900;} }
+
+
+
+#food_choice a.animal:hover figure:last-child path {
+        animation: animal 1.4s;
+}
+
+@keyframes animal { 10% {stroke-dasharray:  300, 500, 3000} 100% { stroke-dasharray:2300, 500, 3000;} }
+
+
+
+
+#food_choice a.plant:hover figure:last-child path {
+        animation: plant 2.2s;
+}
+
+@keyframes plant { 10% {stroke-dasharray: 100, 500, 3000} 100% { stroke-dasharray: 6200, 500, 3000;} }
+
+
+
+
+#food_choice a.vegetable:hover figure:last-child path {
+        animation: vegetable 2.2s;
+}
+
+@keyframes vegetable { 10% {stroke-dasharray:  900, 500, 3000} 100% { stroke-dasharray:3300, 500, 3000;} }
+
+
+
+#food_choice a:hover div {
+        /* overflow: visible; */
+}
+
+
+
+
+
+@keyframes shake {
+0% { transform: translate(1px, 1px) rotate(0deg);}
+10% { transform: translate(-1px, -2px) rotate(-1deg); filter: blur(28px);}
+20% { transform: translate(-3px, 0px) rotate(1deg); }
+30% { transform: translate(3px, 2px) rotate(0deg); filter: blur(32px);}
+40% { transform: translate(1px, -1px) rotate(1deg); }
+50% { transform: translate(-1px, 2px) rotate(-1deg); }
+60% { transform: translate(-3px, 1px) rotate(0deg); }
+70% { transform: translate(3px, 1px) rotate(-1deg); filter: blur(27px);}
+80% { transform: translate(-1px, -1px) rotate(1deg); }
+90% { transform: translate(1px, 2px) rotate(0deg); filter: blur(31px);}
+100% { transform: translate(1px, -2px) rotate(-1deg);}
+}
+
+@keyframes shake2 {
+0% { transform: translate(1px, 1px) rotate(0deg); filter: blur(28px);}
+10% { transform: translate(-1px, -2px) rotate(-1deg); filter: blur(28px);}
+20% { transform: translate(-3px, 0px) rotate(1deg); }
+30% { transform: translate(3px, 2px) rotate(0deg); filter: blur(32px);}
+40% { transform: translate(1px, -1px) rotate(1deg); }
+50% { transform: translate(-1px, 2px) rotate(-1deg); }
+60% { transform: translate(-3px, 1px) rotate(0deg); }
+70% { transform: translate(3px, 1px) rotate(-1deg); filter: blur(27px);}
+80% { transform: translate(-1px, -1px) rotate(1deg); }
+90% { transform: translate(1px, 2px) rotate(0deg); filter: blur(31px);}
+100% { transform: translate(1px, -2px) rotate(-1deg); filter: blur(28px);}
+}
+
+#food_choice nav span {
+        position: absolute;
+        color: var(--color-light2);
+        font-weight: 700;
+        bottom: 5%;
+        left: 10px;
+}
+
+#food_choice nav svg {
+        width: 100%;
+        height: 100%;
+}
+
+#food_choice nav path, #food_choice nav polygon {
+        fill:  var(--color-light2);
+}
+
+#food_choice nav a.meat {
+        flex: 3 0 calc(60% - 3px);
+        max-width: calc(60% - 3px);
+        margin: 0 3px 3px 0;
+}
+
+#food_choice a.meat figure {
+        height: 75%;
+        margin-top: 8%;
+}
+
+#food_choice nav a.oil {
+        flex: 2 0 calc(40% - 3px);
+        margin: 0 0 3px 3px;
+}
+
+#food_choice a.oil figure {
+        height: 49%;
+        margin-top: 25%;
+}
+
+#food_choice nav a.vegetable {
+        margin: 3px 3px 3px 0;
+}
+
+#food_choice nav a.animal {
+        margin: 3px 3px 3px 3px;
+}
+
+#food_choice nav a.plant {
+        margin: 3px 0 3px 3px;
+}
+
+#food_choice nav a.other {
+        flex: 1 0 100%;
+        margin: 3px 0 0 0;
+}
+
+#food_choice a.other figure {
+        height: 63%;
+        margin-top: 8%;
+}
+
+#food_choice nav a:before {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: block;
+        content: "";
+        width: 16px;
+        height: 16px;
+        border: 5px solid var(--color-icon-hover);
+        opacity: 0.5;
+}
+
+#food_choice nav a:after {
+        position: absolute;
+        top: 17px;
+        right: 17px;
+        display: block;
+        content: "";
+        width: 12px;
+        height: 12px;
+        background: var(--color-icon-hover);
+        opacity: 0;
+}
+
+#food_choice nav a:hover, #food_choice nav a.hover {
+        background-color:  var(--color-icon-hover);
+}
+
+#food_choice nav a:hover:before, #food_choice nav a.hover:before {
+        border-color: var(--color-dark3);
+        opacity: 1;
+}
+
+#food_choice nav a:hover:after, #food_choice nav a.hover:after {
+        background: var(--color-dark3);
+        opacity: 1;
+}
+
+#food_choice nav ul {
+        position: absolute;
+        width: 340px;
+        padding: 10px;
+        top: 10%;
+        left: 5%;
+        z-index: 1;
+        text-align: left;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        transition: 0.2s all ease-out;
+}
+
+#food_choice nav ul:after {
+        display: block;
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 15px 0 0px;
+        border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        
+}
+
+#food_choice a:hover ul {
+        opacity: 1;
+        top: -37%;
+}
+
+#food_choice nav li {
+        margin-left: 5%;
+        display: inline;
+}
+
+#food_choice nav li:first-child {
+        margin-left: 0;
+}
+
+#food_choice a.meat li:nth-child(6) {
+        margin-left: 0;
+        line-height: 2;
+}
+
+#food_choice a.oil li:nth-child(5) {
+        margin-left: 0;
+        line-height: 2;
+}
+
+#food_choice a.vegetable:hover ul {
+        top: -45%;
+}
+
+#food_choice a.vegetable li:nth-child(5),
+#food_choice a.vegetable li:nth-child(9) {
+        margin-left: 0;
+        line-height: 2;
+}
+
+#food_choice a.vegetable li:nth-child(9) {
+        line-height: 0;
+}
+
+#food_choice a.animal:hover ul {
+        top: -21%;
+}
+
+#food_choice a.plant li:nth-child(5) {
+        margin-left: 0;
+        line-height: 2;
+}
+
+#food_choice a.other:hover ul {
+        top: -37%;
+}
+
+#food_choice a.other li:nth-child(5) {
+        margin-left: 0;
+        line-height: 2;
+}
+
+button {
+        display: block;
+        margin: auto;
+}
+
+
+
+/********************************************* SCROLL ******************************************/
+
+#food_choice p:first-child {
+        width: 50%;
+        margin: auto auto;
+        font-size: 1.5em;
+        margin-bottom: 1100px;
+}
+
+#food_choice p.sticky:first-child {
+        position: sticky;
+        top: 100px;
+}
+
+#food_choice p.fadeOut:first-child {
+        transition: 0.3s all ease-in;
+        opacity: 0;
+}
+
+#food_choice img {
+        display: block;
+        width: 30%;
+        height: 400px;
+        margin: auto auto;
+        background: #999;
+        margin-bottom: 2000px;
+}
+
+#food_choice img.sticky {
+        position: sticky;
+        top: 100px;
+}
+
+#food_choice img.left {
+        transition: 0.24s all ease-in;
+        width: 40%;
+        transform: translateX(50%);
 }

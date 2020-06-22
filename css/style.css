@@ -36,3 +36,51 @@ body {
         position: absolute;
         pointer-events: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------ SCROLLING -------*/
+
+body {
+        overflow: hidden;
+        height: 100%;
+        height: 100vh;
+}
+
+#frame {
+        width: 100%;
+        height: 100%;
+        height: 100vh;
+        transform: translate3d(0, 0, 0);
+        transition: all 0.7s ease-in-out;
+}
+
+#food_choice, #food_co2, #global_warming, #chain_co2, #land {
+        min-height: calc(200%);
+        min-height: calc(200vh);
+}
+
+#frame .page {
+        width: 100%;
+        height: 100%;
+        height: 100vh;
+        overflow-Y: scroll;
+}
+
+#frame .page.noScroll {
+        overflow: hidden;
+}
+
+/*------------ SCROLLING -------*/

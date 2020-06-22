@@ -82,7 +82,7 @@ function create_GW(d3) {
 }
 
 function chart_GW(svg, x, y, data) {
-    console.log(data.length)
+    // console.log(data.length)
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
@@ -142,4 +142,11 @@ function chart_GW(svg, x, y, data) {
         // .attr("stroke", "black")
         // .attr("stroke-width", "0.1")
 
+}
+
+
+/********************* SCROLL ****************/
+
+function global_warming_scroll(position) {
+    console.log(position);
 }

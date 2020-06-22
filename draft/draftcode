@@ -1,0 +1,127 @@
+// let sum = districtSource.results.map(d => d.votes).reduce((p, n) => p + n, 0),
+  //     dist = districtSource.results.map(d => Math.round(((d.votes / sum) * 100) * 10) / 10);
+  // x.domain([d3.min(...dist), d3.max(...dist)]);
+
+
+  @keyframes xx {
+    0% {
+            opacity: 0;
+    }
+
+    10% {
+            opacity: 0.6
+    }
+    75% {
+            opacity: 0.95;
+    }
+
+    85% {
+            opacity: 0.54;
+    }
+
+    100% {
+            opacity: 0.0;
+    }
+}
+
+
+
+
+
+@keyframes tw { 10% {stroke-dasharray:  300, 500, 3000} 100% { stroke-dasharray:3300, 500, 3000;} }
+
+#food_choice a.meat:hover path {
+  /* animation: tw 2s; */
+  
+}
+
+#food_choice a.meat path {
+  /* fill: none;
+  stroke: var(--color-light2);
+  stroke-dasharray:  300 , 0, 3000;
+  stroke-width: 6px; */
+}
+
+
+
+// function onWheelBottom() {
+
+//     let total = el.scrollTop + el.clientHeight;
+//     console.log(el.scrollTop, el.clientHeight, element.clientHeight)
+//     if (total >= element.clientHeight) {
+//             jumpNext(element);
+//     }
+// }
+
+// function onWheelTop() {
+//     let total = element.clientHeight - (el.scrollTop + el.clientHeight);
+//     if (el.scrollTop == 0) {
+//             console.log("jooz")
+//             jumpPrev(element);
+//     }
+// }
+
+
+// function detectStart() {
+//     page.forEach(el => {
+//         let element = el.querySelector("section");
+
+//         element.onscroll = function() {
+//             let total = element.scrollHeight - element.scrollTop;
+//             if (total <= element.outerHeight) {
+//                 // console.log(total)
+//                         console.log("hit top");
+//                     }
+//         }
+//     }) 
+// }
+
+
+
+
+// function detectEdge() {
+//     page.forEach(el => {
+//         let element = el.querySelector("section");
+//         el.addEventListener("wheel", isScrollDown);
+//         el.addEventListener("wheel", wheelFunc);
+
+//         function isScrollDown(event) {
+//             if (event.wheelDelta < 0) { 
+//                 direction = true;
+//             } else {
+//                 direction = false;
+//             }
+//             return direction; 
+//           }
+
+//         function wheelFunc() {
+//             onWheel(direction, currentIndex);
+//         }
+
+//         function onWheel(dir, index) {
+//             let total;
+//             if(dir) {
+//                 total = el.scrollTop + el.clientHeight;
+//                 if((total >= element.clientHeight) && (index < 4)) {
+//                     jumpNext(element);
+//                 }
+//             } else {
+//                 if((el.scrollTop == 0) && (index != 0)) {
+//                     jumpPrev(element);
+//                 }
+//             }
+//         }
+
+//     }) 
+// }
+
+
+// var scroll = document.querySelector(".page");
+// var content = document.getElementById("food_choice");
+
+// scroll.onscroll = function() {
+//     var total = scroll.scrollTop + scroll.clientHeight;
+//     if (total == content.clientHeight) {
+//         console.log("reached bottom!")
+//     }
+// }

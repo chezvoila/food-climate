@@ -5,11 +5,20 @@
 #food_co2 svg {
     /* max-width: 60%; */
     width: 60%;
-    height: 700px;
+    height: 3500px;
+    /* outline: 1px solid #fff; */
+
+
 }
 
-#food_co2 svg text {
-    font-size: 1.2em;
+#food_co2 svg g.figure + text {
+    font-size: 2em;
+    font-weight: 400;
+    font-family: Montserrat;
+}
+
+#food_co2 svg g.figure text {
+    font-size: 1em;
     font-weight: 700;
     font-family: Montserrat;
 }

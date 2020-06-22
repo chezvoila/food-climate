@@ -210,3 +210,10 @@ function drawTitle(svg, title){
        .classed("title", true)
        .text(title.text)
 }
+
+
+/********************* SCROLL ****************/
+
+function chain_co2_scroll(position) {
+    console.log(position);
+}
