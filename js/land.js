@@ -579,5 +579,5 @@ function display_details(array) {
 /********************* SCROLL ****************/
 
 function land_scroll(position) {
-    console.log(position);
+
 }

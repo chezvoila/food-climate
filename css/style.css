@@ -10,6 +10,10 @@
         --color-icon-hover: #6b101f;
 }
 
+html {
+        /* position: absolute; */
+}
+
 body {
         font-family: "bavro";
         background-color: var(--color-main);

@@ -148,5 +148,4 @@ function chart_GW(svg, x, y, data) {
 /********************* SCROLL ****************/
 
 function global_warming_scroll(position) {
-    console.log(position);
 }
