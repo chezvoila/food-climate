@@ -1,7 +1,34 @@
 
 "use strict";
 
+/****************** STATIC VARIABLES ******************/
+
+let data_GW;
+
+let elements;
+let svg_GW,
+    x_GW,
+    y_GW;
+
 function globalwarming(data_emissions, data_temperatures) {
+
+    data_GW = get_data_GW(data_emissions, data_temperatures);
+
+    elements = create_GW();
+    svg_GW = elements.svg,
+        x_GW = elements.x,
+        y_GW = elements.y;
+
+    // update domains
+    xDomain_GW(x_GW, data_GW);
+    yDomain_GW(y_GW, data_GW);
+
+    // create and display the chart
+    chart_GW(svg_GW, x_GW, y_GW, data_GW);
+}
+
+
+function get_data_GW(data_emissions, data_temperatures) {
 
     /***** processing data *****/
 
@@ -41,15 +68,11 @@ function globalwarming(data_emissions, data_temperatures) {
     return data
 }
 
-function domains_GW(d3, x, y, data) {
-    xDomain_GW(d3, x, data);
-    yDomain_GW(d3, y, data);
-}
-function xDomain_GW(d3, x, data) {
+function xDomain_GW(x, data) {
     const emission = data.map(d => d.emission);
     x.domain([d3.min(emission), d3.max(emission)])
 }
-function yDomain_GW(d3, y, data) {
+function yDomain_GW(y, data) {
     const temperature = data.map(d => d.temperature);
     y.domain([d3.min(temperature), d3.max(temperature)])
 }
@@ -60,7 +83,7 @@ var margin_GW = { top: 0, right: 50, bottom: 30, left: 50 },
     height_GW = 500 - margin_GW.top - margin_GW.bottom,
     text_height_GW = 20;
 
-function create_GW(d3) {
+function create_GW() {
 
     // append the svg object to the body of the page
     var svg = d3.select("#global_warming")

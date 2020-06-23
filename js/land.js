@@ -1,3 +1,6 @@
+
+"use strict";
+
 //**************** STATIC VARIABLES *****************//
 
 // categories
@@ -71,7 +74,7 @@ const height_division_land = 500;
 function land(if_everyone, intake) {
 
     // get formatted data
-    const data_land = get_data(if_everyone, intake);
+    const data_land = get_data_land(if_everyone, intake);
     data_consumption = data_land.consumption;
     data_intake = data_land.intake;
 
@@ -134,7 +137,7 @@ function land(if_everyone, intake) {
  * @param if_everyone       Data about how much Earth's would we need if everyone what consumming like a specific country
  * @param intake            Intake (kg/capita/year) for different types of food per country
  */
-function get_data(if_everyone, intake) {
+function get_data_land(if_everyone, intake) {
 
     var data_consumption = if_everyone.map(d => {
         return {
