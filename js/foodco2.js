@@ -164,5 +164,4 @@ async function foodco2(data, _) {
 /********************* SCROLL ****************/
 
 function food_co2_scroll(position) {
-    console.log(position);
 }

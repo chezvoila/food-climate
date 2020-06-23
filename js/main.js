@@ -152,11 +152,12 @@
     let direction = undefined;
     let flag = true;
     let scrollPosition = undefined;
+    // let lastTouchY;
+    let touchStart;
 
 
     /******* DOM *******/
     let page = document.querySelectorAll(".page");
-
 
 
 
@@ -171,7 +172,25 @@
     page.forEach(el => {
         el.addEventListener("wheel", isScrollDown);
         el.addEventListener("wheel", wheelFunc);
+
+        // el.addEventListener("touchmove", isTouchDown);
+        el.addEventListener("touchstart", function (e) {
+            touchStart = e.touches[0].clientY;
+        });
+        el.addEventListener("touchend", isTouchDown);
+        el.addEventListener("touchmove", touchFunc);
     });
+
+    page.forEach(el => {
+        el.addEventListener("scroll", scrollFunc);
+    });
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+
+
 
     page.forEach(el => {
         el.addEventListener("scroll", scrollFunc);
@@ -188,6 +207,17 @@
             height: height
         });
     }
+    function isTouchDown(event) {
+        if (flag) {
+            let touchEnd = event.changedTouches[0].clientY;
+            if ((touchStart > touchEnd + 5)) {
+                direction = true;
+            } else if ((touchStart < touchEnd - 5)) {
+                direction = false;
+            }
+            return direction;
+        }
+    }
 
     function isScrollDown(event) {
         if (event.wheelDelta < 0) {
@@ -198,13 +228,17 @@
         return direction;
     }
 
+
     function wheelFunc(e) {
         onWheel(direction, currentIndex, e.srcElement.closest("section"));
     }
 
+    function touchFunc(e) {
+        onTouch(direction, currentIndex, e.srcElement.closest("section"));
+    }
+
     function scrollFunc(e) {
         scrollPosition = inScroll(e.srcElement.querySelector("section"));
-        // console.log(scrollPosition)
 
         switch (currentIndex) {
             case 0:
@@ -229,13 +263,13 @@
         return src.parentNode.scrollTop
     }
 
-    function onWheel(dir, index, src) {
+    function onTouch(dir, index, src) {
         let total;
         let el = src.parentNode;
         let element = el.querySelector("section");
         if (dir) {
             total = el.scrollTop + el.clientHeight;
-            if ((total >= element.clientHeight - 1) && (index < 4) && flag) {
+            if ((total >= element.clientHeight) && (index < 4) && flag) {
                 jumpNext(el.nextElementSibling);
             }
         } else {
@@ -244,6 +278,23 @@
             }
         }
     }
+
+    function onWheel(dir, index, src) {
+        let total;
+        let el = src.parentNode;
+        let element = el.querySelector("section");
+        if (dir) {
+            total = el.scrollTop + el.clientHeight;
+            if ((total >= element.clientHeight) && (index < 4) && flag) {
+                jumpNext(el.nextElementSibling);
+            }
+        } else {
+            if ((el.scrollTop == 0) && (index != 0) && flag) {
+                jumpPrev(el.previousElementSibling);
+            }
+        }
+    }
+
 
     function jumpNext(el) {
         flag = false;
@@ -265,5 +316,14 @@
     }
 
     /*************************** SCROLLING  *************************/
+
+
+
+
+
+
+
+    /***************************SMOOOTH SCROLL *********************************/
+
 
 })(d3);

@@ -223,5 +223,4 @@ function drawTitle(svg, title){
 /********************* SCROLL ****************/
 
 function chain_co2_scroll(position) {
-    console.log(position);
 }

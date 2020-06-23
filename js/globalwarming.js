@@ -91,9 +91,9 @@ function chart_GW(svg, x, y, data) {
     svg.append("text")
         .attr("transform",
             "translate(" + (width_GW / 2) + " ," +
-            (height_GW + margin_GW.top + 50) + ")")
+            (height_GW + margin_GW.top + 60) + ")")
         .style("text-anchor", "middle")
-        .text("EMISSIONS (GIGATONS)");
+        .text("Emissions (GIGATONS)");
 
     svg.append("g")
         .attr('stroke', 'var(--color-dark2)')
@@ -140,7 +140,7 @@ function chart_GW(svg, x, y, data) {
         .attr("d", hexbin.hexagon())
         .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
         .attr("fill", d => color(d.length))
-        .attr("stroke", "var(--color-light3)")
+        .attr("stroke", "var(--color-light2)")
         .attr("stroke-width", "3")
 
 }
