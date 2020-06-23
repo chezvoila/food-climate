@@ -6,15 +6,16 @@
  * @param data            The complete data necessary to this viz.
  *
  */
-async function chainco2(data) {
+function chainco2(data) {
     //Define the size of the svg element
+    let aspectRatioHeight = (1080 / 1920) * document.documentElement.clientWidth;
+
     let sizeSettings = { width: document.documentElement.clientWidth,
-                         height: document.documentElement.clientHeight }
+                         height: aspectRatioHeight }
     
     //Initialize the svg element
     let svg = d3.select("#chain_co2").append("svg")
-    .attr("width", sizeSettings.width)
-    .attr("height", sizeSettings.height);
+    .attr("viewBox", `0 0 ${sizeSettings.width} ${sizeSettings.height}`)
 
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {position: { x: sizeSettings.width / 2, 
@@ -30,7 +31,6 @@ async function chainco2(data) {
                    position: { x: sizeSettings.width/2, 
                                y: sizeSettings.height/5 }
                   }
-    drawTitle(svg, title);
     
     //define tooltip
     let tip = d3.tip()
@@ -203,25 +203,33 @@ function drawSeparatingLine(svg, settings, data){
        .classed("chainCo2_line", true)
 }
 
-/**
- * function that adds the title on the svg element
- *
- * @param svg             The SVG element in which the title has to be drawn.
- * @param title           An object that contains the title settings and text
- *
- */
-function drawTitle(svg, title){
-    svg.append("text")
-       .attr("x", title.position.x)
-       .attr("y", title.position.y)
-       .attr("text-anchor", "middle")
-       .classed("title", true)
-       .text(title.text)
-}
-
 
 /********************* SCROLL ****************/
-
+let chainCo2_animated = 0;
 function chain_co2_scroll(position) {
-    console.log(position);
+    console.log(position, "   ", chainCo2_animated)
+    if(position > 500 && chainCo2_animated < 500){
+        d3.select(".highlightedBackground")
+                    .transition()
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 1);
+
+                    d3.selectAll(".level2")
+                    .transition()
+                    .delay(1000)
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 1);
+
+                    d3.selectAll(".chainCo2_line")
+                    .transition()
+                    .delay(2000)
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 100);
+    }
+    if(chainCo2_animated < position){
+        chainCo2_animated = position;
+    }
 }

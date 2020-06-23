@@ -156,7 +156,9 @@
 
     /******* DOM *******/
     let page = document.querySelectorAll(".page");
-
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
 
 
 
