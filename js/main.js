@@ -49,6 +49,7 @@
     Promise.all(promises)
         /***** functions *****/
         .then(function (data) {
+            d3.select('#loader').classed('loaded',true)
             foodchoice(_);
             foodco2(data[0], _);
             const data_GW = globalwarming(data[1], data[2]);
