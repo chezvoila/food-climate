@@ -8,8 +8,17 @@
     padding: 50px;
 }
 
+#land .sticky{
+    position: sticky;
+    top: 50px;
+}
+
+#land #text_land {
+    margin: 15vh 30px;
+}
+
 #land p {
-    font-size: 20px;
+    font-size: 25px;
     margin: 15px;
 }
 
@@ -30,8 +39,9 @@
     visibility: visible;
 }
 
-#land #columns_percentage {
+#land #div_columns h1 {
     font-weight: bold;
+    font-size: 3rem;
 }
 
 #land #columns {
