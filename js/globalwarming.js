@@ -85,25 +85,27 @@ function chart_GW(svg, x, y, data) {
     // console.log(data.length)
     svg.append("g")
         .attr("transform", "translate(0," + height_GW + ")")
-        .call(d3.axisBottom(x));
+        .attr('stroke', 'var(--color-dark2)')
+        .call(d3.axisBottom(x).ticks(5));
     // text label for the x axis
     svg.append("text")
         .attr("transform",
             "translate(" + (width_GW / 2) + " ," +
-            (height_GW + margin_GW.top + 40) + ")")
+            (height_GW + margin_GW.top + 60) + ")")
         .style("text-anchor", "middle")
-        .text("Emissions (GigaTons)");
+        .text("Emissions (GIGATONS)");
 
     svg.append("g")
-        .call(d3.axisLeft(y));
-    // text label for the y axis
-    svg.append("text")
+        .attr('stroke', 'var(--color-dark2)')
+        .call(d3.axisLeft(y).ticks(3));
+        // text label for the y axis
+        svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin_GW.left)
+        .attr("y", 0 - margin_GW.left - 5)
         .attr("x", 0 - (height_GW / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Temperature (°C)");
+        .text("TEMPERATURE (°C)");
 
     // from https://www.d3-graph-gallery.com/graph/density2d_hexbin.html
     var inputForHexbinFun = []
@@ -116,7 +118,7 @@ function chart_GW(svg, x, y, data) {
         .range(["#f1adb9", "#581420"]);*/
     var color = d3.scaleOrdinal()
     .domain([0, 6])
-    .range(["#fbebed", "#f1adb9", "#e67084", "#db334f", "#992437", "#581420"])    
+    .range(["#f9aab7", "#ed8a9b", "#c95d6f", "#be1e3b", "#990823"])
     // color-light2, color-dark2
 
     var hexbin = d3.hexbin()
@@ -139,8 +141,8 @@ function chart_GW(svg, x, y, data) {
         .attr("d", hexbin.hexagon())
         .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
         .attr("fill", d => color(d.length))
-        // .attr("stroke", "black")
-        // .attr("stroke-width", "0.1")
+        .attr("stroke", "var(--color-light2)")
+        .attr("stroke-width", "3")
 
 }
 
