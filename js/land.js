@@ -68,7 +68,7 @@ let svg_world, svg_country;
 const defaultArea = 100000;
 let area_country;
 
-const margin_chart_land = 10;
+const margin_chart_land = 20;
 const height_division_land = 500;
 
 function land(if_everyone, intake) {
@@ -94,12 +94,6 @@ function land(if_everyone, intake) {
     // append (so first = true) and display the 2 charts
     svg_world = init_division_world(defaultArea, color, true);
     svg_country = init_division_country(area_country, color, true, country);
-    // transitions on mouseover and mouseout
-    d3.select("#land_charts")
-        .on("click", _ => {
-            chart_division_world(svg_world, data_intake, defaultArea);
-            chart_division_country(svg_country, data_intake, defaultArea, country, color);
-        })
 
     // Autocomplete for the search bar
     new autoComplete({
@@ -126,7 +120,7 @@ function land(if_everyone, intake) {
             area_country = getAreaCountry(defaultArea, data_consumption, country);
             init_division_country(area_country, color, false, country, svg_country);
             init_division_world(defaultArea, color, false, svg_world);
-            d3.select("#div_columns").classed('display', false)
+            reset();
         }
     });
 
@@ -624,13 +618,14 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         .attr('x', '50%')
         .attr('y', '50%')
         .classed('titles', true)
-        .classed('anchor_left', (d, i) => i == 0 || i == 3)
+        // .classed('anchor_left', (d, i) => i == 0 || i == 3)
         .attr('transform', (d, i) => {
             var left, top;
+            var size = Math.sqrt(init_area * categories[i].value);
             switch (i) {
                 case 0:
-                    left = - 2 * margin_chart_land;
-                    top = - 2 * margin_chart_land;
+                    left = - size;
+                    top = -2 * margin_chart_land;
                     break;
                 case 1:
                     left = 2 * margin_chart_land;
@@ -638,11 +633,11 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
                     break;
                 case 2:
                     left = 2 * margin_chart_land;
-                    top = 3 * margin_chart_land;
+                    top = size;
                     break;
                 case 3:
-                    left = - 2 * margin_chart_land;
-                    top = 3 * margin_chart_land;
+                    left = - size;
+                    top = size;
                     break;
             }
             return `translate(${left},${top})`;
