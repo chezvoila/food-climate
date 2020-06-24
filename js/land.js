@@ -26,18 +26,22 @@ const others = ["Offals, Edible", "Butter, Ghee", "Cream", "Fats, Animals, Raw",
 
 const cat1 = {
     name: "Primary",
+    img: "vegetable.svg",
     columns: ["fruits", "vegetables", "cereals", "oilcrops"]
 }
 const cat2 = {
     name: "Animals",
+    img: "meat.svg",
     columns: ["meat", "fish"]
 }
 const cat3 = {
     name: "Extracted",
+    img: "olive-oil.svg",
     columns: ["oils", "sweeteners"]
 }
 const cat4 = {
     name: "Other",
+    img: "potato.svg",
     columns: ["roots", "pulses", "spices", "others"]
 }
 // missing : beverages, because more drink than food
@@ -571,11 +575,12 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         })
         .attr('fill', color(country));
 
-    // add numbers
+    // add icons
+    var icon_size = 60;
     svg.selectAll('text.numbers')
         .data(categories)
         .enter()
-        .append('text')
+        .append('svg:image')
         .classed('numbers', true)
         .classed('anchor_middle', true)
         .attr('x', '50%')
@@ -585,29 +590,32 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
                 top,
                 area = init_area * d.value;
             var size = Math.sqrt(area);
-            var vert_align = d.value * 20;
+            // var vert_align = d.value * 20;
             switch (i) {
                 case 0:
-                    left = - (size / 2 + margin_chart_land);
-                    top = - (size / 2 + margin_chart_land) + vert_align;
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = - (size / 2 + margin_chart_land + icon_size / 2) ;
                     break;
                 case 1:
-                    left = size / 2 + margin_chart_land;
-                    top = - (size / 2 + margin_chart_land) + vert_align;
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
                     break;
                 case 2:
-                    left = size / 2 + margin_chart_land;
-                    top = size / 2 + margin_chart_land + vert_align;
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = size / 2 + margin_chart_land - icon_size / 2;
                     break;
                 case 3:
-                    left = - (size / 2 + margin_chart_land);
-                    top = size / 2 + margin_chart_land + vert_align;
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = size / 2 + margin_chart_land - icon_size / 2;
                     break;
             }
             return `translate(${left},${top})`;
         })
-        .style("font-size", d => 20 + d.value * 80)
-        .text(d => (d.value * 100).toFixed(2))
+        // .style("font-size", d => 20 + d.value * 80)
+        // .text(d => (d.value * 100).toFixed(2))
+        .attr('width', icon_size)
+        .attr('height', icon_size)
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img)
 
 
     // add titles

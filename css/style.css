@@ -37,8 +37,6 @@ p, textpath, .d3-tip {
         letter-spacing: 0.03em;
 }
 
-
-
 /* LOADER */
 
 #loader {
@@ -88,28 +86,30 @@ p, textpath, .d3-tip {
         }
 }
 
-
 /* SCROLLBAR */
+
 ::-webkit-scrollbar {
         width: 10px;
 }
-      
+
 /* Track */
+
 ::-webkit-scrollbar-track {
-        background: transparent; 
-}
-       
-/* Handle */
-::-webkit-scrollbar-thumb {
-        background: var(--color-dark2); 
-        border-radius: 20px;
-}
-      
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-        background: var(--color-dark3); 
+        background: transparent;
 }
 
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+        background: var(--color-dark2);
+        border-radius: 20px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+        background: var(--color-dark3);
+}
 
 /*  */
 
@@ -151,7 +151,7 @@ p {
         letter-spacing: 0.03em;
 }
 
-.d3-tip {
+textPath, .d3-tip {
         line-height: 1;
         font-weight: bold;
         padding: 12px;
