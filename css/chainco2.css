@@ -78,4 +78,10 @@
     #chain_co2 .informations {
       width: 90%;
     }
-  }
+}
+
+@media only screen and (max-height: 700px) {
+    #chain_co2 .informations {
+      margin-bottom: 500px;
+    }
+}

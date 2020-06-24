@@ -114,15 +114,16 @@ function plotLevel(g, settings, angles, level, data, tip) {
         .attr("fill", d => color(d.index))
         .attr("d", arc)
         .style("opacity", 0.85)
-        .on('mouseover', function (d, i) {
+        .on('mouseout', function (d, _) {
+            tip.hide(d, this);
+            d3.select(this).style("opacity", 0.85)
+        })
+        .on('mouseover', function (d, _) {
             tip.show(d, this);
             d3.select(this).style("opacity", 100)
         }
         )
-        .on('mouseout', function (d, i) {
-            tip.hide(d, this);
-            d3.select(this).style("opacity", 0.85)
-        })
+        
 
     //add the text on the arc
     groups.selectAll("text")
@@ -222,15 +223,44 @@ function drawSeparatingLine(svg, settings, data) {
 /********************* SCROLL ****************/
 function chain_co2_scroll(position) {
     console.log(position)
-
-    //Title animations
-    if(position >= 0 && position < 700){
-        d3.select("#chain_co2 h1")
-          .classed("sticky", true)
-          .classed("fadein", true);
+    const clientHeight = document.documentElement.clientHeight;
+    let scrollingPosition = {
+        'small': {
+            title: 0,
+            text1: 100,
+            text2: 1000,
+            text2_out: 1900,
+            chart1: 1900,
+            chart2: 2800,
+        },
+        'regular' : {
+            title: 0,
+            text1: 100,
+            text2: 2500,
+            text2_out: Infinity,
+            chart1: 1000,
+            chart2: 2500,
+        }
     }
 
-    if(position > 100 && position < 2500){
+    let positions = scrollingPosition.regular
+    if(clientHeight < 700)
+        positions = scrollingPosition.small
+
+    //Title animations
+    if(position >= positions.title && position < positions.chart2){
+        d3.select("#chain_co2 h1")
+          .classed("sticky", true)
+          .classed("fadein", true)
+          .classed("fadeout", false);
+    }
+    else{
+        d3.select("#chain_co2 h1")
+          .classed("fadein", false)
+          .classed("fadeout", true);
+    }
+
+    if(position > positions.text1 && position < positions.text2){
         d3.select("#chain_co2 #chain_co2_text1")
           .classed("sticky", true)
           .classed("fadein", true)
@@ -242,7 +272,7 @@ function chain_co2_scroll(position) {
           .classed("fadein", false);
     }
 
-    if(position > 2500){
+    if(position > positions.text2 && position < positions.text2_out){
         d3.select("#chain_co2 #chain_co2_text2")
           .classed("sticky", true)
           .classed("fadein", true)
@@ -255,7 +285,7 @@ function chain_co2_scroll(position) {
     }
 
     //chart animations
-    if (position > 1000) {
+    if (position > positions.chart1) {
         d3.select("#chain_co2 .chart")
           .classed("fadein", true)
           .classed("fadeout", false);
@@ -263,7 +293,7 @@ function chain_co2_scroll(position) {
         d3.select("#chain_co2 svg")
           .classed("sticky", true);
 
-          if(position > 2500){
+          if(position > positions.chart2){
             d3.select(".highlightedBackground")
                 .transition()
                 .duration(1000)
@@ -276,26 +306,25 @@ function chain_co2_scroll(position) {
                 .duration(1000)
                 .ease(d3.easeLinear)
                 .style("opacity", 1);
-            if(position > 2900){
-                d3.selectAll(".chainCo2_line")
-                    .transition()
-                    .duration(1000)
-                    .ease(d3.easeLinear)
-                    .style("opacity", 100)
-                    .attr("x2", linePoints[0].x)
-                    .attr("y2", linePoints[0].y)
-            }
-            else{
-                d3.selectAll(".chainCo2_line")
-                    .transition()
-                    .duration(300)
-                    .ease(d3.easeLinear)
-                    .style("opacity", 0)
-                    .attr("x2", linePoints[1].x)
-                    .attr("y2", linePoints[1].y)
-            }
+
+            d3.selectAll(".chainCo2_line")
+              .transition()
+              .delay(500)
+              .duration(1000)
+              .ease(d3.easeLinear)
+              .style("opacity", 100)
+              .attr("x2", linePoints[0].x)
+              .attr("y2", linePoints[0].y)
           }
           else{
+                d3.selectAll(".chainCo2_line")
+                  .transition()
+                  .duration(300)
+                  .ease(d3.easeLinear)
+                  .style("opacity", 0)
+                  .attr("x2", linePoints[1].x)
+                  .attr("y2", linePoints[1].y)
+
                 d3.selectAll(".level2")
                   .transition()
                   .duration(300)

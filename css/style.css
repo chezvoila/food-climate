@@ -161,6 +161,10 @@ textPath, .d3-tip {
         pointer-events: none;
 }
 
+.d3-tip{
+        background: var(--color-dark2);
+}
+
 /* Creates a small triangle extender for the tooltip */
 
 .d3-tip:after {
