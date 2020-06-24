@@ -18,6 +18,15 @@
     margin: 15vh 30px;
 }
 
+#land .sticky {
+    position: sticky;
+    top: 50px;
+}
+
+#land #text_land {
+    margin: 15vh 30px;
+}
+
 #land p {
     font-size: 1.4rem;
     margin: 15px;

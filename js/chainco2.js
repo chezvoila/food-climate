@@ -19,7 +19,7 @@ function chainco2(data) {
     //Initialize the svg element
     let svg = d3.select("#chain_co2 .chart").append("svg")
         .attr("viewBox", `0 0 ${sizeSettings.width} ${document.documentElement.clientHeight}`)
-    console.log(sizeSettings.height - 20)
+    // console.log(sizeSettings.height - 20)
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {
         position: {
@@ -221,7 +221,7 @@ function drawSeparatingLine(svg, settings, data) {
 
 /********************* SCROLL ****************/
 function chain_co2_scroll(position) {
-    console.log(position)
+    // console.log(position)
 
     //Title animations
     if(position >= 0 && position < 700){

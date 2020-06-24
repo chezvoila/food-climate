@@ -2,11 +2,20 @@
 "use strict";
 
 /****************** STATIC VARIABLES ******************/
-let text_GW_1 = "Data for different years of how much CO2 emissions were made \
-and what was the average temperature at the surface of the world",
-    text_GW_2 = "As this isn't really relevant, we want to show this by zone density.<br> Here are the different zones.",
-    text_GW_3 = "We color them based on the density.",
-    text_GW_4 = "That means, based on how much dots they contain.";
+let text_GW_1 = "As shown in the previous section, each type of food releases a different amount of CO2.\
+                 But why is it important to monitor the CO2 emissions ? The reason is that CO2 emissions\
+                 directly affect the temperature on earth and therefore contributes to climate changes.\
+                 <br/><br/>Data on the average temperature at the earth surface and the amount of CO2 emissions\
+                 released were collected each year from 1961 to 2015.\
+                 <br/><br/>Each dot represents a single year.",
+                //"Data for different years of how much CO2 emissions were made and what was the average temperature at the surface of the world",
+    text_GW_2 = "The interest here is to view the relation between the temperature and the amount of CO2 released.\
+                 For this reason, the dots are grouped into zones of equal size to ease the view of the trend.",
+    text_GW_3 = "Each zone is now colored based on the density of dots in each zone. The more points there is in\
+                 a zone, the more saturation this zone has.",
+    text_GW_4 = "As we can see, there is a trend showing that more CO2 emissions tends to rise the temperature on the\
+                 surface of the earth. This is due to the increasing human activities such as electricity production,\
+                 industries, heating, transportation and of course the food industry.";
 
 
 let data_GW;
@@ -229,12 +238,12 @@ function hexa(svg, data, x, y) {
 var transition_GW = false;
 var transition2_GW = false;
 function global_warming_scroll(position) {
-    console.log(position);
-    if (position > 500 && !transition_GW) {
+    // console.log(position);
+    if (position > 1000 && !transition_GW) {
         hexa_black(svg_GW, data_GW, x_GW, y_GW)
         transition_GW = true
     }
-    if (position > 800 && !transition2_GW) {
+    if (position > 1400 && !transition2_GW) {
         hexa(svg_GW, data_GW, x_GW, y_GW)
         transition2_GW = true
     }
