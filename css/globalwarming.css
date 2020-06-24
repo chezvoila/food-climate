@@ -4,6 +4,19 @@
 }
 
 #global_warming > svg{
-    margin-left: 50%;
-    transform: translate(-50%);
+    margin-left: 5%;
+    margin-top: 10%;
+    float: left;
+    height: 70vh;
+}
+
+#global_warming > svg.sticky{
+    position: sticky;
+    top: 100px;
+}
+
+#global_warming p {
+    width: 40%;
+    font-size: 20px;
+    margin: 45vh 20px 45vh 60%;
 }

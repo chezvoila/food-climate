@@ -2,6 +2,12 @@
 "use strict";
 
 /****************** STATIC VARIABLES ******************/
+let text_GW_1 = "Data for different years of how much CO2 emissions were made \
+and what was the average temperature at the surface of the world",
+    text_GW_2 = "As this isn't really relevant, we want to show this by zone density.<br> Here are the different zones.",
+    text_GW_3 = "We color them based on the density.",
+    text_GW_4 = "That means, based on how much dots they contain.";
+
 
 let data_GW;
 
@@ -25,6 +31,11 @@ function globalwarming(data_emissions, data_temperatures) {
 
     // create and display the chart
     chart_GW(svg_GW, x_GW, y_GW, data_GW);
+
+    d3.select("#global_warming").append('p').html(text_GW_1)
+    d3.select("#global_warming").append('p').html(text_GW_2)
+    d3.select("#global_warming").append('p').html(text_GW_3)
+    d3.select("#global_warming").append('p').html(text_GW_4)
 }
 
 
@@ -88,6 +99,7 @@ function create_GW() {
     // append the svg object to the body of the page
     var svg = d3.select("#global_warming")
         .append("svg")
+        .classed("sticky", true)
         .attr("width", width_GW + margin_GW.left + margin_GW.right)
         .attr("height", height_GW + margin_GW.top + margin_GW.bottom + text_height_GW)
         .append("g")
@@ -130,18 +142,25 @@ function chart_GW(svg, x, y, data) {
         .style("text-anchor", "middle")
         .text("TEMPERATURE (°C)");
 
+    svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d) { return x(d.emission); })
+        .attr("cy", function (d) { return y(d.temperature); })
+        .attr("r", 3)
+        .style("fill", "var(--color-dark2")
+
+}
+
+function hexa_black(svg, data, x, y) {
+
     // from https://www.d3-graph-gallery.com/graph/density2d_hexbin.html
     var inputForHexbinFun = []
     data.forEach(function (d) {
         inputForHexbinFun.push([x(d.emission), y(d.temperature)])  // Note that we had the transform value of X and Y !
     })
-
-    /*var color = d3.scaleLinear()
-        .domain([0, 6]) // Number of points in the bin?
-        .range(["#f1adb9", "#581420"]);*/
-    var color = d3.scaleOrdinal()
-        .domain([0, 6])
-        .range(["#f9aab7", "#ed8a9b", "#c95d6f", "#be1e3b", "#990823"])
 
     var hexbin = d3.hexbin()
         .radius(30) // size of the bin in px
@@ -155,6 +174,7 @@ function chart_GW(svg, x, y, data) {
         .attr("height", height_GW)
 
     svg.append("g")
+        .attr('id', 'hexa_g')
         .attr("clip-path", "url(#clip)")
         .selectAll("path")
         .data(hexbin(inputForHexbinFun))
@@ -162,6 +182,41 @@ function chart_GW(svg, x, y, data) {
         .append("path")
         .attr("d", hexbin.hexagon())
         .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
+        .attr("fill", "transparent")
+        .attr("stroke", "var(--color-dark3)")
+        .attr("stroke-width", "1")
+        .attr("opacity", 0)
+        .transition()
+        .duration(200)
+        .delay((d, i) => i * 25)
+        .attr("opacity", 1)
+
+}
+
+function hexa(svg, data, x, y) {
+
+    svg.selectAll('circle').remove()
+
+    // from https://www.d3-graph-gallery.com/graph/density2d_hexbin.html
+    var inputForHexbinFun = []
+    data.forEach(function (d) {
+        inputForHexbinFun.push([x(d.emission), y(d.temperature)])  // Note that we had the transform value of X and Y !
+    })
+
+    var color = d3.scaleOrdinal()
+        .domain([0, 6])
+        .range(["#f9aab7", "#ed8a9b", "#c95d6f", "#be1e3b", "#990823"])
+
+    var hexbin = d3.hexbin()
+        .radius(30) // size of the bin in px
+        .extent([[0, 0], [width_GW, height_GW]])
+
+    svg.select("#hexa_g")
+        .selectAll("path")
+        .data(hexbin(inputForHexbinFun))
+        .transition()
+        .duration(200)
+        .delay((d, i) => i * 25)
         .attr("fill", d => color(d.length))
         .attr("stroke", "var(--color-light2)")
         .attr("stroke-width", "3")
@@ -171,6 +226,16 @@ function chart_GW(svg, x, y, data) {
 
 /********************* SCROLL ****************/
 
+var transition_GW = false;
+var transition2_GW = false;
 function global_warming_scroll(position) {
-    // console.log(position);
+    console.log(position);
+    if (position > 500 && !transition_GW) {
+        hexa_black(svg_GW, data_GW, x_GW, y_GW)
+        transition_GW = true
+    }
+    if (position > 800 && !transition2_GW) {
+        hexa(svg_GW, data_GW, x_GW, y_GW)
+        transition2_GW = true
+    }
 }
