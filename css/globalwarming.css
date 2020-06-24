@@ -19,4 +19,10 @@
     width: 40%;
     font-size: 20px;
     margin: 45vh 20px 45vh 60%;
+    /* margin-left: 50%; */
+    /* transform: translate(-50%); */
+}
+
+.light2background{
+    background-color: var( --color-light2);
 }
