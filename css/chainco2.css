@@ -20,6 +20,7 @@
 #chain_co2{
     color: white;
     padding: 200px 0 50px 0;
+    /* overflow-x: hidden; */
 }
 
 #chain_co2 h1{

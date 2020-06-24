@@ -231,3 +231,12 @@
 .autocomplete-suggestion.selected {
     background: #f0f0f0;
 }
+
+
+/* MOBILE */
+
+@media screen and (max-width:1000px) {
+    #land .sticky{
+        top: 35%;
+    }
+}
