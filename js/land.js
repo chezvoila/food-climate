@@ -26,12 +26,12 @@ const others = ["Offals, Edible", "Butter, Ghee", "Cream", "Fats, Animals, Raw",
 
 const cat1 = {
     name: "Primary",
-    img: "vegetable.svg",
+    img: "carrot.svg",
     columns: ["fruits", "vegetables", "cereals", "oilcrops"]
 }
 const cat2 = {
     name: "Animals",
-    img: "meat.svg",
+    img: "cow.svg",
     columns: ["meat", "fish"]
 }
 const cat3 = {
@@ -41,7 +41,7 @@ const cat3 = {
 }
 const cat4 = {
     name: "Other",
-    img: "potato.svg",
+    img: "ginger.svg",
     columns: ["roots", "pulses", "spices", "others"]
 }
 // missing : beverages, because more drink than food
@@ -73,7 +73,7 @@ const defaultArea = 100000;
 let area_country;
 
 const margin_chart_land = 20;
-const height_division_land = 500;
+const height_division_land = 600;
 
 function land(if_everyone, intake) {
 
@@ -379,6 +379,9 @@ function init_division_country(init_area, color, first, country, svg) {
 
     svg.selectAll('text')
         .remove()
+    
+    svg.selectAll('image')
+        .remove()
 
     return svg;
 }
@@ -592,7 +595,7 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
                 top,
                 area = init_area * d.value;
             var size = Math.sqrt(area);
-            var icon_size = size / 3;
+            var icon_size = size / 3 + 10;
             // var vert_align = d.value * 20;
             switch (i) {
                 case 0:
@@ -623,40 +626,40 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
 
 
     // add titles
-    svg.selectAll('text.titles')
-        .data(cats)
-        .enter()
-        .append('text')
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .classed('titles', true)
-        .classed('anchor_middle', true)
-        // .classed('anchor_left', (d, i) => i == 0 || i == 3)
-        .attr('transform', (d, i) => {
-            var left, top;
-            var size = Math.sqrt(init_area * categories[i].value);
-            switch (i) {
-                case 0:
-                    left = - size / 2 - margin_chart_land;
-                    top = -2 * margin_chart_land;
-                    break;
-                case 1:
-                    left = size / 2 + margin_chart_land;
-                    top = -2 * margin_chart_land;
-                    break;
-                case 2:
-                    left = size / 2 + margin_chart_land;
-                    top = size;
-                    break;
-                case 3:
-                    left = - size / 2 - margin_chart_land;
-                    top = size;
-                    break;
-            }
-            return `translate(${left},${top})`;
-        })
-        .style("font-size", (d, i) => 10 + categories[i].value * 40)
-        .text(d => d.name);
+    // svg.selectAll('text.titles')
+    //     .data(cats)
+    //     .enter()
+    //     .append('text')
+    //     .attr('x', '50%')
+    //     .attr('y', '50%')
+    //     .classed('titles', true)
+    //     .classed('anchor_middle', true)
+    //     // .classed('anchor_left', (d, i) => i == 0 || i == 3)
+    //     .attr('transform', (d, i) => {
+    //         var left, top;
+    //         var size = Math.sqrt(init_area * categories[i].value);
+    //         switch (i) {
+    //             case 0:
+    //                 left = - size / 2 - margin_chart_land;
+    //                 top = -2 * margin_chart_land;
+    //                 break;
+    //             case 1:
+    //                 left = size / 2 + margin_chart_land;
+    //                 top = -2 * margin_chart_land;
+    //                 break;
+    //             case 2:
+    //                 left = size / 2 + margin_chart_land;
+    //                 top = size;
+    //                 break;
+    //             case 3:
+    //                 left = - size / 2 - margin_chart_land;
+    //                 top = size;
+    //                 break;
+    //         }
+    //         return `translate(${left},${top})`;
+    //     })
+    //     .style("font-size", (d, i) => 10 + categories[i].value * 40)
+    //     .text(d => d.name);
 }
 
 

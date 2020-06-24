@@ -1,11 +1,12 @@
-#land svg {
-    width: 100%;
-}
-
 #land {
     color: white;
     text-align: center;
     padding: 50px;
+    background-color: var(--color-dark2);
+}
+
+#land svg {
+    width: 100%;
 }
 
 #land .sticky {
@@ -18,8 +19,12 @@
 }
 
 #land p {
-    font-size: 25px;
+    font-size: 1.4rem;
     margin: 15px;
+}
+
+#land #text_land p {
+    font-size: 1.6rem;
 }
 
 #country, #value {
@@ -37,6 +42,11 @@
 #land #div_columns {
     margin: auto;
     visibility: hidden;
+}
+
+#land #div_columns p {
+    font-size: 1.2rem;
+    line-height: 1.3rem;
 }
 
 #land .display#div_columns {
@@ -99,6 +109,10 @@
 
 #land .search button:hover #search_icon {
     fill: var(--color-dark2);
+}
+
+#land p#details {
+    font-size: 1.1rem;
 }
 
 /* search icon */
@@ -232,11 +246,10 @@
     background: #f0f0f0;
 }
 
-
 /* MOBILE */
 
 @media screen and (max-width:1000px) {
-    #land .sticky{
+    #land .sticky {
         top: 35%;
     }
 }
