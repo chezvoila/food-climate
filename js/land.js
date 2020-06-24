@@ -374,7 +374,8 @@ function init_division_country(init_area, color, first, country, svg) {
             }
             return `translate(${left},${top})`;
         })
-        .attr('fill', color(country));
+        // .attr('fill', color(country));
+        .attr('fill', 'var(--color-light2)');
 
     svg.selectAll('text')
         .remove()
@@ -573,15 +574,16 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
             }
             return `translate(${left},${top})`;
         })
-        .attr('fill', color(country));
+        // .attr('fill', color(country));
+        // .attr('fill', 'var(--color-light2)');
 
     // add icons
-    var icon_size = 60;
-    svg.selectAll('text.numbers')
+    var icon_sizes = [];
+    svg.selectAll('text.icon')
         .data(categories)
         .enter()
         .append('svg:image')
-        .classed('numbers', true)
+        .classed('icon', true)
         .classed('anchor_middle', true)
         .attr('x', '50%')
         .attr('y', '50%')
@@ -590,11 +592,12 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
                 top,
                 area = init_area * d.value;
             var size = Math.sqrt(area);
+            var icon_size = size / 3;
             // var vert_align = d.value * 20;
             switch (i) {
                 case 0:
                     left = - (size / 2 + margin_chart_land + icon_size / 2);
-                    top = - (size / 2 + margin_chart_land + icon_size / 2) ;
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
                     break;
                 case 1:
                     left = size / 2 + margin_chart_land - icon_size / 2;
@@ -609,12 +612,13 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
                     top = size / 2 + margin_chart_land - icon_size / 2;
                     break;
             }
+            icon_sizes.push(icon_size)
             return `translate(${left},${top})`;
         })
         // .style("font-size", d => 20 + d.value * 80)
         // .text(d => (d.value * 100).toFixed(2))
-        .attr('width', icon_size)
-        .attr('height', icon_size)
+        .attr('width', (d, i) => icon_sizes[i])
+        .attr('height', (d, i) => icon_sizes[i])
         .attr('xlink:href', (d, i) => 'img/' + cats[i].img)
 
 
@@ -626,25 +630,26 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         .attr('x', '50%')
         .attr('y', '50%')
         .classed('titles', true)
+        .classed('anchor_middle', true)
         // .classed('anchor_left', (d, i) => i == 0 || i == 3)
         .attr('transform', (d, i) => {
             var left, top;
             var size = Math.sqrt(init_area * categories[i].value);
             switch (i) {
                 case 0:
-                    left = - size;
+                    left = - size / 2 - margin_chart_land;
                     top = -2 * margin_chart_land;
                     break;
                 case 1:
-                    left = 2 * margin_chart_land;
-                    top = - 2 * margin_chart_land;
+                    left = size / 2 + margin_chart_land;
+                    top = -2 * margin_chart_land;
                     break;
                 case 2:
-                    left = 2 * margin_chart_land;
+                    left = size / 2 + margin_chart_land;
                     top = size;
                     break;
                 case 3:
-                    left = - size;
+                    left = - size / 2 - margin_chart_land;
                     top = size;
                     break;
             }
