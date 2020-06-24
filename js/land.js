@@ -428,6 +428,7 @@ function chart_division_world(svg, data_intake, init_area) {
         cat.value = cat.value / s;
     })
 
+    // add rects
     svg.selectAll('rect')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
@@ -466,8 +467,9 @@ function chart_division_world(svg, data_intake, init_area) {
                     break;
             }
             return `translate(${left},${top})`;
-        })
+        });
 
+    // add titles
     svg.selectAll('text')
         .data(cats)
         .enter()
@@ -497,6 +499,7 @@ function chart_division_world(svg, data_intake, init_area) {
             }
             return `translate(${left},${top})`;
         })
+        .style("font-size", (d, i) => 10 + categories[i].value * 40)
         .text(d => d.name);
 }
 
@@ -532,6 +535,7 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         cat.value = cat.value / s;
     })
 
+    // add rects
     svg.selectAll('rect')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
@@ -573,12 +577,53 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         })
         .attr('fill', color(country));
 
-    svg.selectAll('text')
+    // add numbers
+    svg.selectAll('text.numbers')
+        .data(categories)
+        .enter()
+        .append('text')
+        .classed('numbers', true)
+        .classed('anchor_middle', true)
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .attr('transform', (d, i) => {
+            var left,
+                top,
+                area = init_area * d.value;
+            var size = Math.sqrt(area);
+            var vert_align = d.value * 20;
+            switch (i) {
+                case 0:
+                    left = - (size / 2 + margin_chart_land);
+                    top = - (size / 2 + margin_chart_land) + vert_align;
+                    break;
+                case 1:
+                    left = size / 2 + margin_chart_land;
+                    top = - (size / 2 + margin_chart_land) + vert_align;
+                    break;
+                case 2:
+                    left = size / 2 + margin_chart_land;
+                    top = size / 2 + margin_chart_land + vert_align;
+                    break;
+                case 3:
+                    left = - (size / 2 + margin_chart_land);
+                    top = size / 2 + margin_chart_land + vert_align;
+                    break;
+            }
+            return `translate(${left},${top})`;
+        })
+        .style("font-size", d => 20 + d.value * 80)
+        .text(d => (d.value * 100).toFixed(2))
+
+
+    // add titles
+    svg.selectAll('text.titles')
         .data(cats)
         .enter()
         .append('text')
         .attr('x', '50%')
         .attr('y', '50%')
+        .classed('titles', true)
         .classed('anchor_left', (d, i) => i == 0 || i == 3)
         .attr('transform', (d, i) => {
             var left, top;
@@ -602,6 +647,7 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
             }
             return `translate(${left},${top})`;
         })
+        .style("font-size", (d, i) => 10 + categories[i].value * 40)
         .text(d => d.name);
 }
 
@@ -634,7 +680,7 @@ function display_details(array) {
     d3.select("#details").html(html)
 }
 
-
+// empties the details div and undisplays the text that is between the charts
 function reset() {
     d3.select("#details").html('');
     d3.select("#div_columns").classed("display", false);

@@ -8,7 +8,7 @@
     padding: 50px;
 }
 
-#land .sticky{
+#land .sticky {
     position: sticky;
     top: 50px;
 }
@@ -28,6 +28,10 @@
 
 #land text.anchor_left {
     text-anchor: end;
+}
+
+#land text.anchor_middle {
+    text-anchor: middle;
 }
 
 #land #div_columns {
@@ -74,38 +78,108 @@
 /* Search bar */
 
 .search {
-    display: flex;
-    justify-content: center;
+    position: relative;
+    padding: 0 20%;
 }
 
-.search>input {
-    line-height: 35px;
-    padding: 0 10px;
-    border: 1px solid #999;
-    flex: 0.8;
-    font-size: 11pt;
-}
-
-.search>input:focus {
-    outline: 0;
-    -webkit-box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-
-.search>button {
-    background-color: var(--color-dark2);
+.search button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
     color: white;
-    border: 1px solid var(--color-dark3);
+    border: none;
     padding: 10px 20px;
     outline: 0;
     flex-basis: 40px;
     cursor: pointer;
     transition: 0.2s;
+    height: 60px;
 }
 
-.search>button:hover {
-    background-color: var(--color-dark1);
+#land .search button:hover #search_icon {
+    fill: var(--color-dark2);
 }
+
+/* search icon */
+
+#land .search button #search_icon {
+    width: unset;
+    height: 100%;
+    fill: var(--color-light3);
+}
+
+.search_field:focus~.search_btn #search_icon {
+    fill: var(--color-dark2)!important;
+}
+
+/* credits for this input css : https://codepen.io/lucasyem/pen/ZEEYKdj */
+
+.search_group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+}
+
+.search_field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--color-light3);
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.search_field::placeholder {
+    color: transparent;
+}
+
+.search_field:placeholder-shown~.search_label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+
+.search_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--color-light3);
+    opacity: 0.9;
+}
+
+.search_field:focus {
+    padding-bottom: 6px;
+    /* font-weight: 700; */
+    border-width: 3px;
+    border-image: linear-gradient(to right, var(--color-light3), var(--color-dark2));
+    border-image-slice: 1;
+}
+
+.search_field:focus~.search_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--color-light3);
+    opacity: 1;
+    /* font-weight: 700; */
+}
+
+/* reset input */
+
+.search_field:required, .search_field:invalid {
+    box-shadow: none;
+}
+
+/* Flex display */
 
 #land .row {
     display: flex;
