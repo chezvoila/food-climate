@@ -238,7 +238,7 @@ function hexa(svg, data, x, y) {
 var transition_GW = false;
 var transition2_GW = false;
 function global_warming_scroll(position) {
-    console.log(position);
+    // console.log(position);
     if (position > 1000 && !transition_GW) {
         hexa_black(svg_GW, data_GW, x_GW, y_GW)
         transition_GW = true
