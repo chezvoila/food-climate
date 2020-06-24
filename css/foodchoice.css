@@ -1,6 +1,6 @@
 #food_choice {
         color: var(--color-light3);
-        padding: 200px 0 50px 0;
+        /* padding: 200px 0 50px 0; */
         /* height: 100vh; */
 }
 
@@ -373,45 +373,4 @@
 button {
         display: block;
         margin: auto;
-}
-
-
-
-/********************************************* SCROLL ******************************************/
-
-#food_choice p:first-child {
-        width: 50%;
-        margin: auto auto;
-        font-size: 1.5em;
-        margin-bottom: 1100px;
-}
-
-#food_choice p.sticky:first-child {
-        position: sticky;
-        top: 100px;
-}
-
-#food_choice p.fadeOut:first-child {
-        transition: 0.3s all ease-in;
-        opacity: 0;
-}
-
-#food_choice img {
-        display: block;
-        width: 30%;
-        height: 400px;
-        margin: auto auto;
-        background: #999;
-        margin-bottom: 2000px;
-}
-
-#food_choice img.sticky {
-        position: sticky;
-        top: 100px;
-}
-
-#food_choice img.left {
-        transition: 0.24s all ease-in;
-        width: 40%;
-        transform: translateX(50%);
 }

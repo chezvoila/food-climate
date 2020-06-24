@@ -1,9 +1,55 @@
 #global_warming {
     background-color: var( --color-light2);
-    padding: 30px;
+    padding: 25vh 0;
 }
 
-#global_warming > svg{
+#global_warming h1 {
+    text-align: center;
+    margin-top: 20vh;
+    margin-bottom: 50vh;
+}
+
+#global_warming>svg {
+    margin-left: 5%;
+    float: left;
+    height: 70vh;
+}
+
+#global_warming>svg.sticky {
+    position: sticky;
+    top: 100px;
+}
+
+#global_warming p {
+    width: 40%;
+    font-size: 20px;
+    margin: 45vh 20px;
     margin-left: 50%;
-    transform: translate(-50%);
+}
+
+.light2background {
+    background-color: var( --color-light2);
+}
+
+/* MOBILE */
+
+@media screen and (max-width:1000px) {
+    #global_warming h1 {
+        margin-bottom: 30vh;
+        margin-top: 0;
+    }
+    #global_warming {
+        min-height: calc(150vh);
+    }
+    #global_warming>svg {
+        height: 35vh;
+    }
+    #global_warming>svg.sticky {
+        top: 40%;
+    }
+    #global_warming p {
+        width: 30%;
+        margin: 15vh 20px;
+        margin-left: 70%;
+    }
 }

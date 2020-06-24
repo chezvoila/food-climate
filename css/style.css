@@ -16,8 +16,58 @@ html {
 }
 
 body {
-        font-family: "bavro";
+        /* transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
         background-color: var(--color-main);
+}
+
+body.intro {
+        /* background-color: var(--color-light1); */
+}
+
+body.food_choice {
+        /* background-color: var(--color-main); */
+}
+
+body.food_co2 {
+        /* background-color: var(--color-dark2); */
+}
+
+body.global_warming {
+        /* background-color: var(--color-light2); */
+}
+
+body.chain_co2 {
+        /* background-color: var(--color-main); */
+}
+
+body.land {
+        /* background-color: var(--color-dark3); */
+}
+
+h1, h2, h3 {
+        font-family: 'Titillium Web', sans-serif;
+        font-weight: 100;
+        letter-spacing: 0.1em;
+        line-height: 1.3;
+}
+
+h1 {
+        font-size: 2.7em;
+}
+
+h2 {
+        font-size: 2.2em
+}
+
+h3 {
+        font-size: 1.8em;
+}
+
+p, textpath, .d3-tip {
+        font-family: 'Raleway', sans-serif;
+        font-size: 1.4em;
+        line-height: 1.5em;
+        letter-spacing: 0.03em;
 }
 
 .d3-tip {
@@ -56,7 +106,6 @@ body {
 
 
 
-
 /*------------ SCROLLING -------*/
 
 body {
@@ -73,9 +122,13 @@ body {
         transition: all 0.7s ease-in-out;
 }
 
-#food_choice, #food_co2, #global_warming, #chain_co2, #land {
-        min-height: calc(200%);
-        min-height: calc(200vh);
+.page > section {
+        padding: 100px 100px;
+        min-height: 200%;
+        min-height: 200vh;
+        max-width: 100%;
+        max-width: 100vw;
+
 }
 
 #frame .page {
@@ -83,6 +136,7 @@ body {
         height: 100%;
         height: 100vh;
         overflow-Y: scroll;
+        overflow-x: hidden;
 }
 
 #frame .page.noScroll {
@@ -90,3 +144,100 @@ body {
 }
 
 /*------------ SCROLLING -------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* LOADER */
+
+#loader {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        background-color: var(--color-dark2);
+        z-index: 999;
+        transition: 0.2s;
+}
+
+#loader.loaded {
+        opacity: 0;
+        z-index: -1;
+}
+
+#loader_element {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+}
+
+.lds-dual-ring {
+        position: relative;
+        width: 150px;
+        height: 150px;
+}
+
+.lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 100px;
+        height: 100px;
+        margin: 15px;
+        border-radius: 50%;
+        border: 10px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+        0% {
+                transform: rotate(0deg);
+        }
+        100% {
+                transform: rotate(360deg);
+        }
+}
+
+
+
+
+
+
+
+
+
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+        width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+        background: var(--color-dark2);
+        border-radius: 20px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+        background: var(--color-dark3);
+}
+
+/*  */

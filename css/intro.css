@@ -1,0 +1,74 @@
+/**********************************************INTRO**************************************************/
+
+
+#intro {
+    color: #fff;
+}
+
+#intro h1, #intro h2, #intro p {
+    text-align: center;
+    width: 70%;
+    margin: auto auto;
+}
+
+#intro p:first-child {
+}
+
+#intro h1 {
+    margin-bottom: 200px;
+}
+
+#intro p {
+    margin-bottom: 100px;
+}
+
+#intro h2 {
+    margin-bottom: 200px;
+}
+
+#intro div {
+    width: 100vw;
+    height: 400px;
+    margin-bottom: 200px;
+    margin-left: -100px;
+}
+
+#intro div img {
+    display: block;
+    width: 100%;
+    height: 400px;
+    background: #999;
+}
+
+#intro > img {
+    display: block;
+    float: right;
+    width: 40%;
+    height: 400px;
+    background-color: #999;
+}
+
+
+/********************************************* SCROLL ******************************************/
+
+
+#intro p.sticky {
+    position: sticky;
+    top: 100px;
+}
+
+#intro p.fadeOut {
+    transition: 0.3s all ease-in;
+    opacity: 0;
+}
+
+#intro img.sticky {
+    position: sticky;
+    top: 100px;
+}
+
+#intro img.left {
+    transition: 0.24s all ease-in;
+    width: 40%;
+    transform: translateX(50%);
+}

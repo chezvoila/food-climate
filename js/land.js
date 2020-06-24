@@ -1,3 +1,6 @@
+
+"use strict";
+
 //**************** STATIC VARIABLES *****************//
 
 // categories
@@ -23,18 +26,22 @@ const others = ["Offals, Edible", "Butter, Ghee", "Cream", "Fats, Animals, Raw",
 
 const cat1 = {
     name: "Primary",
+    img: "vegetable.svg",
     columns: ["fruits", "vegetables", "cereals", "oilcrops"]
 }
 const cat2 = {
     name: "Animals",
+    img: "meat.svg",
     columns: ["meat", "fish"]
 }
 const cat3 = {
     name: "Extracted",
+    img: "olive-oil.svg",
     columns: ["oils", "sweeteners"]
 }
 const cat4 = {
     name: "Other",
+    img: "potato.svg",
     columns: ["roots", "pulses", "spices", "others"]
 }
 // missing : beverages, because more drink than food
@@ -48,20 +55,88 @@ so depending on how they eat, the country will have its CO2 emissions impacted.\
 In order to have a first impression on a chosen country habit of consumption, we show how much ressource of the Earth global population would need\
 if every one on the planet was consuming as an average person of that country.";
 
-const text_animation = "This division shows how people eat in a specific country. The diet is here divided in four main categories.\
+const text_animation = "This division shows how people eat in a specific country.<br> The diet is here divided in four main categories. \
 Hovering on a category will show what percentage of their diet is composed of that category and you will also have the details of what \
 is contained inside that category."
 
 /********************************/
 
+// variables for code
+let data_consumption, data_intake;
+let lands_available;
+let color;
 
+let country;
+let svg_world, svg_country;
+
+const defaultArea = 100000;
+let area_country;
+
+const margin_chart_land = 20;
+const height_division_land = 500;
+
+function land(if_everyone, intake) {
+
+    // get formatted data
+    const data_land = get_data_land(if_everyone, intake);
+    data_consumption = data_land.consumption;
+    data_intake = data_land.intake;
+
+    // Make a list of the countries that are in the 4 datasets
+    lands_available = make_list_land(data_consumption, data_intake);
+    lands_available.push("World")
+
+    // create color function
+    color = d3.scaleOrdinal(d3.schemePaired).range(['#ffffff', '#992437']); // TO DEFINE
+    // update color domain
+    land_color_domain(color, lands_available);
+
+    // default display is Canada
+    country = "Canada";
+    // get areas
+    area_country = getAreaCountry(defaultArea, data_consumption, country);
+    // append (so first = true) and display the 2 charts
+    svg_world = init_division_world(defaultArea, color, true);
+    svg_country = init_division_country(area_country, color, true, country);
+
+    // Autocomplete for the search bar
+    new autoComplete({
+        selector: "#search-bar input",
+        minChars: 1,
+        source: function (term, suggest) {
+            term = term.toLowerCase();
+            var matches = [];
+            lands_available.forEach(function (d) {
+                if (~d.toLowerCase().indexOf(term)) {
+                    matches.push(d);
+                }
+            });
+            suggest(matches);
+        },
+        renderItem: function (item, search) {
+            search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+            return '<div class="autocomplete-suggestion" data-val="'
+                + item + '">' + item.replace(re, "<b>$1</b>") + "</div>";
+        },
+        onSelect: function (e, term, item) {
+            country = term;
+            area_country = getAreaCountry(defaultArea, data_consumption, country);
+            init_division_country(area_country, color, false, country, svg_country);
+            init_division_world(defaultArea, color, false, svg_world);
+            reset();
+        }
+    });
+
+}
 /**
  * Create JS objects containing the data needed for the viz
  *
  * @param if_everyone       Data about how much Earth's would we need if everyone what consumming like a specific country
  * @param intake            Intake (kg/capita/year) for different types of food per country
  */
-function land(if_everyone, intake) {
+function get_data_land(if_everyone, intake) {
+
     var data_consumption = if_everyone.map(d => {
         return {
             key: d.Entity,
@@ -176,9 +251,6 @@ function getAreaCountry(defaultArea, data_consumption, country) {
     d3.select("#value").text(scale.toFixed(2));
     return defaultArea * scale;
 }
-
-const margin_chart_land = 10;
-const height_division_land = 500;
 
 
 /**
@@ -302,7 +374,8 @@ function init_division_country(init_area, color, first, country, svg) {
             }
             return `translate(${left},${top})`;
         })
-        .attr('fill', color(country));
+        // .attr('fill', color(country));
+        .attr('fill', 'var(--color-light2)');
 
     svg.selectAll('text')
         .remove()
@@ -354,6 +427,7 @@ function chart_division_world(svg, data_intake, init_area) {
         cat.value = cat.value / s;
     })
 
+    // add rects
     svg.selectAll('rect')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
@@ -392,8 +466,9 @@ function chart_division_world(svg, data_intake, init_area) {
                     break;
             }
             return `translate(${left},${top})`;
-        })
+        });
 
+    // add titles
     svg.selectAll('text')
         .data(cats)
         .enter()
@@ -423,6 +498,7 @@ function chart_division_world(svg, data_intake, init_area) {
             }
             return `translate(${left},${top})`;
         })
+        .style("font-size", (d, i) => 10 + categories[i].value * 40)
         .text(d => d.name);
 }
 
@@ -458,6 +534,7 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         cat.value = cat.value / s;
     })
 
+    // add rects
     svg.selectAll('rect')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
@@ -497,44 +574,94 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
             }
             return `translate(${left},${top})`;
         })
-        .attr('fill', color(country));
+        // .attr('fill', color(country));
+        // .attr('fill', 'var(--color-light2)');
 
-    svg.selectAll('text')
+    // add icons
+    var icon_sizes = [];
+    svg.selectAll('text.icon')
+        .data(categories)
+        .enter()
+        .append('svg:image')
+        .classed('icon', true)
+        .classed('anchor_middle', true)
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .attr('transform', (d, i) => {
+            var left,
+                top,
+                area = init_area * d.value;
+            var size = Math.sqrt(area);
+            var icon_size = size / 3;
+            // var vert_align = d.value * 20;
+            switch (i) {
+                case 0:
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
+                    break;
+                case 1:
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
+                    break;
+                case 2:
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = size / 2 + margin_chart_land - icon_size / 2;
+                    break;
+                case 3:
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = size / 2 + margin_chart_land - icon_size / 2;
+                    break;
+            }
+            icon_sizes.push(icon_size)
+            return `translate(${left},${top})`;
+        })
+        // .style("font-size", d => 20 + d.value * 80)
+        // .text(d => (d.value * 100).toFixed(2))
+        .attr('width', (d, i) => icon_sizes[i])
+        .attr('height', (d, i) => icon_sizes[i])
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img)
+
+
+    // add titles
+    svg.selectAll('text.titles')
         .data(cats)
         .enter()
         .append('text')
         .attr('x', '50%')
         .attr('y', '50%')
-        .classed('anchor_left', (d, i) => i == 0 || i == 3)
+        .classed('titles', true)
+        .classed('anchor_middle', true)
+        // .classed('anchor_left', (d, i) => i == 0 || i == 3)
         .attr('transform', (d, i) => {
             var left, top;
+            var size = Math.sqrt(init_area * categories[i].value);
             switch (i) {
                 case 0:
-                    left = - 2 * margin_chart_land;
-                    top = - 2 * margin_chart_land;
+                    left = - size / 2 - margin_chart_land;
+                    top = -2 * margin_chart_land;
                     break;
                 case 1:
-                    left = 2 * margin_chart_land;
-                    top = - 2 * margin_chart_land;
+                    left = size / 2 + margin_chart_land;
+                    top = -2 * margin_chart_land;
                     break;
                 case 2:
-                    left = 2 * margin_chart_land;
-                    top = 3 * margin_chart_land;
+                    left = size / 2 + margin_chart_land;
+                    top = size;
                     break;
                 case 3:
-                    left = - 2 * margin_chart_land;
-                    top = 3 * margin_chart_land;
+                    left = - size / 2 - margin_chart_land;
+                    top = size;
                     break;
             }
             return `translate(${left},${top})`;
         })
+        .style("font-size", (d, i) => 10 + categories[i].value * 40)
         .text(d => d.name);
 }
 
+
+// display the percentages and what is composed the hovered area
 function display_columns(value, details, columns, country) {
-
-    // d3.select("#details").html('');
-
     var g = d3.select("#div_columns");
 
     g.select("#columns_country").text(country);
@@ -545,13 +672,12 @@ function display_columns(value, details, columns, country) {
         html += d + "<br>"
     })
     g.select("#columns").html(html);
-    // g.select("#columns_details")
-    //     .on('click', _ => {
-    display_details(details)
-    // })
     g.classed("display", true)
+
+    display_details(details)
 }
 
+// display everything that is composing a category
 function display_details(array) {
     var html = "Detailed composition of the category : <br><br>"
     html += "|"
@@ -562,22 +688,28 @@ function display_details(array) {
     d3.select("#details").html(html)
 }
 
-
-
-// SCROLLING FUNCTIONS //
-
-// function land_OnEnter() {
-//     console.log("Entered land!")
-//     //fullpage.setAutoScrolling(false);
-// }
-
-// function land_OnLeave(direction) {
-//     console.log("leaving land, going", direction)
-// }
+// empties the details div and undisplays the text that is between the charts
+function reset() {
+    d3.select("#details").html('');
+    d3.select("#div_columns").classed("display", false);
+}
 
 
 /********************* SCROLL ****************/
 
+var transition_completed = false;
+var scroll_trigger = 550;
 function land_scroll(position) {
-
+    if (position < scroll_trigger && transition_completed) {
+        init_division_world(defaultArea, color, false, svg_world);
+        init_division_country(area_country, color, false, country, svg_country);
+        reset();
+        transition_completed = false;
+    }
+    if (position > scroll_trigger && !transition_completed) {
+        d3.select("#details").html(text_animation);
+        chart_division_world(svg_world, data_intake, defaultArea);
+        chart_division_country(svg_country, data_intake, defaultArea, country, color);
+        transition_completed = true;
+    }
 }

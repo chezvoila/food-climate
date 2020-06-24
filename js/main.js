@@ -19,17 +19,6 @@
 
     /***** DOM *****/
 
-
-    /* GLOBAL WARMING */
-    var elements = create_GW(d3);
-    var svg_GW = elements.svg,
-        x_GW = elements.x,
-        y_GW = elements.y;
-
-    /* LAND */
-
-    var color = d3.scaleOrdinal(d3.schemePaired).range(['#ffffff', '#992437']); // TO DEFINE
-
     /***** bind events *****/
 
 
@@ -52,85 +41,19 @@
     Promise.all(promises)
         /***** functions *****/
         .then(function (data) {
+            d3.select('#loader').classed('loaded',true)
             foodchoice(_);
             foodco2(data[0], _);
             const data_GW = globalwarming(data[1], data[2]);
             chainco2(data[3]);
-            // const data_land = land(data[4], data[5], data[6], data[7]);
             const data_land = land(data[4], data[5]);
 
 
 
             /* GLOBAL WARMING */ 
 
-            // update domains
-            xDomain_GW(d3, x_GW, data_GW);
-            yDomain_GW(d3, y_GW, data_GW);
-
-            // create and display the chart
-            chart_GW(svg_GW, x_GW, y_GW, data_GW);
 
 
-            /* LAND */
-
-            // Get different sets of data
-            const data_consumption = data_land.consumption;
-            const data_intake = data_land.intake;
-
-            // Make a list of the countries that are in the 4 datasets
-            const lands_available = make_list_land(data_consumption, data_intake);
-            lands_available.push("World")
-
-            // update color domain
-            land_color_domain(color, lands_available);
-
-            // default display is Canada
-            var country = "Canada";
-            // get areas
-            const defaultArea = 100000;
-            var area_country = getAreaCountry(defaultArea, data_consumption, country);
-            // append (so first = true) and display the 2 charts
-            var svg_world = init_division_world(defaultArea, color, true);
-            var svg_country = init_division_country(area_country, color, true, country);
-            // transitions on mouseover and mouseout
-            d3.select("#land_charts")
-                .on("click", _ => {
-                    chart_division_world(svg_world, data_intake, defaultArea);
-                    chart_division_country(svg_country, data_intake, defaultArea, country, color);
-                })
-            // .on("mouseout", _ => {
-            //     init_division_world(defaultArea, color, false, svg_world);
-            //     init_division_country(area_country, color, false, country, svg_country);
-            // })
-
-            // Autocomplete for the search bar
-            new autoComplete({
-                selector: "#search-bar input",
-                minChars: 1,
-                source: function (term, suggest) {
-                    term = term.toLowerCase();
-                    var matches = [];
-                    lands_available.forEach(function (d) {
-                        if (~d.toLowerCase().indexOf(term)) {
-                            matches.push(d);
-                        }
-                    });
-                    suggest(matches);
-                },
-                renderItem: function (item, search) {
-                    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-                    return '<div class="autocomplete-suggestion" data-val="'
-                        + item + '">' + item.replace(re, "<b>$1</b>") + "</div>";
-                },
-                onSelect: function (e, term, item) {
-                    country = term;
-                    area_country = getAreaCountry(defaultArea, data_consumption, country);
-                    init_division_country(area_country, color, false, country, svg_country);
-                    init_division_world(defaultArea, color, false, svg_world);
-                    d3.select("#div_columns").classed('display', false)
-                }
-            });
         });
 
 
@@ -147,7 +70,7 @@
 
         /******* Setting *******/
         let pos = [];
-        let pages = ["food_choice", "food_co2", "global_warming", "chain_co2", "land"]
+        let pages = ["intro", "food_choice", "food_co2", "global_warming", "chain_co2", "land"]
         let currentIndex = 0;
         let direction = undefined;
         let flag = true;
@@ -238,20 +161,24 @@
             
             switch (currentIndex) {
                 case 0:
-                    food_choice_scroll(scrollPosition);
+                    intro(scrollPosition);
                     break;
                 case 1:
-                    food_co2_scroll(scrollPosition);
+                    food_choice_scroll(scrollPosition);
                     break;
                 case 2:
-                    global_warming_scroll(scrollPosition);
+                    food_co2_scroll(scrollPosition);
                     break;
                 case 3:
-                    chain_co2_scroll(scrollPosition);
+                    global_warming_scroll(scrollPosition);
                     break;
                 case 4:
+                    chain_co2_scroll(scrollPosition);
+                    break;
+                case 5:
                     land_scroll(scrollPosition);
-                break;
+                    break;
+                
             }
         }
 
@@ -265,12 +192,14 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 4) && flag) {    
+                if((total >= element.clientHeight) && (index < 5) && flag) {    
                     jumpNext(el.nextElementSibling);
+                    change_page_scroll(index + 1);
                 }
             } else {
                 if((el.scrollTop == 0) && (index != 0) && flag) {
                     jumpPrev(el.previousElementSibling);
+                    change_page_scroll(index - 1);
                 }
             }
         }
@@ -281,12 +210,14 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 4) && flag) {    
+                if((total >= element.clientHeight) && (index < 5) && flag) {    
                     jumpNext(el.nextElementSibling);
+                    change_page_scroll(index + 1);
                 }
             } else {
                 if((el.scrollTop == 0) && (index != 0) && flag) {
                     jumpPrev(el.previousElementSibling);
+                    change_page_scroll(index - 1);
                 }
             }
         }
@@ -309,6 +240,58 @@
                 flag = true;
             }, 700);
         }
+
+
+
+        function change_page_scroll(index) {
+            switch (index) {
+                case 0:
+                    document.body.classList.add("intro");
+                    document.body.classList.remove("food_choice");
+                    break;
+                case 1:
+                    document.body.classList.add("food_choice");
+                    document.body.classList.remove("intro");
+                    document.body.classList.remove("food_co2");
+                    break;
+                case 2:
+                    document.body.classList.add("food_co2");
+                    document.body.classList.remove("food_choice");
+                    document.body.classList.remove("global_warming");
+                    break;
+                case 3:
+                    document.body.classList.add("global_warming");
+                    document.body.classList.remove("food_co2");
+                    document.body.classList.remove("chain_co2");
+                    break;
+                case 4:
+                    document.body.classList.add("chain_co2");
+                    document.body.classList.remove("global_warming");
+                    document.body.classList.remove("land");
+                break;
+                case 5:
+                    document.body.classList.add("land");
+                    document.body.classList.remove("chain_co2");
+                break;
+            }
+        }
+
+
+
+
+
+
+
+        // document.body.onkeydown = function(e) {
+        //     var code = e.keyCode;
+        //     if(code === 40) { // key code for down arrow
+        //         let string  = `#${document.body.classList.value}`;
+        //         let element = document.querySelector(string);
+        //         console.log(element)
+        //         element.scrollTop = element.scollTop + 5;
+        //         onWheel(true, currentIndex, element);
+        //     }
+        // };
 
         /*************************** SCROLLING  *************************/
 
