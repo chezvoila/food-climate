@@ -18,13 +18,13 @@ function chainco2(data) {
 
     //Initialize the svg element
     let svg = d3.select("#chain_co2 .chart").append("svg")
-        .attr("viewBox", `0 0 ${sizeSettings.width} ${sizeSettings.height}`)
-
+        .attr("viewBox", `0 0 ${sizeSettings.width} ${document.documentElement.clientHeight}`)
+    console.log(sizeSettings.height - 20)
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {
         position: {
             x: sizeSettings.width / 2,
-            y: 0.95 * sizeSettings.height
+            y: document.documentElement.clientHeight - 20
         },
         radius: sizeSettings.width / 5,
         thickness: sizeSettings.width / 15
@@ -230,7 +230,7 @@ function chain_co2_scroll(position) {
           .classed("fadein", true);
     }
 
-    if(position > 100 && position < 3500){
+    if(position > 100 && position < 2500){
         d3.select("#chain_co2 #chain_co2_text1")
           .classed("sticky", true)
           .classed("fadein", true)
@@ -242,7 +242,7 @@ function chain_co2_scroll(position) {
           .classed("fadein", false);
     }
 
-    if(position > 3500){
+    if(position > 2500){
         d3.select("#chain_co2 #chain_co2_text2")
           .classed("sticky", true)
           .classed("fadein", true)
@@ -255,7 +255,7 @@ function chain_co2_scroll(position) {
     }
 
     //chart animations
-    if (position > 2200) {
+    if (position > 1000) {
         d3.select("#chain_co2 .chart")
           .classed("fadein", true)
           .classed("fadeout", false);
@@ -263,7 +263,7 @@ function chain_co2_scroll(position) {
         d3.select("#chain_co2 svg")
           .classed("sticky", true);
 
-          if(position > 3500){
+          if(position > 2500){
             d3.select(".highlightedBackground")
                 .transition()
                 .duration(1000)
@@ -276,7 +276,7 @@ function chain_co2_scroll(position) {
                 .duration(1000)
                 .ease(d3.easeLinear)
                 .style("opacity", 1);
-            if(position > 3900){
+            if(position > 2900){
                 d3.selectAll(".chainCo2_line")
                     .transition()
                     .duration(1000)
