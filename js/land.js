@@ -69,7 +69,7 @@ let color;
 let country;
 let svg_world, svg_country;
 
-const defaultArea = 100000;
+const defaultArea = 90000;
 let area_country;
 
 const margin_chart_land = 20;
