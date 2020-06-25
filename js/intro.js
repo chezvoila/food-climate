@@ -19,8 +19,6 @@ let p = introSection.querySelector("p + p");
 let h2 = introSection.querySelector("h2");
 let imgLast = introSection.querySelector("h2 + img");
 
-console.log(h2, imgLast);
-
 function intro_scroll(position) {
     if(position >= 900 && position < 3200) {
         h1.classList.add("fadeIn");

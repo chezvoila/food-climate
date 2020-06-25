@@ -83,20 +83,45 @@ async function foodco2(data, _) {
         })
         .append("rect")
         .classed("container", true)
-        .attr("width", "246")
-        .attr("height", "113")
+        .attr("width", "1")
+        .attr("height", (d) => {
+            let colSize = d.sum/ 12;
+            console.log(d.sum, colSize)
+            // switch(colSize) {
+
+            //     case (0):
+            //         return "40";
+            //         break;
+
+            //     case 1:
+            //         return "60";
+            //         break;
+            //     case 2:
+            //         return "80";
+            //         break;
+            //     case 3:
+            //         return "100";
+            //         break;
+
+            //     case 5:
+            //         return "113";
+            //         break;
+            // }
+
+            return "113";
+        })
         .attr("fill", "transparent")
-        .attr("x", 0)
+        .attr("x", -10)
         .attr("y", 10)
-        .attr("stroke", _.colors.icon_hover)
+        .attr("stroke",_.colors.light2)
         .attr("stroke-width", "1px")
-        .attr("stroke-dasharray", "90");
+        .attr("stroke-dasharray", "0");
         // .style("outline", "1px solid black");
 
 
         d3.select(el).append("text")
         .text(className)
-        .attr("fill", _.colors.icon_hover)
+        .attr("fill", _.colors.light2)
         .attr("x", 0)
         .attr("y", 0)
     });
@@ -119,12 +144,16 @@ async function foodco2(data, _) {
             return rowIndex * (sqrSize + gap) + 10 + 10;
         })
         .attr("rx", 2.2)
-        .attr("fill", _.colors.icon_hover);
+        .attr("fill", _.colors.light2)
+        .attr("opacity", 0);
 
         d3.select(el)
         .append("text")
-        .text(data.filter(d => d.food.replace(/ +/g, "") == className).map(d => d.food))
-        .attr("fill", _.colors.icon_hover)
+        .text(() => {
+            return data.filter(d => d.food.replace(/ +/g, "") == className).map(d => d.food)
+            + " ( " + data.filter(d => d.food.replace(/ +/g, "") == className).map(d => d.sum.toFixed(2)) + " kg )"
+        })
+        .attr("fill", _.colors.light2)
         .attr("x", 0)
         .attr("y", 0)
     });
@@ -165,4 +194,11 @@ async function foodco2(data, _) {
 /********************* SCROLL ****************/
 
 function food_co2_scroll(position) {
+    if(position > 0) {
+        d3.selectAll("#food_co2 rect:not(:first-child)")
+        .transition()
+        .duration(100)
+        .delay((d, i) => i * 15)
+        .attr("opacity", 1);
+    }
 }
