@@ -92,7 +92,7 @@ html {
 }
 
 body {
-        /* transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+        transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         background-color: var(--color-main);
         overflow: hidden;
         height: 100%;
@@ -100,7 +100,8 @@ body {
 }
 
 body.intro {
-        /* background-color: var(--color-light1); */
+        /* background-color: var(--color-main); */
+        background-color: #d8552e;
 }
 
 body.food_choice {
@@ -206,8 +207,8 @@ p, textpath, .d3-tip {
 
 .page > section {
         padding: 100px 100px;
-        min-height: 200%;
-        min-height: 200vh;
+        /* min-height: 200%;
+        min-height: 200vh; */
         max-width: 100%;
         max-width: 100vw;
 

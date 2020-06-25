@@ -42,7 +42,8 @@ async function foodco2(data, _) {
 
     let g = d3.select("#food_co2")
     .append("svg")
-    // .attr("viewBox", "0 0 1142 700")
+    .attr("width", 1107)
+    .attr("viewBox", "0 0 1107 3500")
     .append("g")
     .attr("transform", "translate(0, 40)")
     .selectAll("g")
