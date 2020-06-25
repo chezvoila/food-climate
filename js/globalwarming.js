@@ -8,7 +8,6 @@ let text_GW_1 = "As shown in the previous section, each type of food releases a 
                  <br/><br/>Data on the average temperature at the earth surface and the amount of CO2 emissions\
                  released were collected each year from 1961 to 2015.\
                  <br/><br/>Each dot represents a single year.",
-                //"Data for different years of how much CO2 emissions were made and what was the average temperature at the surface of the world",
     text_GW_2 = "The interest here is to view the relation between the temperature and the amount of CO2 released.\
                  For this reason, the dots are grouped into zones of equal size to ease the view of the trend.",
     text_GW_3 = "Each zone is now colored based on the density of dots in each zone. The more points there is in\
@@ -41,10 +40,10 @@ function globalwarming(data_emissions, data_temperatures) {
     // create and display the chart
     chart_GW(svg_GW, x_GW, y_GW, data_GW);
 
-    d3.select("#global_warming").append('p').html(text_GW_1)
-    d3.select("#global_warming").append('p').html(text_GW_2)
-    d3.select("#global_warming").append('p').html(text_GW_3)
-    d3.select("#global_warming").append('p').html(text_GW_4)
+    d3.select("#global_warming .container").append('p').html(text_GW_1)
+    d3.select("#global_warming .container").append('p').html(text_GW_2)
+    d3.select("#global_warming .container").append('p').html(text_GW_3)
+    d3.select("#global_warming .container").append('p').html(text_GW_4)
 }
 
 
@@ -106,11 +105,10 @@ var margin_GW = { top: 0, right: 50, bottom: 30, left: 50 },
 function create_GW() {
 
     // append the svg object to the body of the page
-    var svg = d3.select("#global_warming")
+    var svg = d3.select("#global_warming .container")
         .append("svg")
         .classed("sticky", true)
-        .attr("width", width_GW + margin_GW.left + margin_GW.right)
-        .attr("height", height_GW + margin_GW.top + margin_GW.bottom + text_height_GW)
+        .attr("viewBox", `0 0 ${width_GW + margin_GW.left + margin_GW.right} ${height_GW + margin_GW.top + margin_GW.bottom + text_height_GW +30}`)
         .append("g")
         .attr("transform",
             "translate(" + margin_GW.left + "," + margin_GW.top + ")");

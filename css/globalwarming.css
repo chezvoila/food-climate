@@ -9,13 +9,17 @@
     margin-bottom: 50vh;
 }
 
-#global_warming>svg {
-    margin-left: 5%;
-    float: left;
-    height: 70vh;
+#global_warming .container{
+    width: 90%;
+    margin: auto;
 }
 
-#global_warming>svg.sticky {
+#global_warming svg {
+    float: left;
+    width:50%;
+}
+
+#global_warming svg.sticky {
     position: sticky;
     top: 100px;
 }
