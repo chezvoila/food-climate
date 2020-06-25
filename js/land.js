@@ -26,22 +26,22 @@ const others = ["Offals, Edible", "Butter, Ghee", "Cream", "Fats, Animals, Raw",
 
 const cat1 = {
     name: "Primary",
-    img: "carrot.svg",
+    img: "carrot",
     columns: ["fruits", "vegetables", "cereals", "oilcrops"]
 }
 const cat2 = {
     name: "Animals",
-    img: "cow.svg",
+    img: "cow",
     columns: ["meat", "fish"]
 }
 const cat3 = {
     name: "Extracted",
-    img: "olive-oil.svg",
+    img: "olive-oil",
     columns: ["oils", "sweeteners"]
 }
 const cat4 = {
     name: "Other",
-    img: "ginger.svg",
+    img: "ginger",
     columns: ["roots", "pulses", "spices", "others"]
 }
 // missing : beverages, because more drink than food
@@ -69,7 +69,7 @@ let color;
 let country;
 let svg_world, svg_country;
 
-const defaultArea = 100000;
+const defaultArea = 90000;
 let area_country;
 
 const margin_chart_land = 20;
@@ -127,8 +127,9 @@ function land(if_everyone, intake) {
             reset();
         }
     });
-
 }
+
+
 /**
  * Create JS objects containing the data needed for the viz
  *
@@ -309,9 +310,13 @@ function init_division_world(init_area, color, first, svg) {
             }
             return `translate(${left},${top})`;
         })
-        .attr('fill', color("World"));
+        // .attr('fill', color("World"));
+        .attr('fill', 'var(--color-light2)');
 
     svg.selectAll('text')
+        .remove()
+
+    svg.selectAll('image')
         .remove()
 
     return svg;
@@ -375,11 +380,11 @@ function init_division_country(init_area, color, first, country, svg) {
             return `translate(${left},${top})`;
         })
         // .attr('fill', color(country));
-        .attr('fill', 'var(--color-light2)');
+        .attr('fill', 'var(--color-dark3)');
 
     svg.selectAll('text')
         .remove()
-    
+
     svg.selectAll('image')
         .remove()
 
@@ -471,39 +476,92 @@ function chart_division_world(svg, data_intake, init_area) {
             return `translate(${left},${top})`;
         });
 
-    // add titles
-    svg.selectAll('text')
-        .data(cats)
+
+    // add icons
+    var icon_sizes = [];
+    svg.selectAll('svg.icon')
+        .data(categories)
+        .enter()
+        .append('svg:image')
+        .classed('icon', true)
+        .classed('anchor_middle', true)
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .attr('transform', (d, i) => {
+            var left,
+                top,
+                area = init_area * d.value;
+            var size = Math.sqrt(area);
+            var icon_size = size / 3 + 10;
+            switch (i) {
+                case 0:
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
+                    break;
+                case 1:
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
+                    break;
+                case 2:
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = size / 2 + margin_chart_land - icon_size / 2;
+                    break;
+                case 3:
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = size / 2 + margin_chart_land - icon_size / 2;
+                    break;
+            }
+            icon_sizes.push(icon_size)
+            return `translate(${left},${top})`;
+        })
+        .attr('width', (d, i) => icon_sizes[i])
+        .attr('height', (d, i) => icon_sizes[i])
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_dark.svg')
+        .attr('opacity', 0)
+        .transition()
+        .duration(400)
+        .delay(300)
+        .attr('opacity', 1)
+
+    svg.selectAll('text.perc')
+        .data(categories)
         .enter()
         .append('text')
         .attr('x', '50%')
         .attr('y', '50%')
-        .classed('anchor_left', (d, i) => i == 0 || i == 3)
+        .classed('perc', true)
         .attr('transform', (d, i) => {
             var left, top;
+            var size = Math.sqrt(init_area * d.value);
             switch (i) {
                 case 0:
-                    left = - 2 * margin_chart_land;
-                    top = - 2 * margin_chart_land;
+                    left = - size - margin_chart_land / 2;
+                    top = - size;
                     break;
                 case 1:
-                    left = 2 * margin_chart_land;
-                    top = - 2 * margin_chart_land;
+                    left = 1.5 * margin_chart_land;
+                    top = - size;
                     break;
                 case 2:
-                    left = 2 * margin_chart_land;
-                    top = 3 * margin_chart_land;
+                    left = 1.5 * margin_chart_land;
+                    top = 2 * margin_chart_land;
                     break;
                 case 3:
-                    left = - 2 * margin_chart_land;
-                    top = 3 * margin_chart_land;
+                    left = - size - margin_chart_land / 2;
+                    top = 2 * margin_chart_land;
                     break;
             }
             return `translate(${left},${top})`;
         })
-        .style("font-size", (d, i) => 10 + categories[i].value * 40)
-        .text(d => d.name);
-}
+        .style("font-size", d => 8 + d.value * 20)
+        .text(d => Math.round(d.value * 100) + '%')
+        .attr('opacity', 0)
+        .transition()
+        .duration(400)
+        .delay(300)
+        .attr('opacity', 1);
+
+  }
 
 
 /**
@@ -577,12 +635,11 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
             }
             return `translate(${left},${top})`;
         })
-        // .attr('fill', color(country));
-        // .attr('fill', 'var(--color-light2)');
+    // .attr('fill', color(country));
 
     // add icons
     var icon_sizes = [];
-    svg.selectAll('text.icon')
+    svg.selectAll('svg.icon')
         .data(categories)
         .enter()
         .append('svg:image')
@@ -596,7 +653,6 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
                 area = init_area * d.value;
             var size = Math.sqrt(area);
             var icon_size = size / 3 + 10;
-            // var vert_align = d.value * 20;
             switch (i) {
                 case 0:
                     left = - (size / 2 + margin_chart_land + icon_size / 2);
@@ -618,12 +674,53 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
             icon_sizes.push(icon_size)
             return `translate(${left},${top})`;
         })
-        // .style("font-size", d => 20 + d.value * 80)
-        // .text(d => (d.value * 100).toFixed(2))
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img)
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_light.svg')
+        .attr('opacity', 0)
+        .transition()
+        .duration(400)
+        .delay(300)
+        .attr('opacity', 1)
 
+    // add percentages
+    svg.selectAll('text.perc')
+        .data(categories)
+        .enter()
+        .append('text')
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .classed('perc', true)
+        .attr('transform', (d, i) => {
+            var left, top;
+            var size = Math.sqrt(init_area * d.value);
+            switch (i) {
+                case 0:
+                    left = - size - margin_chart_land / 2;
+                    top = - size;
+                    break;
+                case 1:
+                    left = 1.5 * margin_chart_land;
+                    top = - size;
+                    break;
+                case 2:
+                    left = 1.5 * margin_chart_land;
+                    top = 2 * margin_chart_land;
+                    break;
+                case 3:
+                    left = - size - margin_chart_land / 2;
+                    top = 2 * margin_chart_land;
+                    break;
+            }
+            return `translate(${left},${top})`;
+        })
+        .style("font-size", d => 8 + d.value * 20)
+        .text(d => Math.round(d.value * 100) + '%')
+        .attr('opacity', 0)
+        .transition()
+        .duration(400)
+        .delay(300)
+        .attr('opacity', 1);
 
     // add titles
     // svg.selectAll('text.titles')

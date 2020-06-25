@@ -374,7 +374,7 @@
         line-height: 2;
 }
 
-button {
+#food_choice button {
         display: block;
         margin: auto;
         width: 15%;

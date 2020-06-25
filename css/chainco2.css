@@ -38,7 +38,7 @@
 
 #chain_co2 h1.sticky{
     position: sticky;
-    top: 100px;
+    top: 50px;
 }
 
 #chain_co2 .informations.sticky{
@@ -77,6 +77,10 @@
 @media only screen and (max-width: 768px) {
     #chain_co2 .informations {
       width: 90%;
+    }
+
+    .donutLabel{
+        font-size: 12px;
     }
 }
 

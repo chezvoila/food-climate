@@ -8,7 +8,6 @@ let text_GW_1 = "As shown in the previous section, each type of food releases a 
                  <br/><br/>Data on the average temperature at the earth surface and the amount of CO2 emissions\
                  released were collected each year from 1961 to 2015.\
                  <br/><br/>Each dot represents a single year.",
-                //"Data for different years of how much CO2 emissions were made and what was the average temperature at the surface of the world",
     text_GW_2 = "The interest here is to view the relation between the temperature and the amount of CO2 released.\
                  For this reason, the dots are grouped into zones of equal size to ease the view of the trend.",
     text_GW_3 = "Each zone is now colored based on the density of dots in each zone. The more points there is in\
@@ -41,10 +40,10 @@ function globalwarming(data_emissions, data_temperatures) {
     // create and display the chart
     chart_GW(svg_GW, x_GW, y_GW, data_GW);
 
-    d3.select("#global_warming").append('p').html(text_GW_1)
-    d3.select("#global_warming").append('p').html(text_GW_2)
-    d3.select("#global_warming").append('p').html(text_GW_3)
-    d3.select("#global_warming").append('p').html(text_GW_4)
+    d3.select("#global_warming .container").append('p').html(text_GW_1)
+    d3.select("#global_warming .container").append('p').html(text_GW_2)
+    d3.select("#global_warming .container").append('p').html(text_GW_3)
+    d3.select("#global_warming .container").append('p').html(text_GW_4)
 }
 
 
@@ -106,11 +105,10 @@ var margin_GW = { top: 0, right: 50, bottom: 30, left: 50 },
 function create_GW() {
 
     // append the svg object to the body of the page
-    var svg = d3.select("#global_warming")
+    var svg = d3.select("#global_warming .container")
         .append("svg")
         .classed("sticky", true)
-        .attr("width", width_GW + margin_GW.left + margin_GW.right)
-        .attr("height", height_GW + margin_GW.top + margin_GW.bottom + text_height_GW)
+        .attr("viewBox", `0 0 ${width_GW + margin_GW.left + margin_GW.right} ${height_GW + margin_GW.top + margin_GW.bottom + text_height_GW +30}`)
         .append("g")
         .attr("transform",
             "translate(" + margin_GW.left + "," + margin_GW.top + ")");
@@ -125,45 +123,56 @@ function create_GW() {
     };
 }
 
-function chart_GW(svg, x, y, data) {
+function chart_GW(svg, x, y, data, first = true) {
     // console.log(data.length)
-    svg.append("g")
-        .attr("transform", "translate(0," + height_GW + ")")
-        .attr('stroke', 'var(--color-dark2)')
-        .call(d3.axisBottom(x).ticks(5));
-    // text label for the x axis
-    svg.append("text")
-        .attr("transform",
-            "translate(" + (width_GW / 2) + " ," +
-            (height_GW + margin_GW.top + 60) + ")")
-        .style("text-anchor", "middle")
-        .text("Emissions (GIGATONS)");
 
-    svg.append("g")
-        .attr('stroke', 'var(--color-dark2)')
-        .call(d3.axisLeft(y).ticks(3));
-    // text label for the y axis
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin_GW.left - 5)
-        .attr("x", 0 - (height_GW / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("TEMPERATURE (°C)");
+    if (first) {
+        svg.append("g")
+            .attr("transform", "translate(0," + height_GW + ")")
+            .attr('stroke', 'var(--color-dark2)')
+            .call(d3.axisBottom(x).ticks(5));
+        // text label for the x axis
+        svg.append("text")
+            .attr("transform",
+                "translate(" + (width_GW / 2) + " ," +
+                (height_GW + margin_GW.top + 60) + ")")
+            .style("text-anchor", "middle")
+            .text("Emissions (GIGATONS)");
 
-    svg.append('g')
-        .selectAll("dot")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) { return x(d.emission); })
-        .attr("cy", function (d) { return y(d.temperature); })
-        .attr("r", 3)
-        .style("fill", "var(--color-dark2")
+        svg.append("g")
+            .attr('stroke', 'var(--color-dark2)')
+            .call(d3.axisLeft(y).ticks(3));
+        // text label for the y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin_GW.left - 5)
+            .attr("x", 0 - (height_GW / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("TEMPERATURE (°C)");
+
+        svg.append('g')
+            .selectAll("dot")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { return x(d.emission); })
+            .attr("cy", function (d) { return y(d.temperature); })
+            .attr("r", 3)
+            .style("fill", "var(--color-dark2")
+    }
+    else {
+        svg.select("#hexa_g")
+            .selectAll("path")
+            .transition()
+            .duration(100)
+            .delay((d, i) => i * 25)
+            .attr('opacity', 0)
+    }
 
 }
 
-function hexa_black(svg, data, x, y) {
+function hexa_black(svg, data, x, y, back, first = false) {
 
     // from https://www.d3-graph-gallery.com/graph/density2d_hexbin.html
     var inputForHexbinFun = []
@@ -173,38 +182,63 @@ function hexa_black(svg, data, x, y) {
 
     var hexbin = d3.hexbin()
         .radius(30) // size of the bin in px
-        .extent([[0, 0], [width_GW, height_GW]])
+        .extent([[0, 0], [width_GW, height_GW]]);
 
-    // Plot the hexbins
-    svg.append("clipPath")
-        .attr("id", "clip")
-        .append("rect")
-        .attr("width", width_GW)
-        .attr("height", height_GW)
+    if (first) {
+        // Plot the hexbins
+        svg.append("clipPath")
+            .attr("id", "clip")
+            .append("rect")
+            .attr("width", width_GW)
+            .attr("height", height_GW)
 
-    svg.append("g")
-        .attr('id', 'hexa_g')
-        .attr("clip-path", "url(#clip)")
+        svg.append("g")
+            .attr('id', 'hexa_g')
+            .attr("clip-path", "url(#clip)")
+            .selectAll("path")
+            .data(hexbin(inputForHexbinFun))
+            .enter()
+            .append("path")
+            .attr("d", hexbin.hexagon())
+            .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
+            .attr("fill", "transparent")
+            .attr("stroke", "var(--color-dark3)")
+            .attr("stroke-width", "1")
+            .attr("opacity", 0)
+            .transition()
+            .duration(200)
+            .delay((d, i) => i * 25)
+            .attr("opacity", 1)
+        return
+    }
+
+
+    if (back) {
+        svg.selectAll('circle')
+            .transition()
+            .duration(50)
+            .delay((d, i) => i * 20)
+            .attr('opacity', 1)
+    }
+    svg.select("#hexa_g")
         .selectAll("path")
-        .data(hexbin(inputForHexbinFun))
-        .enter()
-        .append("path")
-        .attr("d", hexbin.hexagon())
-        .attr("transform", d => "translate(" + d.x + "," + d.y + ")")
-        .attr("fill", "transparent")
-        .attr("stroke", "var(--color-dark3)")
-        .attr("stroke-width", "1")
-        .attr("opacity", 0)
         .transition()
         .duration(200)
         .delay((d, i) => i * 25)
-        .attr("opacity", 1)
+        .attr("fill", "transparent")
+        .attr("stroke", "var(--color-dark3)")
+        .attr("stroke-width", 1)
+        .attr('opacity', 1)
 
 }
 
 function hexa(svg, data, x, y) {
 
-    svg.selectAll('circle').remove()
+    svg.selectAll('circle')
+        .transition()
+        .duration(50)
+        .delay((d, i) => i * 10)
+        .attr('opacity', 0)
 
     // from https://www.d3-graph-gallery.com/graph/density2d_hexbin.html
     var inputForHexbinFun = []
@@ -228,23 +262,33 @@ function hexa(svg, data, x, y) {
         .delay((d, i) => i * 25)
         .attr("fill", d => color(d.length))
         .attr("stroke", "var(--color-light2)")
-        .attr("stroke-width", "3")
+        .attr("stroke-width", 3)
 
 }
 
 
 /********************* SCROLL ****************/
 
-var transition_GW = false;
-var transition2_GW = false;
+var transition_GW = false, transition2_GW = false;
+var first = true;
 function global_warming_scroll(position) {
-    // console.log(position);
-    if (position > 1000 && !transition_GW) {
-        hexa_black(svg_GW, data_GW, x_GW, y_GW)
-        transition_GW = true
+     console.log(position);
+    if (position > 1600 && !transition_GW) {
+        hexa_black(svg_GW, data_GW, x_GW, y_GW, transition_GW, first)
+        transition_GW = true;
+        first = false;
     }
-    if (position > 1400 && !transition2_GW) {
+    if (position > 2100 && !transition2_GW) {
         hexa(svg_GW, data_GW, x_GW, y_GW)
         transition2_GW = true
     }
+    if (position < 2100 && transition2_GW) {
+        hexa_black(svg_GW, data_GW, x_GW, y_GW, transition2_GW)
+        transition2_GW = false;
+    }
+
+    if (position < 1600 && transition_GW) {
+        chart_GW(svg_GW, x_GW, y_GW, data_GW, false);
+        transition_GW = false;
+    }  
 }

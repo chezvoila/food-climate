@@ -1,34 +1,53 @@
 #global_warming {
     background-color: var( --color-light2);
-    padding: 25vh 0;
+    padding: 25vh 0 0;
 }
 
 #global_warming h1 {
     text-align: center;
     margin-top: 20vh;
-    margin-bottom: 50vh;
 }
 
-#global_warming>svg {
-    margin-left: 5%;
+#global_warming .container{
+    width: 90%;
+    margin: auto;
+    padding: 45vh 0 10vh 0;
+}
+
+#global_warming svg {
     float: left;
-    height: 70vh;
+    width:50%;
 }
 
-#global_warming>svg.sticky {
+#global_warming svg.sticky {
     position: sticky;
     top: 100px;
 }
 
 #global_warming p {
-    width: 40%;
+    width: 50%;
     font-size: 20px;
     margin: 45vh 20px;
     margin-left: 50%;
+    text-align: justify;
+}
+
+#global_warming p:first-of-type{
+    margin-top:45vh;
 }
 
 .light2background {
     background-color: var( --color-light2);
+}
+
+#global_warming .fadeout{
+    transition: 0.1s all ease-in;
+    opacity: 0;
+}
+
+#global_warming .fadein{
+    transition: 0.1s all ease-in;
+    opacity: 100;
 }
 
 /* MOBILE */
@@ -41,15 +60,18 @@
     #global_warming {
         min-height: calc(150vh);
     }
-    #global_warming>svg {
-        height: 35vh;
+    #global_warming svg {
+        float: none;
+        width: 100%;
+        height: 50vh;
+        background-color: var(--color-light2);
+        padding-top: 50px;
     }
-    #global_warming>svg.sticky {
-        top: 40%;
+    #global_warming svg.sticky {
+        top: 0px;
     }
     #global_warming p {
-        width: 30%;
-        margin: 15vh 20px;
-        margin-left: 70%;
+        width: 90%;
+        margin: 0 auto 45vh;
     }
 }
