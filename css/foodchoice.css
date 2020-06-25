@@ -2,13 +2,17 @@
         color: var(--color-light3);
         /* padding: 200px 0 50px 0; */
         /* height: 100vh; */
+        height: 100%;
+        height: 100vh;
+        overflow: hidden;
+        padding: 4% 100px 0 100px;
 }
 
 #food_choice h1 {
         font-size: 2em;
         font-weight: 100;
         text-align: center;
-        margin-bottom: 200px;
+        margin-bottom: 5%;
         line-height: 1.3;
 }
 
@@ -370,7 +374,80 @@
         line-height: 2;
 }
 
-button {
+#food_choice button {
         display: block;
         margin: auto;
+        width: 15%;
+        height: 50px;
+        margin-top: 10px;
+        outline: none;
+        border: none;
+        background-color: var(--color-icon-bg);
+        color: var(--color-light2);
+        font-size: 2.5em;
+        font-variant: all-small-caps;
+        font-family: 'Titillium Web', sans-serif;
+        line-height: 0;
+        font-weight: 700;
+        padding-bottom: 7px;
+        cursor: pointer;
+}
+
+button:hover, button:active {
+        background-color: var(--color-icon-hover);
+        color: #fff;
+}
+
+
+@media only screen and (max-height: 950px) {
+
+        #food_choice nav {
+                width: auto;
+                max-width: 700px;
+        }
+
+        #food_choice nav a { 
+                /* height: 100px; */
+                flex: 0 3 32% !important;
+        }
+
+        #food_choice nav a.vegetable {
+                margin: 0 0 3px 6px;
+        }
+
+        #food_choice nav a.animal {
+                margin: 3px 3px 0 0;
+        }
+
+        #food_choice nav a.other {
+                margin: 3px 0 0 6px;
+        }
+
+        #food_choice a figure {
+                margin-top: 16%;
+        }
+
+        #food_choice a.oil figure {
+                margin-top: 23%;
+        }
+
+        #food_choice a.meat figure {
+                margin-top: 12%;
+        }
+
+        #food_choice a.other figure {
+                margin-top: 15%;
+        }
+
+        #food_choice a.other .del {
+                display: none;
+        }
+
+        #food_choice a.other .mov {
+                transform: translate(300px);
+        }
+
+        #food_choice a.other svg {
+                transform: translateX(-50px) scale(1.2);
+        }
 }
