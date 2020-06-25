@@ -9,8 +9,13 @@
     width: 100%;
 }
 
-#land g.icon svg {
-    width: unset;
+#land #leftDivision .perc {
+    fill: var(--color-light2);
+}
+
+
+#land #rightDivision .perc {
+    fill: var(--color-dark2);
 }
 
 #land .sticky {
