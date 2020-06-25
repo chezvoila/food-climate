@@ -272,23 +272,60 @@ function hexa(svg, data, x, y) {
 var transition_GW = false, transition2_GW = false;
 var first = true;
 function global_warming_scroll(position) {
-    // console.log(position);
-    if (position > 1000 && !transition_GW) {
+     console.log(position);
+    if (position > 1600 && !transition_GW) {
         hexa_black(svg_GW, data_GW, x_GW, y_GW, transition_GW, first)
         transition_GW = true;
         first = false;
     }
-    if (position > 1400 && !transition2_GW) {
+    if (position > 2100 && !transition2_GW) {
         hexa(svg_GW, data_GW, x_GW, y_GW)
         transition2_GW = true
     }
-    if (position < 1400 && transition2_GW) {
+    if (position < 2100 && transition2_GW) {
         hexa_black(svg_GW, data_GW, x_GW, y_GW, transition2_GW)
         transition2_GW = false;
     }
 
-    if (position < 1000 && transition_GW) {
+    if (position < 1600 && transition_GW) {
         chart_GW(svg_GW, x_GW, y_GW, data_GW, false);
         transition_GW = false;
     }
+
+    const fadePositions = {
+        'small': [1400, 2250, 2800, 3300],
+        'medium': [1400, 2200, 2700, 3200],
+        'large': [1400, 2050, 2550, 3050],
+        'xlarge': [1350, 2050, 2550, 3020],
+    }
+
+    const screenWidth = document.clientWidth = screen.width;
+    console.log(screenWidth)
+    let fadePosition = fadePositions.xlarge;
+    if(screenWidth <= 500){
+        fadePosition = fadePositions.small;
+    }
+    else if(screenWidth <= 768){
+        fadePosition = fadePositions.medium;
+    }
+    else if(screenWidth <= 1000){
+        fadePosition = fadePositions.large;
+    }
+
+    fadeAnimation(position, fadePosition, 0);
+    fadeAnimation(position, fadePosition, 1);
+    fadeAnimation(position, fadePosition, 2);
+    fadeAnimation(position, fadePosition, 3);
+      
+}
+
+function fadeAnimation(position, fadePosition, index){
+    let fadeout = false;
+    if(position > fadePosition[index])
+        fadeout = true;
+
+    d3.selectAll("#global_warming p")
+        .filter((_,i) => i==index)
+        .classed("fadeout", fadeout)
+        .classed("fadein", !fadeout)
 }
