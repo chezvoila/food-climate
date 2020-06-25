@@ -42,6 +42,7 @@
         /***** functions *****/
         .then(function (data) {
             d3.select('#loader').classed('loaded',true)
+            d3.select('#frame').classed('loaded',true)
             foodchoice(_);
             foodco2(data[0], _);
             const data_GW = globalwarming(data[1], data[2]);
@@ -161,7 +162,7 @@
             
             switch (currentIndex) {
                 case 0:
-                    intro(scrollPosition);
+                    intro_scroll(scrollPosition);
                     break;
                 case 1:
                     food_choice_scroll(scrollPosition);

@@ -115,11 +115,16 @@ body {
 }
 
 #frame {
+        opacity: 0;
         width: 100%;
         height: 100%;
         height: 100vh;
         transform: translate3d(0, 0, 0);
         transition: all 0.7s ease-in-out;
+}
+
+#frame.loaded {
+        opacity: 1;
 }
 
 .page > section {
