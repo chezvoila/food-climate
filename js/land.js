@@ -121,6 +121,12 @@ function land(if_everyone, intake) {
         },
         onSelect: function (e, term, item) {
             country = term;
+            d3.select("#countryTitle").html(country);
+            // window.scroll(0, -200);
+            // window.location.hash = '#none'
+            // window.location.hash = '#compare_text'
+            // document.getElementById('compare_text').scrollIntoView();
+            transition_completed = false; // to divide on scroll
             area_country = getAreaCountry(defaultArea, data_consumption, country);
             init_division_country(area_country, color, false, country, svg_country);
             init_division_world(defaultArea, color, false, svg_world);
@@ -782,13 +788,13 @@ function display_details(array) {
     let details = d3.select("#details").html('');
 
     details.append("p")
-           .html("Detailed composition of the category :<br/>")
-           .selectAll("span")
-           .data(array)
-           .enter()
-           .append("span")
-           .classed("detailedItem", true)
-           .text(d => d)
+        .html("Detailed composition of the category :<br/>")
+        .selectAll("span")
+        .data(array)
+        .enter()
+        .append("span")
+        .classed("detailedItem", true)
+        .text(d => d)
 }
 
 // empties the details div and undisplays the text that is between the charts
@@ -801,15 +807,17 @@ function reset() {
 /********************* SCROLL ****************/
 
 var transition_completed = false;
-var scroll_trigger = 550;
+var scroll_trigger = 2100;
 function land_scroll(position) {
     if (position < scroll_trigger && transition_completed) {
+        d3.select("#land h1").classed('sticky', true)
         init_division_world(defaultArea, color, false, svg_world);
         init_division_country(area_country, color, false, country, svg_country);
         reset();
         transition_completed = false;
     }
     if (position > scroll_trigger && !transition_completed) {
+        d3.select("#land h1").classed('sticky', false)
         d3.select("#details").html(text_animation);
         chart_division_world(svg_world, data_intake, defaultArea);
         chart_division_country(svg_country, data_intake, defaultArea, country, color);

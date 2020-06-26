@@ -222,7 +222,7 @@ function drawSeparatingLine(svg, settings, data) {
 
 /********************* SCROLL ****************/
 function chain_co2_scroll(position) {
-    console.log(position)
+    // console.log(position)
     const clientHeight = document.documentElement.clientHeight;
     let scrollingPosition = {
         'small': {

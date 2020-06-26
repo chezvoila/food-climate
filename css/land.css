@@ -5,13 +5,20 @@
     background-color: var(--color-dark2);
 }
 
-#land h1{
+#land h1 {
     text-align: center;
-    position: sticky;
-    top: 0;
     width: 100%;
     background: var(--color-dark2);
     padding: 50px 0;
+}
+
+#land h1.sticky {
+    top: -1px;
+    z-index: 10;
+}
+
+#land #compare_text {
+    /* padding-top: 200px; */
 }
 
 #land svg {
@@ -28,11 +35,6 @@
 
 #land #rightDivision .perc {
     fill: var(--color-dark2);
-}
-
-#land .sticky {
-    position: sticky;
-    top: 50px;
 }
 
 #land #text_land {
@@ -77,7 +79,7 @@
     line-height: 1.3rem;
 }
 
-#land #compare_text p{
+#land #compare_text p {
     margin: 20px auto 0;
     width: 80%;
     text-align: center;
@@ -117,12 +119,14 @@
 
 #land #details {
     width: 70%;
-    margin: auto;
+    margin: 50px auto;
+    font-size: 1.1rem;
 }
 
 #land #details p {
+    font-size: 0.8rem;
     text-align: left;
-    line-height: 1.9em;
+    line-height: 1.6em;
 }
 
 /* Search bar */
@@ -149,11 +153,6 @@
 
 #land .search button:hover #search_icon {
     fill: var(--color-dark1);
-}
-
-#land p#details {
-    font-size: 1.1rem;
-    text-align: justify;
 }
 
 /* search icon */
@@ -286,7 +285,7 @@
     background: #f0f0f0;
 }
 
-.detailedItem{
+.detailedItem {
     background: var(--color-dark1);
     padding: 5px;
     margin: 5px;
@@ -299,7 +298,7 @@
     #land .sticky {
         top: 35%;
     }
-    #land{
+    #land {
         height: 135vh;
         padding: 50px 10px;
     }
