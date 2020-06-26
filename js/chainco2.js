@@ -227,18 +227,18 @@ function chain_co2_scroll(position) {
     let scrollingPosition = {
         'small': {
             title: 0,
-            text1: 100,
+            text1: 800,
             text2: 1000,
             text2_out: 1900,
-            chart1: 1900,
+            chart1: 800,
             chart2: 2800,
         },
         'regular' : {
             title: 0,
-            text1: 100,
+            text1: 800,
             text2: 2500,
             text2_out: Infinity,
-            chart1: 1000,
+            chart1: 800,
             chart2: 2500,
         }
     }
