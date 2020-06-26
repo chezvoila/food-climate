@@ -137,16 +137,18 @@ function chart_GW(svg, x, y, data, first = true) {
                 "translate(" + (width_GW / 2) + " ," +
                 (height_GW + margin_GW.top + 60) + ")")
             .style("text-anchor", "middle")
-            .text("Emissions (GIGATONS)");
+            .text("EMISSIONS (GIGATONS)");
 
         svg.append("g")
             .attr('stroke', 'var(--color-dark2)')
             .call(d3.axisLeft(y).ticks(3));
         // text label for the y axis
         svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin_GW.left - 5)
-            .attr("x", 0 - (height_GW / 2))
+            // .attr("transform", "rotate(-90)")
+            // .attr("y", 0 - margin_GW.left - 5)
+            // .attr("x", 0 - (height_GW / 2))
+            .attr("y", 5)
+            .attr("x", 80)
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("TEMPERATURE (°C)");
