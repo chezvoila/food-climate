@@ -1,7 +1,7 @@
 #land {
     color: white;
     text-align: justify;
-    padding: 50px;
+    padding: 50px 50px 300px;
     background-color: var(--color-dark2);
 }
 
