@@ -109,8 +109,8 @@ body.food_choice {
 }
 
 body.food_co2 {
-        background-color: var(--color-icon-bg);
-        background-color: #50121c;
+        /* background-color: var(--color-icon-bg);
+        background-color: #50121c; */
 }
 
 body.global_warming {
@@ -228,3 +228,8 @@ p, textpath, .d3-tip {
 }
 
 /*------------ SCROLLING -------*/
+
+
+.page.transition {
+        background-color: #50121c;
+}

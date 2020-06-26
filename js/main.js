@@ -71,7 +71,7 @@
 
         /******* Setting *******/
         let pos = [];
-        let pages = ["intro", "food_choice", "food_co2", "global_warming", "chain_co2", "land"]
+        let pages = ["intro", "food_choice", "food_choice_transition", "food_co2", "global_warming", "chain_co2", "land"]
         let currentIndex = 0;
         let direction = undefined;
         let flag = true;
@@ -87,11 +87,11 @@
 
 
         /******* Init *******/
-        setTimeout(function() {
-            pages.forEach(el => {
-                sectionCalculate(el);
-            });
-        }, 1000);
+        // setTimeout(function() {
+        //     pages.forEach(el => {
+        //         sectionCalculate(el);
+        //     });
+        // }, 1000);
 
         page.forEach(el => {
             el.addEventListener("wheel", isScrollDown);
@@ -167,16 +167,16 @@
                 case 1:
                     food_choice_scroll(scrollPosition);
                     break;
-                case 2:
+                case 3:
                     food_co2_scroll(scrollPosition);
                     break;
-                case 3:
+                case 4:
                     global_warming_scroll(scrollPosition);
                     break;
-                case 4:
+                case 5:
                     chain_co2_scroll(scrollPosition);
                     break;
-                case 5:
+                case 6:
                     land_scroll(scrollPosition);
                     break;
                 
@@ -193,7 +193,7 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 5) && flag) {    
+                if((total >= element.clientHeight) && (index < 6) && flag) {    
                     jumpNext(el.nextElementSibling);
                     change_page_scroll(index + 1);
                 }
@@ -211,7 +211,7 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 5) && flag) {    
+                if((total >= element.clientHeight) && (index < 6) && flag) {    
                     jumpNext(el.nextElementSibling);
                     change_page_scroll(index + 1);
                 }
@@ -223,13 +223,26 @@
             }
         }
 
-        function jumpNext(el) {
+        function jumpNext(el) {    
             flag = false;
             currentIndex++;
             document.querySelector("#frame").style.transform = `translate3d(0, -${currentIndex * 100}%, 0)`;
             setTimeout(function() {
                 flag = true;
             }, 700);
+            if(currentIndex == 2) {
+                const DOM = {};
+                DOM.parent = document.querySelector("#frame");
+                DOM.shape = DOM.parent.querySelector('#food_choice_transition svg.shape');
+                DOM.path = DOM.shape.querySelector('path'); 
+                anime({
+                    targets: DOM.path,
+                    duration: 700,
+                    easing: 'easeInOutSine',
+                    d: DOM.path.getAttribute('pathdata:id')
+                });
+                jumpNext(el.nextElementSibling)
+            }
         }
 
 
@@ -253,24 +266,29 @@
                 case 1:
                     document.body.classList.add("food_choice");
                     document.body.classList.remove("intro");
-                    document.body.classList.remove("food_co2");
+                    document.body.classList.remove("food_choice_transition");
                     break;
                 case 2:
+                    document.body.classList.add("food_choice_transition");
+                    document.body.classList.remove("food_choice");
+                    document.body.classList.remove("food_co2");
+                    break;
+                case 3:
                     document.body.classList.add("food_co2");
                     document.body.classList.remove("food_choice");
                     document.body.classList.remove("global_warming");
                     break;
-                case 3:
+                case 4:
                     document.body.classList.add("global_warming");
                     document.body.classList.remove("food_co2");
                     document.body.classList.remove("chain_co2");
                     break;
-                case 4:
+                case 5:
                     document.body.classList.add("chain_co2");
                     document.body.classList.remove("global_warming");
                     document.body.classList.remove("land");
                 break;
-                case 5:
+                case 6:
                     document.body.classList.add("land");
                     document.body.classList.remove("chain_co2");
                 break;
@@ -303,6 +321,26 @@
 
 
         /***************************SMOOOTH SCROLL *********************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*************************** TRANSITION  *************************/
+ 
         
 
 })(d3);
