@@ -779,13 +779,16 @@ function display_columns(value, details, columns, country) {
 
 // display everything that is composing a category
 function display_details(array) {
-    var html = "Detailed composition of the category : <br><br>"
-    html += "|"
-    array.forEach(d => {
-        html += "| " + d + " |"
-    })
-    html += "|"
-    d3.select("#details").html(html)
+    let details = d3.select("#details").html('');
+
+    details.append("p")
+           .html("Detailed composition of the category :<br/>")
+           .selectAll("span")
+           .data(array)
+           .enter()
+           .append("span")
+           .classed("detailedItem", true)
+           .text(d => d)
 }
 
 // empties the details div and undisplays the text that is between the charts
