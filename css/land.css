@@ -1,6 +1,6 @@
 #land {
     color: white;
-    text-align: center;
+    text-align: justify;
     padding: 50px;
     background-color: var(--color-dark2);
 }
@@ -35,10 +35,6 @@
     top: 50px;
 }
 
-#land #text_land {
-    margin: 15vh 30px;
-}
-
 #land p {
     font-size: 1.4rem;
     margin: 15px;
@@ -68,6 +64,11 @@
 #land #div_columns p {
     font-size: 1.2rem;
     line-height: 1.3rem;
+}
+
+#land #compare_text p{
+    margin: 20px auto 0;
+    width: 80%;
 }
 
 #land .display#div_columns {
@@ -103,7 +104,8 @@
 }
 
 #land #details {
-    margin: 0 40px;
+    width: 70%;
+    margin: auto;
 }
 
 /* Search bar */
@@ -134,6 +136,7 @@
 
 #land p#details {
     font-size: 1.1rem;
+    text-align: justify;
 }
 
 /* search icon */
@@ -273,11 +276,14 @@
     #land .sticky {
         top: 35%;
     }
-    #land #div_columns {
-        display: none;
-    }
     #land{
         height: 135vh;
         padding: 50px 10px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    #land #div_columns {
+        display: none;
     }
 }

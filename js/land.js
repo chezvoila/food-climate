@@ -561,7 +561,7 @@ function chart_division_world(svg, data_intake, init_area) {
         .delay(300)
         .attr('opacity', 1);
 
-  }
+}
 
 
 /**
