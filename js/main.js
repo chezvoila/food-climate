@@ -242,6 +242,11 @@
                     d: DOM.path.getAttribute('pathdata:id')
                 });
                 jumpNext(el.nextElementSibling)
+                
+                setTimeout(function() {
+                    document.querySelector("#food_choice_transition").style.display = "none";
+                }, 1000);
+                
             }
         }
 
@@ -253,6 +258,12 @@
             setTimeout(function() {
                 flag = true;
             }, 700);
+            if(currentIndex == 2) {
+                jumpPrev(el.previousElementSibling)
+                // setTimeout(function() {
+                //     document.querySelector("#food_choice_transition").style.display = "block";
+                // }, 1000);
+            } 
         }
 
 
