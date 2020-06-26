@@ -45,7 +45,12 @@ function chainco2(data) {
     //define tooltip
     let tip = d3.tip()
         .attr("class", "d3-tip")
-        .html(function (d) { return d.value * 100 + "%"; });
+        .html(function (d) { 
+            let desc = d.value == data.level1[d.index].v ? data.level1[d.index].desc : data.level2[d.index].desc
+            let html = (d.value * 100).toFixed(1) + "%";
+            desc.split(",").forEach(v => html += "<br/>"+ v)
+            return html; 
+        });
 
     //define the group that will be used to draw the donut chart
     let g = svg.append("g")
@@ -84,9 +89,14 @@ function chainco2(data) {
 function plotLevel(g, settings, angles, level, data, tip) {
 
     //Define the color scale
-    let color = d3.scaleOrdinal();
-    color.domain(data.map((_, i) => i))
-    color.range(data.map(d => d.color))
+    let colorFill = d3.scaleOrdinal();
+    colorFill.domain(data.map((_, i) => i))
+    colorFill.range(data.map(d => d.color))
+
+    //border color scale
+    let colorBorder = d3.scaleOrdinal();
+    colorBorder.domain(data.map((_, i) => i))
+    colorBorder.range(data.map(d => d.border))
 
     //d3 define pie function for angles calculation
     let pies = d3.pie()
@@ -111,8 +121,10 @@ function plotLevel(g, settings, angles, level, data, tip) {
     //draw the arcs on the donut chart
     groups.append("path")
         .attr("id", (_, i) => `level${level}_${i}`)
-        .attr("fill", d => color(d.index))
+        .attr("fill", d => colorFill(d.index))
         .attr("d", arc)
+        .style('stroke', d => colorBorder(d.index))
+        .style('stroke-width', 1)
         .style("opacity", 0.85)
         .on('mouseout', function (d, _) {
             tip.hide(d, this);
@@ -135,7 +147,7 @@ function plotLevel(g, settings, angles, level, data, tip) {
         .append("textPath")
         .classed("text", true)
         .attr("xlink:href", (_, i) => `#level${level}_${i}`)
-        .text(d => d.name)
+        .text(d => d.showtitle ? d.name : "")
         .classed("donutLabel", true)
 }
 
