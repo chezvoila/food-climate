@@ -51,6 +51,11 @@
     opacity: 100;
 }
 
+#global_warming text{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2em;
+}
+
 /* MOBILE */
 
 @media screen and (max-width:1000px) {

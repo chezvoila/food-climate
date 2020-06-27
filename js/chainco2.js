@@ -6,9 +6,9 @@
  * @param data            The complete data necessary to this viz.
  *
  */
+var initialized = false;
 function chainco2(data) {
     //Define the size of the svg element
-    //console.log(document.documentElement.clientWidth, document.documentElement.clientHeight)
     let aspectRatioHeight = (969 / 1920) * document.documentElement.clientWidth;
 
     let sizeSettings = {
@@ -18,8 +18,17 @@ function chainco2(data) {
 
     //Initialize the svg element
     let svg = d3.select("#chain_co2 .chart").append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", `0 0 ${sizeSettings.width} ${document.documentElement.clientHeight}`)
-    // console.log(sizeSettings.height - 20)
+
+    //resizable svg event
+    if(!initialized){
+        initialized = true;
+        window.addEventListener("resize", function() {
+            d3.select("#chain_co2 .chart").html("");
+            chainco2(data)});
+        }
+
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {
         position: {
@@ -45,7 +54,12 @@ function chainco2(data) {
     //define tooltip
     let tip = d3.tip()
         .attr("class", "d3-tip")
-        .html(function (d) { return d.value * 100 + "%"; });
+        .html(function (d) { 
+            let desc = d.value == data.level1[d.index].v ? data.level1[d.index].desc : data.level2[d.index].desc
+            let html = (d.value * 100).toFixed(1) + "%";
+            desc.split(",").forEach(v => html += "<br/>"+ v)
+            return html; 
+        });
 
     //define the group that will be used to draw the donut chart
     let g = svg.append("g")
@@ -84,9 +98,14 @@ function chainco2(data) {
 function plotLevel(g, settings, angles, level, data, tip) {
 
     //Define the color scale
-    let color = d3.scaleOrdinal();
-    color.domain(data.map((_, i) => i))
-    color.range(data.map(d => d.color))
+    let colorFill = d3.scaleOrdinal();
+    colorFill.domain(data.map((_, i) => i))
+    colorFill.range(data.map(d => d.color))
+
+    //border color scale
+    let colorBorder = d3.scaleOrdinal();
+    colorBorder.domain(data.map((_, i) => i))
+    colorBorder.range(data.map(d => d.border))
 
     //d3 define pie function for angles calculation
     let pies = d3.pie()
@@ -111,8 +130,10 @@ function plotLevel(g, settings, angles, level, data, tip) {
     //draw the arcs on the donut chart
     groups.append("path")
         .attr("id", (_, i) => `level${level}_${i}`)
-        .attr("fill", d => color(d.index))
+        .attr("fill", d => colorFill(d.index))
         .attr("d", arc)
+        .style('stroke', d => colorBorder(d.index))
+        .style('stroke-width', 1)
         .style("opacity", 0.85)
         .on('mouseout', function (d, _) {
             tip.hide(d, this);
@@ -135,7 +156,7 @@ function plotLevel(g, settings, angles, level, data, tip) {
         .append("textPath")
         .classed("text", true)
         .attr("xlink:href", (_, i) => `#level${level}_${i}`)
-        .text(d => d.name)
+        .text(d => d.showtitle ? d.name : "")
         .classed("donutLabel", true)
 }
 
@@ -220,10 +241,19 @@ function drawSeparatingLine(svg, settings, data) {
 }
 
 
-/********************* SCROLL ****************/
+/**
+ * Triggers the animation depending on the position of 
+ * the scroll in the section.
+ *
+ * @param position      Current position of the scrolling in the section
+ *
+ */
 function chain_co2_scroll(position) {
-    // console.log(position)
+
+    //height of the screen
     const clientHeight = document.documentElement.clientHeight;
+
+    //triggering positions
     let scrollingPosition = {
         'small': {
             title: 0,
@@ -243,6 +273,7 @@ function chain_co2_scroll(position) {
         }
     }
 
+    //affect the scrolling position based on the size of the screen height
     let positions = scrollingPosition.regular
     if(clientHeight < 700)
         positions = scrollingPosition.small
@@ -260,6 +291,7 @@ function chain_co2_scroll(position) {
           .classed("fadeout", true);
     }
 
+    //text 1 animations
     if(position > positions.text1 && position < positions.text2){
         d3.select("#chain_co2 #chain_co2_text1")
           .classed("sticky", true)
@@ -272,6 +304,7 @@ function chain_co2_scroll(position) {
           .classed("fadein", false);
     }
 
+    //text 2 animations
     if(position > positions.text2 && position < positions.text2_out){
         d3.select("#chain_co2 #chain_co2_text2")
           .classed("sticky", true)

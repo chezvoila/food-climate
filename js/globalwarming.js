@@ -24,6 +24,13 @@ let svg_GW,
     x_GW,
     y_GW;
 
+/**
+ * base function to initialize this visualization
+ *
+ * @param data_emissions       dataset about co2 emissions
+ * @param data_temperatures    dataset about temperatures 
+ *
+ */
 function globalwarming(data_emissions, data_temperatures) {
 
     data_GW = get_data_GW(data_emissions, data_temperatures);
@@ -46,7 +53,13 @@ function globalwarming(data_emissions, data_temperatures) {
     d3.select("#global_warming .container").append('p').html(text_GW_4)
 }
 
-
+/**
+ * Data preprocessing for this vizualization.
+ *
+ * @param data_emissions       dataset about co2 emissions
+ * @param data_temperatures    dataset about temperatures 
+ *
+ */
 function get_data_GW(data_emissions, data_temperatures) {
 
     /***** processing data *****/
@@ -57,7 +70,6 @@ function get_data_GW(data_emissions, data_temperatures) {
         // sum all the emissions (GigaGrams)
         .rollup(a => d3.sum(a.map(d => d.Value)))
         .entries(data_emissions);
-    // console.log(emissions)
 
     const temperature = d3.nest()
         // arrange per year
@@ -69,7 +81,6 @@ function get_data_GW(data_emissions, data_temperatures) {
         // average of temperature
         .rollup(a => d3.mean(a.map(d => d.LandAverageTemperature)))
         .entries(data_temperatures);
-    // console.log(temperature)
 
     var data = [];
     temperature.forEach(year => {
@@ -82,26 +93,45 @@ function get_data_GW(data_emissions, data_temperatures) {
             })
         }
     });
-    // console.log(data)
 
     return data
 }
 
+/**
+ * Define the x domain for the chart based on the data
+ *
+ * @param x           the x axis
+ * @param data        processed data
+ *
+ */
 function xDomain_GW(x, data) {
     const emission = data.map(d => d.emission);
     x.domain([d3.min(emission), d3.max(emission)])
 }
+
+/**
+ * Define the y domain for the chart based on the data
+ *
+ * @param y           the y axis
+ * @param data        processed data
+ *
+ */
 function yDomain_GW(y, data) {
     const temperature = data.map(d => d.temperature);
     y.domain([d3.min(temperature), d3.max(temperature)])
 }
 
 
-var margin_GW = { top: 0, right: 50, bottom: 30, left: 50 },
+var margin_GW = { top: 30, right: 50, bottom: 30, left: 50 },
     width_GW = 600 - margin_GW.left - margin_GW.right,
     height_GW = 500 - margin_GW.top - margin_GW.bottom,
     text_height_GW = 20;
 
+
+/**
+ * Create the svg element and the scale needed to display
+ * the hexabin density scatter plot chart.
+ */
 function create_GW() {
 
     // append the svg object to the body of the page
@@ -123,34 +153,40 @@ function create_GW() {
     };
 }
 
+/**
+ * Draws the chart elements such as text
+ *
+ * @param svg         the svg element to draw in
+ * @param x           the x axis
+ * @param y           the y axis
+ * @param data        processed data
+ * @param first       is the elements already appended
+ *
+ */
 function chart_GW(svg, x, y, data, first = true) {
-    // console.log(data.length)
-
     if (first) {
         svg.append("g")
             .attr("transform", "translate(0," + height_GW + ")")
             .attr('stroke', 'var(--color-dark2)')
             .call(d3.axisBottom(x).ticks(5));
+
         // text label for the x axis
         svg.append("text")
             .attr("transform",
                 "translate(" + (width_GW / 2) + " ," +
-                (height_GW + margin_GW.top + 60) + ")")
+                (height_GW + margin_GW.top + 20) + ")")
             .style("text-anchor", "middle")
             .text("EMISSIONS (GIGATONS)");
 
         svg.append("g")
             .attr('stroke', 'var(--color-dark2)')
             .call(d3.axisLeft(y).ticks(3));
+
         // text label for the y axis
         svg.append("text")
-            // .attr("transform", "rotate(-90)")
-            // .attr("y", 0 - margin_GW.left - 5)
-            // .attr("x", 0 - (height_GW / 2))
-            .attr("y", 5)
-            .attr("x", 80)
+            .attr("y", 0 - margin_GW.top)
+            .attr("x", 0 - margin_GW.left)
             .attr("dy", "1em")
-            .style("text-anchor", "middle")
             .text("TEMPERATURE (°C)");
 
         svg.append('g')
@@ -174,6 +210,16 @@ function chart_GW(svg, x, y, data, first = true) {
 
 }
 
+/**
+ * Draws the contour of the hexabins
+ *
+ * @param svg         the svg element to draw in
+ * @param data        processed data
+ * @param x           the x axis
+ * @param y           the y axis
+ * @param first       is the elements already appended
+ *
+ */
 function hexa_black(svg, data, x, y, back, first = false) {
 
     // from https://www.d3-graph-gallery.com/graph/density2d_hexbin.html
@@ -234,6 +280,15 @@ function hexa_black(svg, data, x, y, back, first = false) {
 
 }
 
+/**
+ * Draws the filled hexa bins in the chart
+ *
+ * @param svg         the svg element to draw in
+ * @param data        processed data
+ * @param x           the x axis
+ * @param y           the y axis
+ *
+ */
 function hexa(svg, data, x, y) {
 
     svg.selectAll('circle')
@@ -269,8 +324,13 @@ function hexa(svg, data, x, y) {
 }
 
 
-/********************* SCROLL ****************/
-
+/**
+ * Triggers the animation depending on the position of 
+ * the scroll in the section.
+ *
+ * @param position      Current position of the scrolling in the section
+ *
+ */
 var transition_GW = false, transition2_GW = false;
 var first = true;
 function global_warming_scroll(position) {
