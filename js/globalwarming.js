@@ -122,7 +122,7 @@ function yDomain_GW(y, data) {
 }
 
 
-var margin_GW = { top: 30, right: 50, bottom: 30, left: 50 },
+var margin_GW = { top: 0, right: 50, bottom: 30, left: 50 },
     width_GW = 600 - margin_GW.left - margin_GW.right,
     height_GW = 500 - margin_GW.top - margin_GW.bottom,
     text_height_GW = 20;
@@ -174,7 +174,7 @@ function chart_GW(svg, x, y, data, first = true) {
         svg.append("text")
             .attr("transform",
                 "translate(" + (width_GW / 2) + " ," +
-                (height_GW + margin_GW.top + 20) + ")")
+                (height_GW + margin_GW.top + 50) + ")")
             .style("text-anchor", "middle")
             .text("EMISSIONS (GIGATONS)");
 
@@ -185,7 +185,7 @@ function chart_GW(svg, x, y, data, first = true) {
         // text label for the y axis
         svg.append("text")
             .attr("y", 0 - margin_GW.top)
-            .attr("x", 0 - margin_GW.left)
+            .attr("x", 5)
             .attr("dy", "1em")
             .text("TEMPERATURE (°C)");
 
