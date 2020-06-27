@@ -9,7 +9,6 @@
 var initialized = false;
 function chainco2(data) {
     //Define the size of the svg element
-    //console.log(document.documentElement.clientWidth, document.documentElement.clientHeight)
     let aspectRatioHeight = (969 / 1920) * document.documentElement.clientWidth;
 
     let sizeSettings = {
@@ -21,13 +20,15 @@ function chainco2(data) {
     let svg = d3.select("#chain_co2 .chart").append("svg")
         .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", `0 0 ${sizeSettings.width} ${document.documentElement.clientHeight}`)
+
+    //resizable svg event
     if(!initialized){
         initialized = true;
         window.addEventListener("resize", function() {
             d3.select("#chain_co2 .chart").html("");
             chainco2(data)});
         }
-    // console.log(sizeSettings.height - 20)
+
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {
         position: {
@@ -240,10 +241,19 @@ function drawSeparatingLine(svg, settings, data) {
 }
 
 
-/********************* SCROLL ****************/
+/**
+ * Triggers the animation depending on the position of 
+ * the scroll in the section.
+ *
+ * @param position      Current position of the scrolling in the section
+ *
+ */
 function chain_co2_scroll(position) {
-    console.log(position)
+
+    //height of the screen
     const clientHeight = document.documentElement.clientHeight;
+
+    //triggering positions
     let scrollingPosition = {
         'small': {
             title: 0,
@@ -263,6 +273,7 @@ function chain_co2_scroll(position) {
         }
     }
 
+    //affect the scrolling position based on the size of the screen height
     let positions = scrollingPosition.regular
     if(clientHeight < 700)
         positions = scrollingPosition.small
@@ -280,6 +291,7 @@ function chain_co2_scroll(position) {
           .classed("fadeout", true);
     }
 
+    //text 1 animations
     if(position > positions.text1 && position < positions.text2){
         d3.select("#chain_co2 #chain_co2_text1")
           .classed("sticky", true)
@@ -292,6 +304,7 @@ function chain_co2_scroll(position) {
           .classed("fadein", false);
     }
 
+    //text 2 animations
     if(position > positions.text2 && position < positions.text2_out){
         d3.select("#chain_co2 #chain_co2_text2")
           .classed("sticky", true)
