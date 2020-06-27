@@ -17,6 +17,7 @@
 #global_warming svg {
     float: left;
     width:40%;
+    max-width: 600px;
 }
 
 #global_warming svg.sticky {
