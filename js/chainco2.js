@@ -6,6 +6,7 @@
  * @param data            The complete data necessary to this viz.
  *
  */
+var initialized = false;
 function chainco2(data) {
     //Define the size of the svg element
     //console.log(document.documentElement.clientWidth, document.documentElement.clientHeight)
@@ -18,7 +19,14 @@ function chainco2(data) {
 
     //Initialize the svg element
     let svg = d3.select("#chain_co2 .chart").append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", `0 0 ${sizeSettings.width} ${document.documentElement.clientHeight}`)
+    if(!initialized){
+        initialized = true;
+        window.addEventListener("resize", function() {
+            d3.select("#chain_co2 .chart").html("");
+            chainco2(data)});
+        }
     // console.log(sizeSettings.height - 20)
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {
