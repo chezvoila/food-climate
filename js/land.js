@@ -26,22 +26,22 @@ const others = ["Offals, Edible", "Butter, Ghee", "Cream", "Fats, Animals, Raw",
 
 const cat1 = {
     name: "Primary",
-    img: "carrot",
+    img: "icon_vegetables",
     columns: ["fruits", "vegetables", "cereals", "oilcrops"]
 }
 const cat2 = {
     name: "Animals",
-    img: "cow",
+    img: "icon_livestock",
     columns: ["meat", "fish"]
 }
 const cat3 = {
     name: "Extracted",
-    img: "olive-oil",
+    img: "oil",
     columns: ["oils", "sweeteners"]
 }
 const cat4 = {
     name: "Other",
-    img: "ginger",
+    img: "icon_spices",
     columns: ["roots", "pulses", "spices", "others"]
 }
 // missing : beverages, because more drink than food
@@ -64,15 +64,20 @@ is contained inside that category."
 // variables for code
 let data_consumption, data_intake;
 let lands_available;
-let color;
+// let color;
 
 let country;
 let svg_world, svg_country;
 
+let main_svg;
+
 const defaultArea = 90000;
 let area_country;
 
-const margin_chart_land = 20;
+let world_sizes = [0, 0, 0, 0]
+let country_sizes = [0, 0, 0, 0]
+
+const margin_chart_land = 10;
 const height_division_land = 600;
 
 function land(if_everyone, intake) {
@@ -84,20 +89,20 @@ function land(if_everyone, intake) {
 
     // Make a list of the countries that are in the 4 datasets
     lands_available = make_list_land(data_consumption, data_intake);
-    lands_available.push("World")
-
-    // create color function
-    color = d3.scaleOrdinal(d3.schemePaired).range(['#ffffff', '#992437']); // TO DEFINE
-    // update color domain
-    land_color_domain(color, lands_available);
 
     // default display is Canada
     country = "Canada";
     // get areas
     area_country = getAreaCountry(defaultArea, data_consumption, country);
-    // append (so first = true) and display the 2 charts
-    svg_world = init_division_world(defaultArea, color, true);
-    svg_country = init_division_country(area_country, color, true, country);
+
+    // create svg
+    main_svg = init_main_svg();
+    // add rects for world and country (first = true)
+    init_division_world(defaultArea, main_svg, true)
+    init_division_country(area_country, main_svg, true)
+    // put the right square in front
+    update_level_main(area_country, main_svg)
+
 
     // Autocomplete for the search bar
     new autoComplete({
@@ -116,14 +121,18 @@ function land(if_everyone, intake) {
         renderItem: function (item, search) {
             search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-            return '<div class="autocomplete-suggestion" data-val="'
+            return '<div title="' + item + '" class="autocomplete-suggestion" data-val="'
                 + item + '">' + item.replace(re, "<b>$1</b>") + "</div>";
         },
         onSelect: function (e, term, item) {
             country = term;
+            transition_completed = false; // to divide on scroll again
             area_country = getAreaCountry(defaultArea, data_consumption, country);
-            init_division_country(area_country, color, false, country, svg_country);
-            init_division_world(defaultArea, color, false, svg_world);
+            // form the initial square again
+            init_division_country(area_country, main_svg);
+            init_division_world(defaultArea, main_svg);
+            update_level_main(area_country, main_svg);
+            // empties the text sections
             reset();
         }
     });
@@ -240,19 +249,27 @@ function make_list_land(data_consumption, data_intake) {
     return list;
 }
 
-function land_color_domain(color, data) {
-    color.domain(data)
-}
 
+// Get the area size to display for a specific country
+// also updates the text elements with the right country name
 function getAreaCountry(defaultArea, data_consumption, country) {
     var element = data_consumption.find(d => d.key == country);
     var scale = element.Percentage / 100;
     // update text display
     d3.select("#country").text(country);
+    d3.select("#countryTitle").html(country);
+    d3.select("#country_legend").html(country);
     d3.select("#value").text(scale.toFixed(2));
     return defaultArea * scale;
 }
 
+// creates the first svg that will contain the svg squares
+function init_main_svg() {
+    var svg = d3.select('#land #land_charts')
+        .append('svg')
+        .attr('height', height_division_land);
+    return svg;
+}
 
 /**
  * Displays 4 rects elements forming a big rectangle to show the surface of the world
@@ -262,28 +279,25 @@ function getAreaCountry(defaultArea, data_consumption, country) {
  * @param first             Notifies if we have to add the svg, or if it is just an update
  * @param svg               Svg containing the squares. Will only be specified when first = false
  */
-function init_division_world(init_area, color, first, svg) {
-
-    // append the svg if it is the first time that the function is called
-    if (first) {
-        svg = d3.select("#land #rightDivision")
-            .append('svg')
-            .attr('height', height_division_land);
-    }
+function init_division_world(init_area, svg, first = false) {
 
     var size = Math.sqrt(init_area * 25 / 100)
     var data = [size, size, size, size]
+    // creates if first, or just selects
     var rects = first ?
-        svg.selectAll('rect')
+        svg.selectAll('rect.rect_world')
             .data(data)
             .enter()
-            .append('rect') :
-        svg.selectAll('rect')
+            .append('rect')
+            .attr('id', (d, i) => "world" + i)
+            .classed('rect_world', true) :
+        svg.selectAll('rect.rect_world')
             .on('mouseover', _ => { })
             .data(data)
             .transition()
             .duration(500);
-    rects.attr('width', size)
+    rects
+        .attr('width', size)
         .attr('height', size)
         .attr('x', '50%')
         .attr('y', '50%')
@@ -310,16 +324,10 @@ function init_division_world(init_area, color, first, svg) {
             }
             return `translate(${left},${top})`;
         })
-        // .attr('fill', color("World"));
-        .attr('fill', 'var(--color-light2)');
-
-    svg.selectAll('text')
-        .remove()
+        .attr('fill', 'var(--color-main-land)');
 
     svg.selectAll('image')
         .remove()
-
-    return svg;
 }
 
 /**
@@ -331,28 +339,25 @@ function init_division_world(init_area, color, first, svg) {
  * @param country           Name of the country
  * @param svg               Svg containing the squares. Will only be specified when first = false
  */
-function init_division_country(init_area, color, first, country, svg) {
-
-    // append the svg if it is the first time that the function is called
-    if (first) {
-        svg = d3.select("#land #leftDivision")
-            .append('svg')
-            .attr('height', height_division_land);
-    }
+function init_division_country(init_area, svg, first = false) {
 
     var size = Math.sqrt(init_area * 25 / 100)
     var data = [size, size, size, size]
+    // creates if first, or just selects
     var rects = first ?
-        svg.selectAll('rect')
+        svg.selectAll('rect.rect_wountry')
             .data(data)
             .enter()
-            .append('rect') :
-        svg.selectAll('rect')
+            .append('rect')
+            .attr('id', (d, i) => "country" + i)
+            .classed('rect_country', true) :
+        svg.selectAll('rect.rect_country')
             .on('mouseover', _ => { })
             .data(data)
             .transition()
             .duration(500);
-    rects.attr('width', size)
+    rects
+        .attr('width', size)
         .attr('height', size)
         .attr('x', '50%')
         .attr('y', '50%')
@@ -379,18 +384,44 @@ function init_division_country(init_area, color, first, country, svg) {
             }
             return `translate(${left},${top})`;
         })
-        // .attr('fill', color(country));
-        .attr('fill', 'var(--color-dark3)');
-
-    svg.selectAll('text')
-        .remove()
+        .attr('fill', 'var(--color-dark-land)');
 
     svg.selectAll('image')
         .remove()
-
-    return svg;
 }
 
+
+// updates which big square should be put on top
+// for svg, it's the last appened element that is on top
+// we use a 'use' element that selects which element it should contain (selected by id) 
+function update_level_main(area, svg) {
+    svg.selectAll('use').remove();
+    // which one should be in front
+    var front = area > defaultArea ? "world" : "country";
+    for (var i = 0; i < 4; i++) {
+        svg.append('use')
+            .classed('use', true)
+            .attr('id', 'use' + i)
+            .attr('xlink:href', "#" + front + i);
+    }
+}
+
+
+// updates which small square should be put on top for all 4 categories
+// also shows the icon for the element that is on top
+function update_levels(svg) {
+    for (var i = 0; i < 4; i++) {
+        // which one should be in front
+        var front = country_sizes[i] > world_sizes[i] ? "world" : "country";
+        svg.select('#use' + i)
+            .classed('show_icon', true)
+            .attr('xlink:href', "#" + front + i);
+        svg.select('#icon_' + front + i)
+            .transition()
+            .duration(300)
+            .attr('style', 'opacity:1')
+    }
+}
 
 /**
  * Displays 4 rects elements forming a big rectangle to show the surface of a country
@@ -431,12 +462,14 @@ function chart_division_world(svg, data_intake, init_area) {
         s += value;
     })
     // get the value as percentage
-    categories.forEach(cat => {
+    categories.forEach((cat, i) => {
         cat.value = cat.value / s;
+        // to be ables to compare, to know which square is smaller, we save the value
+        world_sizes[i] = cat.value;
     })
 
     // add rects
-    svg.selectAll('rect')
+    svg.selectAll('rect.rect_world')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
             var details = categories[i].details;
@@ -479,12 +512,13 @@ function chart_division_world(svg, data_intake, init_area) {
 
     // add icons
     var icon_sizes = [];
-    svg.selectAll('svg.icon')
+    svg.selectAll('svg.icon_w')
         .data(categories)
         .enter()
         .append('svg:image')
-        .classed('icon', true)
+        .classed('icon_w', true)
         .classed('anchor_middle', true)
+        .attr('id', (d, i) => 'icon_world' + i)
         .attr('x', '50%')
         .attr('y', '50%')
         .attr('transform', (d, i) => {
@@ -516,50 +550,7 @@ function chart_division_world(svg, data_intake, init_area) {
         })
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_dark.svg')
-        .attr('opacity', 0)
-        .transition()
-        .duration(400)
-        .delay(300)
-        .attr('opacity', 1)
-
-    svg.selectAll('text.perc')
-        .data(categories)
-        .enter()
-        .append('text')
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .classed('perc', true)
-        .attr('transform', (d, i) => {
-            var left, top;
-            var size = Math.sqrt(init_area * d.value);
-            switch (i) {
-                case 0:
-                    left = - size - margin_chart_land / 2;
-                    top = - size;
-                    break;
-                case 1:
-                    left = 1.5 * margin_chart_land;
-                    top = - size;
-                    break;
-                case 2:
-                    left = 1.5 * margin_chart_land;
-                    top = 2 * margin_chart_land;
-                    break;
-                case 3:
-                    left = - size - margin_chart_land / 2;
-                    top = 2 * margin_chart_land;
-                    break;
-            }
-            return `translate(${left},${top})`;
-        })
-        .style("font-size", d => 8 + d.value * 20)
-        .text(d => Math.round(d.value * 100) + '%')
-        .attr('opacity', 0)
-        .transition()
-        .duration(400)
-        .delay(300)
-        .attr('opacity', 1);
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg')
 
 }
 
@@ -573,7 +564,7 @@ function chart_division_world(svg, data_intake, init_area) {
  * @param country           Name of the country
  * @param color             Color function
  */
-function chart_division_country(svg, data_intake, init_area, country, color) {
+function chart_division_country(svg, data_intake, init_area, country) {
 
     var element = data_intake.find(d => d.key == country);
 
@@ -591,12 +582,14 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         s += value;
     })
     // get the value as percentage
-    categories.forEach(cat => {
+    categories.forEach((cat, i) => {
         cat.value = cat.value / s;
+        // to be ables to compare, to know which square is smaller, we save the value
+        country_sizes[i] = cat.value;
     })
 
     // add rects
-    svg.selectAll('rect')
+    svg.selectAll('rect.rect_country')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
             var details = categories[i].details;
@@ -635,16 +628,16 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
             }
             return `translate(${left},${top})`;
         })
-    // .attr('fill', color(country));
 
     // add icons
     var icon_sizes = [];
-    svg.selectAll('svg.icon')
+    svg.selectAll('svg.icon_c')
         .data(categories)
         .enter()
         .append('svg:image')
-        .classed('icon', true)
+        .classed('icon_c', true)
         .classed('anchor_middle', true)
+        .attr('id', (d, i) => 'icon_country' + i)
         .attr('x', '50%')
         .attr('y', '50%')
         .attr('transform', (d, i) => {
@@ -676,87 +669,7 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         })
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_light.svg')
-        .attr('opacity', 0)
-        .transition()
-        .duration(400)
-        .delay(300)
-        .attr('opacity', 1)
-
-    // add percentages
-    svg.selectAll('text.perc')
-        .data(categories)
-        .enter()
-        .append('text')
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .classed('perc', true)
-        .attr('transform', (d, i) => {
-            var left, top;
-            var size = Math.sqrt(init_area * d.value);
-            switch (i) {
-                case 0:
-                    left = - size - margin_chart_land / 2;
-                    top = - size;
-                    break;
-                case 1:
-                    left = 1.5 * margin_chart_land;
-                    top = - size;
-                    break;
-                case 2:
-                    left = 1.5 * margin_chart_land;
-                    top = 2 * margin_chart_land;
-                    break;
-                case 3:
-                    left = - size - margin_chart_land / 2;
-                    top = 2 * margin_chart_land;
-                    break;
-            }
-            return `translate(${left},${top})`;
-        })
-        .style("font-size", d => 8 + d.value * 20)
-        .text(d => Math.round(d.value * 100) + '%')
-        .attr('opacity', 0)
-        .transition()
-        .duration(400)
-        .delay(300)
-        .attr('opacity', 1);
-
-    // add titles
-    // svg.selectAll('text.titles')
-    //     .data(cats)
-    //     .enter()
-    //     .append('text')
-    //     .attr('x', '50%')
-    //     .attr('y', '50%')
-    //     .classed('titles', true)
-    //     .classed('anchor_middle', true)
-    //     // .classed('anchor_left', (d, i) => i == 0 || i == 3)
-    //     .attr('transform', (d, i) => {
-    //         var left, top;
-    //         var size = Math.sqrt(init_area * categories[i].value);
-    //         switch (i) {
-    //             case 0:
-    //                 left = - size / 2 - margin_chart_land;
-    //                 top = -2 * margin_chart_land;
-    //                 break;
-    //             case 1:
-    //                 left = size / 2 + margin_chart_land;
-    //                 top = -2 * margin_chart_land;
-    //                 break;
-    //             case 2:
-    //                 left = size / 2 + margin_chart_land;
-    //                 top = size;
-    //                 break;
-    //             case 3:
-    //                 left = - size / 2 - margin_chart_land;
-    //                 top = size;
-    //                 break;
-    //         }
-    //         return `translate(${left},${top})`;
-    //     })
-    //     .style("font-size", (d, i) => 10 + categories[i].value * 40)
-    //     .text(d => d.name);
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg')
 }
 
 
@@ -782,13 +695,13 @@ function display_details(array) {
     let details = d3.select("#details").html('');
 
     details.append("p")
-           .html("Detailed composition of the category :<br/>")
-           .selectAll("span")
-           .data(array)
-           .enter()
-           .append("span")
-           .classed("detailedItem", true)
-           .text(d => d)
+        .html("Detailed composition of the category :<br/>")
+        .selectAll("span")
+        .data(array)
+        .enter()
+        .append("span")
+        .classed("detailedItem", true)
+        .text(d => d)
 }
 
 // empties the details div and undisplays the text that is between the charts
@@ -801,18 +714,24 @@ function reset() {
 /********************* SCROLL ****************/
 
 var transition_completed = false;
-var scroll_trigger = 550;
+var scroll_sticky = 2100; // TODO
+var scroll_animation = 2100;
 function land_scroll(position) {
-    if (position < scroll_trigger && transition_completed) {
-        init_division_world(defaultArea, color, false, svg_world);
-        init_division_country(area_country, color, false, country, svg_country);
+    // if (position < scroll_sticky) {
+
+    // }
+    if (position < scroll_animation && transition_completed) {
+        init_division_world(defaultArea, main_svg);
+        init_division_country(area_country, main_svg);
+        update_level_main(area_country, main_svg)
         reset();
         transition_completed = false;
     }
-    if (position > scroll_trigger && !transition_completed) {
+    if (position > scroll_animation && !transition_completed) {
         d3.select("#details").html(text_animation);
-        chart_division_world(svg_world, data_intake, defaultArea);
-        chart_division_country(svg_country, data_intake, defaultArea, country, color);
+        chart_division_world(main_svg, data_intake, defaultArea);
+        chart_division_country(main_svg, data_intake, defaultArea, country);
+        update_levels(main_svg)
         transition_completed = true;
     }
 }

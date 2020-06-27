@@ -176,7 +176,7 @@ function chart_GW(svg, x, y, data, first = true) {
                 "translate(" + (width_GW / 2) + " ," +
                 (height_GW + margin_GW.top + 20) + ")")
             .style("text-anchor", "middle")
-            .text("Emissions (GIGATONS)");
+            .text("EMISSIONS (GIGATONS)");
 
         svg.append("g")
             .attr('stroke', 'var(--color-dark2)')
