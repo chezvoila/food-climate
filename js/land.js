@@ -116,12 +116,11 @@ function land(if_everyone, intake) {
         renderItem: function (item, search) {
             search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-            return '<div class="autocomplete-suggestion" data-val="'
+            return '<div title="' + item + '" class="autocomplete-suggestion" data-val="'
                 + item + '">' + item.replace(re, "<b>$1</b>") + "</div>";
         },
         onSelect: function (e, term, item) {
             country = term;
-            d3.select("#countryTitle").html(country);
             // window.scroll(0, -200);
             // window.location.hash = '#none'
             // window.location.hash = '#compare_text'
@@ -133,6 +132,15 @@ function land(if_everyone, intake) {
             reset();
         }
     });
+
+    var change_focus = _ => {
+        d3.select("#leftDivision").classed("focus", !d3.select("#leftDivision").classed("focus"));
+        d3.select("#rightDivision").classed("focus", !d3.select("#rightDivision").classed("focus"));
+        d3.select("#color_country").classed("selected", !d3.select("#color_country").classed("selected"));
+        d3.select("#color_world").classed("selected", !d3.select("#color_world").classed("selected"));
+    }
+    d3.select("#land_charts").on('click', change_focus);
+    d3.select("#click_focus").on('click', change_focus);
 }
 
 
@@ -255,6 +263,8 @@ function getAreaCountry(defaultArea, data_consumption, country) {
     var scale = element.Percentage / 100;
     // update text display
     d3.select("#country").text(country);
+    d3.select("#countryTitle").html(country);
+    d3.select("#country_legend").html(country);
     d3.select("#value").text(scale.toFixed(2));
     return defaultArea * scale;
 }
@@ -523,11 +533,11 @@ function chart_division_world(svg, data_intake, init_area) {
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
         .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_dark.svg')
-        .attr('opacity', 0)
+        .attr('style', 'opacity:0!important')
         .transition()
         .duration(400)
         .delay(300)
-        .attr('opacity', 1)
+        .attr('style', '')
 
     svg.selectAll('text.perc')
         .data(categories)
@@ -561,11 +571,11 @@ function chart_division_world(svg, data_intake, init_area) {
         })
         .style("font-size", d => 8 + d.value * 20)
         .text(d => Math.round(d.value * 100) + '%')
-        .attr('opacity', 0)
+        .attr('style', 'opacity:0!important')
         .transition()
         .duration(400)
         .delay(300)
-        .attr('opacity', 1);
+        .attr('style', '');
 
 }
 
@@ -683,11 +693,11 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
         .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_light.svg')
-        .attr('opacity', 0)
+        .attr('style', 'opacity:0!important')
         .transition()
         .duration(400)
         .delay(300)
-        .attr('opacity', 1)
+        .attr('style', '')
 
     // add percentages
     svg.selectAll('text.perc')
@@ -722,11 +732,11 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         })
         .style("font-size", d => 8 + d.value * 20)
         .text(d => Math.round(d.value * 100) + '%')
-        .attr('opacity', 0)
+        .attr('style', 'opacity:0!important')
         .transition()
         .duration(400)
         .delay(300)
-        .attr('opacity', 1);
+        .attr('style', '');
 
     // add titles
     // svg.selectAll('text.titles')
@@ -808,16 +818,23 @@ function reset() {
 
 var transition_completed = false;
 var scroll_trigger = 2100;
+var scroll_sticky = 2100;
+var scroll_animation = 2100;
 function land_scroll(position) {
-    if (position < scroll_trigger && transition_completed) {
-        d3.select("#land h1").classed('sticky', true)
+    // if (position < scroll_sticky) {
+
+    // }
+    if (position < scroll_animation && transition_completed) {
+        // if (position < scroll_animation) {
+        // d3.select("#land h1").classed('sticky', true)
         init_division_world(defaultArea, color, false, svg_world);
         init_division_country(area_country, color, false, country, svg_country);
         reset();
         transition_completed = false;
     }
-    if (position > scroll_trigger && !transition_completed) {
-        d3.select("#land h1").classed('sticky', false)
+    // else{
+    if (position > scroll_animation && !transition_completed) {
+        // d3.select("#land h1").classed('sticky', false)
         d3.select("#details").html(text_animation);
         chart_division_world(svg_world, data_intake, defaultArea);
         chart_division_country(svg_country, data_intake, defaultArea, country, color);

@@ -17,12 +17,84 @@
     z-index: 10;
 }
 
+#land #to_stick{
+    position: relative;
+}
+
+#land #to_stick #charts {
+    position: sticky;
+    top: 140px;
+}
+
+#land_charts {
+    position: relative;
+    height: 600px;
+}
+
+#leftDivision, #rightDivision {
+    position: absolute;
+}
+
+#leftDivision.focus, #rightDivision.focus {
+    z-index: 1;
+}
+
 #land #compare_text {
     /* padding-top: 200px; */
 }
 
 #land svg {
-    width: 100%;
+    /* width: 100%; */
+    width: 600px;
+}
+
+#land svg rect {
+    opacity: 0.8;
+}
+
+/* #land #leftDivision.focus svg rect, #land #rightDivision.focus svg rect {
+    opacity: 0.7;
+} */
+
+#land #leftDivision svg image, #land #rightDivision svg image, #land #leftDivision svg text.perc, #land #rightDivision svg text.perc {
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#land #leftDivision.focus svg image, #land #rightDivision.focus svg image, #land #leftDivision.focus svg text.perc, #land #rightDivision.focus svg text.perc {
+    opacity: 1;
+}
+
+#land .legend i {
+    border: 2px solid var(--color-dark2);
+    padding: 0 12px;
+    opacity: 0.7;
+    margin: 20px;
+}
+
+#land .legend i#color_world {
+    background-color: var(--color-light2);
+}
+
+#land .legend i#color_country {
+    background-color: var(--color-dark3);
+}
+
+#land .legend i.selected {
+    border-color: var(--color-light3);
+}
+
+#land .legend i.selected~span {
+    font-weight: bold;
+}
+
+#land .legend small#click_focus {
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+#land #right_col p {
+    margin: 50px 15px;
 }
 
 #land svg image {
@@ -58,7 +130,8 @@
 }
 
 #country, #value {
-    text-decoration: underline;
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 #land text.anchor_left {
@@ -119,7 +192,7 @@
 
 #land #details {
     width: 70%;
-    margin: 50px auto;
+    margin: auto;
     font-size: 1.1rem;
 }
 
@@ -143,7 +216,7 @@
     background-color: transparent;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 0;
     outline: 0;
     flex-basis: 40px;
     cursor: pointer;
@@ -205,6 +278,7 @@
     font-size: 1rem;
     color: var(--color-light3);
     opacity: 0.9;
+    pointer-events: none;
 }
 
 .search_field:focus {

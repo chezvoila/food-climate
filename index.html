@@ -456,8 +456,8 @@
                         country.
                     </p>
                 </div>
-                <div class="sticky">
-                    <div class="row" id="compare_text">
+                <div id="to_stick">
+                    <!-- <div class="row" id="compare_text">
                         <div class="col">
                             <p>If everyone was consumming like the average person
                                 in <span id="country"></span> :
@@ -466,9 +466,13 @@
                         <div class="col">
                             <p>This is how much consummes the world actually.</p>
                         </div>
-                    </div>
-                    <div class="row" id="land_charts">
-                        <div class="col" id="leftDivision"></div>
+                    </div> -->
+                    <div class="row" id="charts">
+                        <!-- <div class="half_col" id="div_columns"> -->
+                        <div class="col" id="land_charts">
+                            <div id="leftDivision"></div>
+                            <div class="focus" id="rightDivision"></div>
+                        </div>
                         <div class="half_col" id="div_columns">
                             <h1><span id="columns_percentage"></span>%</h1>
                             <p>of <span id="columns_country"></span>'s diet
@@ -478,10 +482,17 @@
                                 <span id="columns"></span>
                             </p>
                         </div>
-                        <div class="col" id="rightDivision"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
+                        <div class="col" id="right_col">
+                            <p>If everyone was consumming like the average person
+                                in <span id="country"></span> :
+                                we would need <span id="value"></span> Earth</p>
+
+                            <p class="legend">
+                                <span><i id="color_country"></i><span id="country_legend">Canada</span></span><br>
+                                <span><i id="color_world" class="selected"></i><span>World</span></span><br>
+                                <small id="click_focus">Click here or on the squares to change focus</small>
+                            </p>
+
                             <div class="search" id="search-bar">
                                 <div class="search_group field" id="search-bar">
                                     <input title="search-input" type="text" class="search_field"
@@ -508,7 +519,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p class="row" id="details"></p>
+                        <p id="details"></p>
                     </div>
                 </div>
             </section>
