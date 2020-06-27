@@ -1,0 +1,84 @@
+#global_warming {
+    background-color: var( --color-light2);
+    padding: 25vh 0 0;
+}
+
+#global_warming h1 {
+    text-align: center;
+    margin-top: 20vh;
+}
+
+#global_warming .container{
+    width: 90%;
+    margin: auto;
+    padding: 45vh 0 10vh 0;
+}
+
+#global_warming svg {
+    float: left;
+    width:40%;
+    max-width: 600px;
+}
+
+#global_warming svg.sticky {
+    position: sticky;
+    top: 100px;
+}
+
+#global_warming p {
+    width: 50%;
+    font-size: 20px;
+    margin: 45vh 20px;
+    margin-left: 50%;
+    text-align: justify;
+}
+
+#global_warming p:first-of-type{
+    margin-top:45vh;
+}
+
+.light2background {
+    background-color: var( --color-light2);
+}
+
+#global_warming .fadeout{
+    transition: 0.1s all ease-in;
+    opacity: 0;
+}
+
+#global_warming .fadein{
+    transition: 0.1s all ease-in;
+    opacity: 100;
+}
+
+#global_warming text{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2em;
+}
+
+/* MOBILE */
+
+@media screen and (max-width:1000px) {
+    #global_warming h1 {
+        margin-bottom: 30vh;
+        margin-top: 0;
+    }
+    #global_warming {
+        min-height: calc(150vh);
+    }
+    #global_warming svg {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        height: 50vh;
+        background-color: var(--color-light2);
+        padding-top: 50px;
+    }
+    #global_warming svg.sticky {
+        top: 0px;
+    }
+    #global_warming p {
+        width: 90%;
+        margin: 0 auto 45vh;
+    }
+}

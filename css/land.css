@@ -1,0 +1,312 @@
+#land {
+    color: white;
+    text-align: justify;
+    padding: 50px 50px 300px;
+    background-color: var(--color-dark2);
+}
+
+#land h1{
+    text-align: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: var(--color-dark2);
+    padding: 50px 0;
+}
+
+#land svg {
+    width: 100%;
+}
+
+#land svg image {
+    pointer-events: none;
+}
+
+#land #leftDivision .perc {
+    fill: var(--color-light2);
+}
+
+#land #rightDivision .perc {
+    fill: var(--color-dark2);
+}
+
+#land .sticky {
+    position: sticky;
+    top: 50px;
+}
+
+#land #text_land {
+    margin: 15vh auto;
+    width: 60%;
+}
+
+#land .sticky {
+    position: sticky;
+    top: 50px;
+}
+
+#land p {
+    font-size: 1.4rem;
+    margin: 15px;
+}
+
+#land #text_land p {
+    font-size: 1.6rem;
+    margin-bottom: 500px;
+}
+
+#country, #value {
+    text-decoration: underline;
+}
+
+#land text.anchor_left {
+    text-anchor: end;
+}
+
+#land text.anchor_middle {
+    text-anchor: middle;
+}
+
+#land #div_columns {
+    margin: auto;
+    visibility: hidden;
+}
+
+#land #div_columns p {
+    font-size: 1.2rem;
+    line-height: 1.3rem;
+}
+
+#land #compare_text p{
+    margin: 20px auto 0;
+    width: 80%;
+    text-align: center;
+}
+
+#land .display#div_columns {
+    visibility: visible;
+}
+
+#land #div_columns h1 {
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+#land #columns {
+    text-transform: uppercase;
+}
+
+#land button#columns_details {
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    transition: 0.2s;
+}
+
+#land button#columns_details:hover {
+    background-color: white;
+    color: var(--color-dark2);
+    cursor: pointer;
+}
+
+#land button#columns_details:focus {
+    outline: none;
+}
+
+#land #details {
+    width: 70%;
+    margin: auto;
+}
+
+#land #details p {
+    text-align: left;
+    line-height: 1.9em;
+}
+
+/* Search bar */
+
+.search {
+    position: relative;
+    padding: 0 20%;
+}
+
+.search button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    outline: 0;
+    flex-basis: 40px;
+    cursor: pointer;
+    transition: 0.2s;
+    height: 60px;
+}
+
+#land .search button:hover #search_icon {
+    fill: var(--color-dark1);
+}
+
+#land p#details {
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/* search icon */
+
+#land .search button #search_icon {
+    width: unset;
+    height: 100%;
+    fill: var(--color-light3);
+}
+
+.search_field:focus~.search_btn #search_icon {
+    fill: var(--color-dark1)!important;
+}
+
+/* credits for this input css : https://codepen.io/lucasyem/pen/ZEEYKdj */
+
+.search_group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+}
+
+.search_field {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--color-light3);
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.search_field::placeholder {
+    color: transparent;
+}
+
+.search_field:placeholder-shown~.search_label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+
+.search_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--color-light3);
+    opacity: 0.9;
+}
+
+.search_field:focus {
+    padding-bottom: 6px;
+    /* font-weight: 700; */
+    border-width: 3px;
+    border-image: linear-gradient(to right, var(--color-light3), var(--color-dark1));
+    border-image-slice: 1;
+}
+
+.search_field:focus~.search_label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--color-light3);
+    opacity: 1;
+    /* font-weight: 700; */
+}
+
+/* reset input */
+
+.search_field:required, .search_field:invalid {
+    box-shadow: none;
+}
+
+/* Flex display */
+
+#land .row {
+    display: flex;
+}
+
+#land .row>.col {
+    flex: 1;
+}
+
+#land .row>.half_col {
+    flex: 0.5;
+}
+
+/* autocomplete */
+
+.autocomplete-suggestions {
+    text-align: left;
+    cursor: default;
+    border: 1px solid #ccc;
+    border-top: 0;
+    background: #fff;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
+    /* core styles should not be changed */
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    max-height: 254px;
+    overflow: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.autocomplete-suggestion {
+    position: relative;
+    padding: 0 .6em;
+    line-height: 23px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.02em;
+    color: #333;
+}
+
+.autocomplete-suggestion b {
+    font-weight: normal;
+    color: #1f8dd6;
+}
+
+.autocomplete-suggestion.selected {
+    background: #f0f0f0;
+}
+
+.detailedItem{
+    background: var(--color-dark1);
+    padding: 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
+/* MOBILE */
+
+@media screen and (max-width:1000px) {
+    #land .sticky {
+        top: 35%;
+    }
+    #land{
+        height: 135vh;
+        padding: 50px 10px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    #land #div_columns {
+        display: none;
+    }
+}

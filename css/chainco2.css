@@ -1,0 +1,90 @@
+.donutLabel{
+    font-size: 16px;
+    font-weight: bold;
+    fill: white;
+}
+
+.highlightedBackground{
+    fill: var(--color-icon-bg);
+    opacity: 0;
+}
+
+.level2{
+    opacity:0;
+}
+
+.chainCo2_line{
+    opacity: 0;
+}
+
+#chain_co2{
+    color: white;
+    padding: 200px 0 0 0;
+}
+
+#chain_co2 h1{
+    font-size: 2em;
+    font-weight: 100;
+    text-align: center;
+    line-height: 1.3;
+}
+
+#chain_co2 p{
+    font-size: 1.3em;
+    text-align: justify;
+    line-height: 1.3;
+}
+
+#chain_co2 h1.sticky{
+    position: sticky;
+    top: 50px;
+}
+
+#chain_co2 .informations.sticky{
+    position: sticky;
+    top: 200px;
+}
+
+#chain_co2 .informations {
+    width: 50%;
+    margin: 0 auto 0px auto;
+    z-index: 100;
+    opacity:0;
+}
+
+#chain_co2 .chart{
+    height: calc(400vh);
+    opacity: 0;
+}
+
+#chain_co2 svg.sticky{
+    position: sticky;
+    top: 0;
+}
+
+#chain_co2 .fadeout{
+    transition: 0.4s all ease-in;
+    opacity: 0;
+}
+
+#chain_co2 .fadein{
+    transition: 0.5s all ease-in;
+    opacity: 100;
+}
+
+
+@media only screen and (max-width: 768px) {
+    #chain_co2 .informations {
+      width: 90%;
+    }
+
+    .donutLabel{
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-height: 700px) {
+    #chain_co2 .informations {
+      margin-bottom: 500px;
+    }
+}

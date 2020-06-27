@@ -1,0 +1,26 @@
+#food_co2 {
+    text-align: center;
+    background-color: #50121c;
+}
+
+#food_co2 svg {
+    /* max-width: 60%; */
+    width: 100%;
+    max-height: 3500px;
+    /* outline: 1px solid #fff; */
+
+
+}
+
+#food_co2 svg g.figure + text {
+    font-size: 2.7em;
+    font-weight: 400;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700;;
+}
+
+#food_co2 svg g.figure text {
+    font-size: 1.1em;
+    font-weight: 700;
+    font-family: 'Raleway', sans-serif;
+}
