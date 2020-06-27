@@ -144,7 +144,12 @@ h3 {
         font-size: 1.8em;
 }
 
-p, textpath, .d3-tip {
+p, 
+textpath, 
+.d3-tip, 
+label,
+input,
+.autocomplete-suggestions {
         font-family: 'Raleway', sans-serif;
         font-size: 1.4em;
         line-height: 1.5em;

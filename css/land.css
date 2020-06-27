@@ -5,6 +5,15 @@
     background-color: var(--color-dark2);
 }
 
+#land h1{
+    text-align: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: var(--color-dark2);
+    padding: 50px 0;
+}
+
 #land svg {
     width: 100%;
 }
@@ -27,7 +36,8 @@
 }
 
 #land #text_land {
-    margin: 15vh 30px;
+    margin: 15vh auto;
+    width: 60%;
 }
 
 #land .sticky {
@@ -42,6 +52,7 @@
 
 #land #text_land p {
     font-size: 1.6rem;
+    margin-bottom: 500px;
 }
 
 #country, #value {
@@ -69,6 +80,7 @@
 #land #compare_text p{
     margin: 20px auto 0;
     width: 80%;
+    text-align: center;
 }
 
 #land .display#div_columns {
@@ -106,6 +118,11 @@
 #land #details {
     width: 70%;
     margin: auto;
+}
+
+#land #details p {
+    text-align: left;
+    line-height: 1.9em;
 }
 
 /* Search bar */
@@ -160,7 +177,6 @@
 }
 
 .search_field {
-    font-family: inherit;
     width: 100%;
     border: 0;
     border-bottom: 2px solid var(--color-light3);
@@ -268,6 +284,13 @@
 
 .autocomplete-suggestion.selected {
     background: #f0f0f0;
+}
+
+.detailedItem{
+    background: var(--color-dark1);
+    padding: 5px;
+    margin: 5px;
+    display: inline-block;
 }
 
 /* MOBILE */

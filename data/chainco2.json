@@ -2,25 +2,69 @@
     "level1": [
                 {
                     "name": "food CO2", 
-                    "v": 0.26, 
-                    "color": "#cccccc"
+                    "v": 0.271, 
+                    "color": "#cccccc",
+                    "border": "#cccccc",
+                    "desc": "Agriculture, Land use, food waste",
+                    "showtitle": true
                 }, 
                 {
-                    "name": "All CO2", 
-                    "v": 0.74, 
-                    "color": "#a3a3a3"
+                    "name": "Electricity and Heat", 
+                    "v": 0.25, 
+                    "color": "#a3a3a3",
+                    "border": "#737373",
+                    "desc": "Electricity, Heat",
+                    "showtitle": false
+                }, 
+                {
+                    "name": "Industries", 
+                    "v": 0.179, 
+                    "color": "#a3a3a3",
+                    "border": "#737373",
+                    "desc": "Industries",
+                    "showtitle": false
+                }, 
+                {
+                    "name": "Transportation", 
+                    "v": 0.14, 
+                    "color": "#a3a3a3",
+                    "border": "#737373",
+                    "desc": "Transportation",
+                    "showtitle": false
+                }, 
+                {
+                    "name": "Other energies", 
+                    "v": 0.096, 
+                    "color": "#a3a3a3",
+                    "border": "#737373",
+                    "desc": "Other energies",
+                    "showtitle": false
+                }, 
+                {
+                    "name": "Buildings", 
+                    "v": 0.064, 
+                    "color": "#a3a3a3",
+                    "border": "#737373",
+                    "desc": "Buildings",
+                    "showtitle": false
                 }
             ],
     "level2": [
                 {
-                    "name": "meat CO2", 
+                    "name": "Meat CO2", 
                     "v": 0.53, 
-                    "color": "#992437"
+                    "color": "#581420",
+                    "border": "#581420",
+                    "desc": "Meat",
+                    "showtitle": true
                 }, 
                 {
                     "name": "Others", 
                     "v": 0.47, 
-                    "color": "#581420"
+                    "color": "#992437",
+                    "border": "#992437",
+                    "desc": "Other types of food",
+                    "showtitle": false
                 }
             ]
 }
