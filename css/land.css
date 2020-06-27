@@ -1,3 +1,11 @@
+:root{
+    --color-dark-land: #260107;
+    --color-main-land: #AD1C34;
+    --color-light-land: #E88898;
+    --color-iconfill-light: #630F1D;
+    --color-iconfill-dark: #701322;
+}
+
 #land {
     color: white;
     text-align: justify;
@@ -48,13 +56,13 @@
     width: 600px;
 }
 
-#land svg rect {
+/* #land svg rect {
     opacity: 0.8;
-}
-
-/* #land #leftDivision.focus svg rect, #land #rightDivision.focus svg rect {
-    opacity: 0.7;
 } */
+
+#land #leftDivision.focus svg rect, #land #rightDivision.focus svg rect {
+    opacity: 0.7;
+}
 
 #land #leftDivision svg image, #land #rightDivision svg image, #land #leftDivision svg text.perc, #land #rightDivision svg text.perc {
     opacity: 0;
@@ -68,20 +76,20 @@
 #land .legend i {
     border: 2px solid var(--color-dark2);
     padding: 0 12px;
-    opacity: 0.7;
+    /* opacity: 0.7; */
     margin: 20px;
 }
 
 #land .legend i#color_world {
-    background-color: var(--color-light2);
+    background-color: var(--color-main-land);
 }
 
 #land .legend i#color_country {
-    background-color: var(--color-dark3);
+    background-color: var(--color-light-land);
 }
 
 #land .legend i.selected {
-    border-color: var(--color-light3);
+    border-color: var(--color-light2);
 }
 
 #land .legend i.selected~span {

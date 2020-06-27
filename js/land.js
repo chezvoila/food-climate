@@ -26,22 +26,22 @@ const others = ["Offals, Edible", "Butter, Ghee", "Cream", "Fats, Animals, Raw",
 
 const cat1 = {
     name: "Primary",
-    img: "carrot",
+    img: "icon_vegetables",
     columns: ["fruits", "vegetables", "cereals", "oilcrops"]
 }
 const cat2 = {
     name: "Animals",
-    img: "cow",
+    img: "icon_livestock",
     columns: ["meat", "fish"]
 }
 const cat3 = {
     name: "Extracted",
-    img: "olive-oil",
+    img: "oil",
     columns: ["oils", "sweeteners"]
 }
 const cat4 = {
     name: "Other",
-    img: "ginger",
+    img: "icon_spices",
     columns: ["roots", "pulses", "spices", "others"]
 }
 // missing : beverages, because more drink than food
@@ -72,7 +72,7 @@ let svg_world, svg_country;
 const defaultArea = 90000;
 let area_country;
 
-const margin_chart_land = 20;
+const margin_chart_land = 10;
 const height_division_land = 600;
 
 function land(if_everyone, intake) {
@@ -327,7 +327,7 @@ function init_division_world(init_area, color, first, svg) {
             return `translate(${left},${top})`;
         })
         // .attr('fill', color("World"));
-        .attr('fill', 'var(--color-light2)');
+        .attr('fill', 'var(--color-main-land)');
 
     svg.selectAll('text')
         .remove()
@@ -396,7 +396,7 @@ function init_division_country(init_area, color, first, country, svg) {
             return `translate(${left},${top})`;
         })
         // .attr('fill', color(country));
-        .attr('fill', 'var(--color-dark3)');
+        .attr('fill', 'var(--color-light-land)');
 
     svg.selectAll('text')
         .remove()
@@ -532,50 +532,52 @@ function chart_division_world(svg, data_intake, init_area) {
         })
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_dark.svg')
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg')
+        // .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_dark.svg')
         .attr('style', 'opacity:0!important')
         .transition()
         .duration(400)
         .delay(300)
         .attr('style', '')
 
-    svg.selectAll('text.perc')
-        .data(categories)
-        .enter()
-        .append('text')
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .classed('perc', true)
-        .attr('transform', (d, i) => {
-            var left, top;
-            var size = Math.sqrt(init_area * d.value);
-            switch (i) {
-                case 0:
-                    left = - size - margin_chart_land / 2;
-                    top = - size;
-                    break;
-                case 1:
-                    left = 1.5 * margin_chart_land;
-                    top = - size;
-                    break;
-                case 2:
-                    left = 1.5 * margin_chart_land;
-                    top = 2 * margin_chart_land;
-                    break;
-                case 3:
-                    left = - size - margin_chart_land / 2;
-                    top = 2 * margin_chart_land;
-                    break;
-            }
-            return `translate(${left},${top})`;
-        })
-        .style("font-size", d => 8 + d.value * 20)
-        .text(d => Math.round(d.value * 100) + '%')
-        .attr('style', 'opacity:0!important')
-        .transition()
-        .duration(400)
-        .delay(300)
-        .attr('style', '');
+    // add percentages
+    // svg.selectAll('text.perc')
+    //     .data(categories)
+    //     .enter()
+    //     .append('text')
+    //     .attr('x', '50%')
+    //     .attr('y', '50%')
+    //     .classed('perc', true)
+    //     .attr('transform', (d, i) => {
+    //         var left, top;
+    //         var size = Math.sqrt(init_area * d.value);
+    //         switch (i) {
+    //             case 0:
+    //                 left = - size - margin_chart_land / 2;
+    //                 top = - size;
+    //                 break;
+    //             case 1:
+    //                 left = 1.5 * margin_chart_land;
+    //                 top = - size;
+    //                 break;
+    //             case 2:
+    //                 left = 1.5 * margin_chart_land;
+    //                 top = 2 * margin_chart_land;
+    //                 break;
+    //             case 3:
+    //                 left = - size - margin_chart_land / 2;
+    //                 top = 2 * margin_chart_land;
+    //                 break;
+    //         }
+    //         return `translate(${left},${top})`;
+    //     })
+    //     .style("font-size", d => 8 + d.value * 20)
+    //     .text(d => Math.round(d.value * 100) + '%')
+    //     .attr('style', 'opacity:0!important')
+    //     .transition()
+    //     .duration(400)
+    //     .delay(300)
+    //     .attr('style', '');
 
 }
 
@@ -692,7 +694,8 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         })
         .attr('width', (d, i) => icon_sizes[i])
         .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_light.svg')
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg')
+        // .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '_light.svg')
         .attr('style', 'opacity:0!important')
         .transition()
         .duration(400)
@@ -700,43 +703,43 @@ function chart_division_country(svg, data_intake, init_area, country, color) {
         .attr('style', '')
 
     // add percentages
-    svg.selectAll('text.perc')
-        .data(categories)
-        .enter()
-        .append('text')
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .classed('perc', true)
-        .attr('transform', (d, i) => {
-            var left, top;
-            var size = Math.sqrt(init_area * d.value);
-            switch (i) {
-                case 0:
-                    left = - size - margin_chart_land / 2;
-                    top = - size;
-                    break;
-                case 1:
-                    left = 1.5 * margin_chart_land;
-                    top = - size;
-                    break;
-                case 2:
-                    left = 1.5 * margin_chart_land;
-                    top = 2 * margin_chart_land;
-                    break;
-                case 3:
-                    left = - size - margin_chart_land / 2;
-                    top = 2 * margin_chart_land;
-                    break;
-            }
-            return `translate(${left},${top})`;
-        })
-        .style("font-size", d => 8 + d.value * 20)
-        .text(d => Math.round(d.value * 100) + '%')
-        .attr('style', 'opacity:0!important')
-        .transition()
-        .duration(400)
-        .delay(300)
-        .attr('style', '');
+    // svg.selectAll('text.perc')
+    //     .data(categories)
+    //     .enter()
+    //     .append('text')
+    //     .attr('x', '50%')
+    //     .attr('y', '50%')
+    //     .classed('perc', true)
+    //     .attr('transform', (d, i) => {
+    //         var left, top;
+    //         var size = Math.sqrt(init_area * d.value);
+    //         switch (i) {
+    //             case 0:
+    //                 left = - size - margin_chart_land / 2;
+    //                 top = - size;
+    //                 break;
+    //             case 1:
+    //                 left = 1.5 * margin_chart_land;
+    //                 top = - size;
+    //                 break;
+    //             case 2:
+    //                 left = 1.5 * margin_chart_land;
+    //                 top = 2 * margin_chart_land;
+    //                 break;
+    //             case 3:
+    //                 left = - size - margin_chart_land / 2;
+    //                 top = 2 * margin_chart_land;
+    //                 break;
+    //         }
+    //         return `translate(${left},${top})`;
+    //     })
+    //     .style("font-size", d => 8 + d.value * 20)
+    //     .text(d => Math.round(d.value * 100) + '%')
+    //     .attr('style', 'opacity:0!important')
+    //     .transition()
+    //     .duration(400)
+    //     .delay(300)
+    //     .attr('style', '');
 
     // add titles
     // svg.selectAll('text.titles')
