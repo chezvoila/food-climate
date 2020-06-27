@@ -25,6 +25,11 @@
     z-index: 10;
 }
 
+
+#land svg image {
+    opacity: 0;
+}
+
 #land #to_stick{
     position: relative;
 }
@@ -39,44 +44,17 @@
     height: 600px;
 }
 
-#leftDivision, #rightDivision {
-    position: absolute;
-}
-
-#leftDivision.focus, #rightDivision.focus {
-    z-index: 1;
-}
-
-#land #compare_text {
-    /* padding-top: 200px; */
+#land .icon_w, #land .icon_c{
+    transition: 0.4s;
 }
 
 #land svg {
-    /* width: 100%; */
     width: 600px;
 }
 
-/* #land svg rect {
-    opacity: 0.8;
-} */
-
-#land #leftDivision.focus svg rect, #land #rightDivision.focus svg rect {
-    opacity: 0.7;
-}
-
-#land #leftDivision svg image, #land #rightDivision svg image, #land #leftDivision svg text.perc, #land #rightDivision svg text.perc {
-    opacity: 0;
-    transition: 0.5s;
-}
-
-#land #leftDivision.focus svg image, #land #rightDivision.focus svg image, #land #leftDivision.focus svg text.perc, #land #rightDivision.focus svg text.perc {
-    opacity: 1;
-}
-
 #land .legend i {
-    border: 2px solid var(--color-dark2);
+    border: 1px solid var(--color-light2);
     padding: 0 12px;
-    /* opacity: 0.7; */
     margin: 20px;
 }
 
@@ -85,37 +63,20 @@
 }
 
 #land .legend i#color_country {
-    background-color: var(--color-light-land);
+    background-color: var(--color-dark-land);
 }
 
-#land .legend i.selected {
-    border-color: var(--color-light2);
-}
-
-#land .legend i.selected~span {
+#land .legend i~span {
     font-weight: bold;
-}
-
-#land .legend small#click_focus {
-    font-size: 0.8rem;
-    cursor: pointer;
 }
 
 #land #right_col p {
     margin: 50px 15px;
 }
 
-#land svg image {
+/* #land svg image {
     pointer-events: none;
-}
-
-#land #leftDivision .perc {
-    fill: var(--color-light2);
-}
-
-#land #rightDivision .perc {
-    fill: var(--color-dark2);
-}
+} */
 
 #land #text_land {
     margin: 15vh auto;
@@ -140,10 +101,6 @@
 #country, #value {
     font-size: 2.5rem;
     font-weight: bold;
-}
-
-#land text.anchor_left {
-    text-anchor: end;
 }
 
 #land text.anchor_middle {
@@ -177,25 +134,6 @@
 
 #land #columns {
     text-transform: uppercase;
-}
-
-#land button#columns_details {
-    margin: 20px 0;
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
-    transition: 0.2s;
-}
-
-#land button#columns_details:hover {
-    background-color: white;
-    color: var(--color-dark2);
-    cursor: pointer;
-}
-
-#land button#columns_details:focus {
-    outline: none;
 }
 
 #land #details {
