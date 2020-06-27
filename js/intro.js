@@ -13,8 +13,8 @@ async function intro(_) {
 let introSection = document.querySelector("#intro")
 
 let h1 = introSection.querySelector("h1:not(:first-child)");
-let imgMiddle = introSection.querySelector("h1 + img");
-let pImg = introSection.querySelector("img + p");
+let imgMiddle = introSection.querySelector("h1 + figure");
+let pImg = introSection.querySelector("figure + p");
 let p = introSection.querySelector("p + p");
 let h2 = introSection.querySelector("h2");
 let imgLast = introSection.querySelector("h2 + img");
