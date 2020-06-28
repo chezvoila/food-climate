@@ -1,11 +1,15 @@
 #global_warming {
     background-color: var( --color-light2);
-    padding: 25vh 0 0;
+    padding: 12vh 0 0;
 }
 
 #global_warming h1 {
     text-align: center;
-    margin-top: 20vh;
+}
+
+#global_warming h3 {
+    text-align: center;
+    margin-bottom: 27vh;
 }
 
 #global_warming .container{
