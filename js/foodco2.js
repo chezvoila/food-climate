@@ -1,13 +1,13 @@
 "use strict";
 
-async function foodco2(data, _, res) {
+async function foodco2(data, _, res, isDish) {
 
     /***** processing data *****/
 
     let dataCategory = [];
     // console.log(res)
-    if (res.length != 0) {
-        hightlight(res);
+    if (res !== undefined) {
+        hightlight(res, isDish);
         return
     }
     data = data.map(d => {
@@ -206,23 +206,30 @@ async function foodco2(data, _, res) {
 //         .attr("fill", _.colors.dark2);
 //     }
 
-function hightlight(res) {
-    console.log(res)
+function hightlight(res, isDish) {
     d3.selectAll('.highlight').classed('highlight', false);
-    res.forEach(id => {
-        d3.select('#' + id).classed('highlight', true);
-    })
+    if (isDish) {
+        res.forEach(id => {
+            d3.select('#food_co2 #' + id).classed('highlight', true);
+        })
+    }
+    else {
+        res.forEach(className => {
+            d3.select('#food_co2 .' + className).classed('highlight', true)
+        })
+    }
 }
 
 /********************* SCROLL ****************/
 
+var toTrigger = true;
 function food_co2_scroll(position) {
-    if (position > 0) {
+    if (toTrigger) {
         d3.selectAll("#food_co2 rect:not(:first-child)")
             .transition()
             .duration(200)
             .delay((d, i) => i * 5)
-            // .delay((d, i) => i * 15)
             .attr("opacity", 1);
+        toTrigger = false;
     }
 }

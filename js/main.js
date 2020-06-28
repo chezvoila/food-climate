@@ -46,7 +46,7 @@
             d3.select('#loader').classed('loaded',true)
             d3.select('#frame').classed('loaded',true)
             foodchoice(data[6],_);
-            foodco2(data[0], _, []);
+            foodco2(data[0], _);
             const data_GW = globalwarming(data[1], data[2]);
             chainco2(data[3]);
             const data_land = land(data[4], data[5]);
@@ -251,6 +251,10 @@
                 
             }
         }
+
+        document.querySelector("#food_choice button").addEventListener("click", function () {
+            jumpNext(document.querySelector("#food_choice").parentNode.nextElementSibling)
+        });
 
 
         function jumpPrev(el) {
