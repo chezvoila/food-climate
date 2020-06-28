@@ -40,8 +40,8 @@ async function foodco2(data, _, res) {
         // cols = 12,
         padding = 20,
         boxH = 93,
-        boxW = 160,
-        outerBoxH = 120;
+        boxW = 100,
+        outerBoxH = 130;
     let cols = 12;
 
     let rowIndex = 0;
@@ -51,7 +51,7 @@ async function foodco2(data, _, res) {
         .attr("width", 1107)
         .attr("viewBox", "0 0 1107 3500")
         .append("g")
-        .attr("transform", "translate(60, 40)")
+        .attr("transform", "translate(100, 40)")
         .selectAll("g.other")
         .data(dataCategory)
         .enter()
@@ -143,7 +143,7 @@ async function foodco2(data, _, res) {
 
     d3.selectAll("g.figure").nodes().forEach(el => {
         let className = d3.select(el).attr("class").replace(" figure", "");
-        if (className == 'beef(meatcows)') cols = 32;
+        if (className == 'beef(meatcows)') cols = 28;
         else cols = 12;
 
         d3.select(el).selectAll("rect")

@@ -21,9 +21,9 @@ async function foodchoice(data, _) {
 
     ul.addEventListener("click", selectDish);
 
-    btn.addEventListener("click", function() {
-    console.log(ingredientsIDs);
-     foodco2(data[0], _, ingredientsIDs);
+    btn.addEventListener("click", function () {
+        console.log(ingredientsIDs);
+        foodco2(data[0], _, ingredientsIDs);
     });
 
 
@@ -38,7 +38,7 @@ async function foodchoice(data, _) {
         let li = e.target.closest("li");
         let freeStack;
         let food;
-        if(li) {
+        if (li) {
             let foodText = li.querySelector("span").innerHTML;
             food = data.filter(el => el.dish == foodText);
 
@@ -60,7 +60,7 @@ async function foodchoice(data, _) {
             li.classList.toggle("hover");
             a.forEach(el => {
                 categories.forEach(j => {
-                    if(el.classList.value == j) {
+                    if (el.classList.value == j) {
                         el.classList.add("hover");
                     }
                 })
@@ -75,9 +75,9 @@ async function foodchoice(data, _) {
 
 
 
-    
-    
-    
+
+
+
 
     return {
     }
