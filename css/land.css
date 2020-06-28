@@ -201,8 +201,8 @@
     transition: 0.2s;
     height: 60px;
     width: 32px;
-    background: url(../img/search.svg) no-repeat center;
-    padding: 20px;
+    background-color: transparent;
+    padding: 15px 20px;
 }
 
 #land .search button:hover #search_icon {
