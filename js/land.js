@@ -129,9 +129,13 @@ function land(if_everyone, intake) {
             transition_completed = false; // to divide on scroll again
             area_country = getAreaCountry(defaultArea, data_consumption, country);
             // form the initial square again
-            init_division_country(area_country, main_svg);
-            init_division_world(defaultArea, main_svg);
-            update_level_main(area_country, main_svg);
+            // init_division_country(area_country, main_svg);
+            // init_division_world(defaultArea, main_svg);
+            // update_level_main(area_country, main_svg);
+            // update the divides elements
+            chart_division_world(main_svg, data_intake, defaultArea);
+            chart_division_country(main_svg, data_intake, defaultArea, country);
+            update_levels(main_svg)
             // empties the text sections
             reset();
         }
@@ -410,6 +414,8 @@ function update_level_main(area, svg) {
 // updates which small square should be put on top for all 4 categories
 // also shows the icon for the element that is on top
 function update_levels(svg) {
+    // svg.selectAll('.show').classed('show_icon', false);
+    // svg.selectAll('.show').classed('show', false);
     for (var i = 0; i < 4; i++) {
         // which one should be in front
         var front = country_sizes[i] > world_sizes[i] ? "world" : "country";
@@ -507,6 +513,9 @@ function chart_division_world(svg, data_intake, init_area) {
             return `translate(${left},${top})`;
         });
 
+
+    svg.selectAll('image.icon_w')
+        .remove()
 
     // add icons
     var icon_sizes = [];
@@ -626,6 +635,10 @@ function chart_division_country(svg, data_intake, init_area, country) {
             }
             return `translate(${left},${top})`;
         })
+
+
+    svg.selectAll('image.icon_c')
+        .remove()
 
     // add icons
     var icon_sizes = [];

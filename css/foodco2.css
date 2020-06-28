@@ -40,6 +40,7 @@
 }
 
 #food_co2 .legend svg {
-    display: inline;
-    width: fit-content;
+    /* display: inline; */
+    width: 20px;
+    margin-bottom: -3px;
 }
