@@ -5,14 +5,8 @@ async function foodco2(data, _, res, isDish) {
     /***** processing data *****/
 
     let dataCategory = [];
-<<<<<<< HEAD
-    if (res.length != 0) {
-        hightlight(res);
-=======
-    // console.log(res)
     if (res !== undefined) {
         hightlight(res, isDish);
->>>>>>> 960f88081b060a74f202250c4d7818370c1fb29f
         return
     }
     data = data.map(d => {
@@ -142,20 +136,7 @@ async function foodco2(data, _, res, isDish) {
     }
 }
 
-<<<<<<< HEAD
-function hightlight(res) {
-=======
-// function() {
-//     if(!(exceptionList[0] || exceptionList[1] || exceptionList[2])) {
-//         d3.select(this)
-//         .selectAll("rect:not(.container)")
-//         .attr("fill", _.colors.dark2);
-//         d3.select(this).select("text")
-//         .attr("fill", _.colors.dark2);
-//     }
-
 function hightlight(res, isDish) {
->>>>>>> 960f88081b060a74f202250c4d7818370c1fb29f
     d3.selectAll('.highlight').classed('highlight', false);
     if (isDish) {
         res.forEach(id => {
