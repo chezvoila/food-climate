@@ -84,9 +84,9 @@
     text-align: left;
 }
 
-/* #land svg image {
+#land svg image.icon {
     pointer-events: none;
-} */
+}
 
 #land #text_land {
     margin: auto auto;
@@ -369,6 +369,12 @@
         display: block;
     }
     #land #details {
-        margin: 100px auto 0 auto;
+        margin: 100px auto 400px auto;
+    }
+    #land #text_land p {
+        margin-top: 1100px;
+    }
+    #land #div_columns{
+        margin-top: 50px;
     }
 }
