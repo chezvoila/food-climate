@@ -1,13 +1,78 @@
 [
     {
-        "food": "Margherita Pizza",
+        "dish": "Margherita Pizza",
         "categories": [
             "plant", "animal", "oil", "vegetable" 
         ],
         "ingredients": [
-            "wheat", "cheese", "olive oil", "veggies", "tomatos"
+            {
+                "food": "wheat",
+                "id" : "1"
+            },
+            {
+                "food": "cheese",
+                "id" : "1"
+            },
+            {
+                "food": "olive oil",
+                "id" : "1"
+            },
+            {
+                "food": "veggies",
+                "id" : "1"
+            },
+            {
+                "food": "tomatos",
+                "id" : "1"
+            }
         ]
     },
-
-    {}
+    {
+        "dish": "Sushi",
+        "categories": [
+            "plant", "meat", "oil" 
+        ],
+        "ingredients": [
+            {
+                "food": "rice",
+                "id" : "1"
+            },
+            {
+                "food": "fish",
+                "id" : "1"
+            },
+            {
+                "food": "soybean oil",
+                "id" : "1"
+            }
+        ]
+    },
+    {
+        "dish": "Margherita Pizza",
+        "categories": [
+            "plant", "animal", "oil", "vegetable" 
+        ],
+        "ingredients": [
+            {
+                "food": "wheat",
+                "id" : "1"
+            },
+            {
+                "food": "cheese",
+                "id" : "1"
+            },
+            {
+                "food": "olive oil",
+                "id" : "1"
+            },
+            {
+                "food": "veggies",
+                "id" : "1"
+            },
+            {
+                "food": "tomatos",
+                "id" : "1"
+            }
+        ]
+    }
 ]
