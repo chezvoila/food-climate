@@ -4,7 +4,7 @@ async function foodchoice(data, _) {
 
     /***** DOM *****/
     let a = document.querySelectorAll("#food_choice nav a");
-    let li = document.querySelectorAll("#food_choice > ul > li:not(:first-child)");
+    let ul = document.querySelector("#food_choice > ul");
     let btn = document.querySelector("#food_choice button");
     let categories = [];
     let ingredientsIDs = [];
@@ -19,9 +19,7 @@ async function foodchoice(data, _) {
     }
 
 
-    li.forEach((el) => {
-        el.addEventListener("click", selectDish);
-    })
+    ul.addEventListener("click", selectDish);
 
     btn.addEventListener("click", function() {
      foodco2(data[0], _, ingredientsIDs);
@@ -36,26 +34,28 @@ async function foodchoice(data, _) {
 
 
     function selectDish(e) {
-        // li.forEach(el => {
-            if(e.target.classList.contains("hover")) {
-                e.target.classList.remove("hover");
-            }
-        // });
-        a.forEach(el => {
-            el.classList.remove("hover");
-            ingredientsIDs = [];
-        });
-        e.target.classList.toggle("hover");
+        let li = e.target.closest("li");
+        let freeStack;
+        let food;
+        if(li) {
+            let foodText = li.querySelector("span").innerHTML;
+            food = data.filter(el => el.dish == foodText);
 
-        let food = e.target.closest("li").querySelector("span").innerHTML;
-        let filterData = data.filter(el => el.dish == food);
-        categories = filterData[0].categories;
-        filterData[0].ingredients.forEach((el, i) => {
-            ingredientsIDs.push(filterData[0].ingredients[i].id);
-            console.log(ingredientsIDs)
-        })
+            categories = food[0].categories;
+            food[0].ingredients.forEach((el, i) => {
+                ingredientsIDs.push(food[0].ingredients[i].id);
+            })
 
-        if(e.target.classList.contains("hover")) {
+            ul.querySelectorAll("li").forEach(el => {
+                el.classList.remove("hover");
+            })
+
+            a.forEach(el => {
+                el.classList.remove("hover");
+                ingredientsIDs = [];
+            });
+
+            li.classList.toggle("hover");
             a.forEach(el => {
                 categories.forEach(j => {
                     if(el.classList.value == j) {
