@@ -732,6 +732,13 @@ function land_scroll(position) {
     } else {
         p2.classList.remove("fadeOut");
     }
+
+    if (position > 3800) {
+        p3.classList.add("fadeOut");
+    } else {
+        p3.classList.remove("fadeOut");
+    }
+    
     if (position < scroll_animation && transition_completed) {
         init_division_world(defaultArea, main_svg);
         init_division_country(area_country, main_svg);
