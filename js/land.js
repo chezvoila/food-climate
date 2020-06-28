@@ -128,12 +128,15 @@ function land(if_everyone, intake) {
         },
         onSelect: function (e, term, item) {
             country = term;
-            transition_completed = false; // to divide on scroll again
             area_country = getAreaCountry(defaultArea, data_consumption, country);
+            
+            // transition_completed = false; // to divide on scroll again
             // form the initial square again
             // init_division_country(area_country, main_svg);
             // init_division_world(defaultArea, main_svg);
             // update_level_main(area_country, main_svg);
+
+            transition_completed = true
             // update the divides elements
             chart_division_world(main_svg, data_intake, defaultArea);
             chart_division_country(main_svg, data_intake, defaultArea, country);
@@ -419,12 +422,10 @@ let factor = 3;
 let offset = 10;
 function update_icons(svg) {
     var icon_sizes = []
-    console.log(world_sizes)
-    console.log(country_sizes)
     for (let i = 0; i < 4; i++) {
         var w = world_sizes[i], c = country_sizes[i];
         var area = defaultArea * Math.min(w, c);
-        console.log(area)
+
         var size = Math.sqrt(area);
         var icon_size = size / factor + offset;
         icon_sizes.push(icon_size);
@@ -718,6 +719,7 @@ let textLand = document.getElementById("text_land"),
     p3 = p2.nextElementSibling;
 
 function land_scroll(position) {
+    console.log(position)
     if ((position > 500) && ((position <= 1500))) {
         p1.classList.add("fadeIn");
     } else {
