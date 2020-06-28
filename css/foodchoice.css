@@ -377,7 +377,7 @@
 #food_choice button {
         display: block;
         margin: auto;
-        width: 15%;
+        /* width: 15%; */
         height: 50px;
         margin-top: 10px;
         outline: none;

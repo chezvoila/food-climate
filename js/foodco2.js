@@ -82,10 +82,10 @@ async function foodco2(data, _, res, isDish) {
                 return `translate(${colIndex * (boxW + 200)}, ${rowIndex * (outerBoxH + 40) + 50})`
             })
             .on("mouseenter", function () {
-                changeColor(this)
+                // changeColor(this)
             })
             .on("mouseleave", function () {
-                changeColor(this);
+                // changeColor(this);
             })
 
 
