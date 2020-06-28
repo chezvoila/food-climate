@@ -94,7 +94,7 @@
     {
         "dish": "Tacos",
         "categories": [
-            "plant", "meat", "animal", "veggies"
+            "plant", "meat", "animal", "vegetable"
         ],
         "ingredients": [
             {
@@ -154,7 +154,7 @@
     {
         "dish": "Chicken Curry",
         "categories": [
-            "meat", "plant", "oil", "veggies"
+            "meat", "plant", "oil", "vegetable"
         ],
         "ingredients": [
             {
@@ -182,7 +182,7 @@
     {
         "dish": "Apple Pie",
         "categories": [
-            "plant", "other", "veggies", "animal"
+            "plant", "other", "vegetable", "animal"
         ],
         "ingredients": [
             {
@@ -206,7 +206,7 @@
     {
         "dish": "BBQ",
         "categories": [
-            "meat", "oil", "veggies"
+            "meat", "oil", "vegetable"
         ],
         "ingredients": [
             {
@@ -226,7 +226,7 @@
     {
         "dish": "Cheese Burger",
         "categories": [
-            "plant", "meat", "animal", "oil", "veggies"
+            "plant", "meat", "animal", "oil", "vegetable"
         ],
         "ingredients": [
             {
@@ -254,7 +254,7 @@
     {
         "dish": "Salad",
         "categories": [
-            "veggies", "oil", "animal"
+            "vegetable", "oil", "animal"
         ],
         "ingredients": [
             {
@@ -286,7 +286,7 @@
     {
         "dish": "Paella",
         "categories": [
-            "plant", "meat", "animal", "veggies"
+            "plant", "meat", "animal", "vegetable"
         ],
         "ingredients": [
             {
