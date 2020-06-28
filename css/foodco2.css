@@ -24,3 +24,22 @@
     font-weight: 700;
     font-family: 'Raleway', sans-serif;
 }
+
+#food_co2 p {
+    color:white;
+    width: 60%;
+    margin: auto;
+}
+
+#food_co2 .legend {
+    margin-bottom: 50px;
+}
+
+#food_co2 .legend p {
+    display: inline;
+}
+
+#food_co2 .legend svg {
+    display: inline;
+    width: fit-content;
+}
