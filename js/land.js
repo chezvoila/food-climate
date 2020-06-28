@@ -716,10 +716,24 @@ function reset() {
 var transition_completed = false;
 var scroll_sticky = 2100; // TODO
 var scroll_animation = 2100;
-function land_scroll(position) {
-    // if (position < scroll_sticky) {
 
-    // }
+let textLand = document.getElementById("text_land"),
+    p1 = textLand.querySelector("p"),
+    p2 = p1.nextElementSibling,
+    p3 = p2.nextElementSibling;
+
+function land_scroll(position) {
+    if (position > 1600) {
+        p1.classList.add("fadeOut");
+    } else {
+        p1.classList.remove("fadeOut");
+    }
+
+    if (position > 2700) {
+        p2.classList.add("fadeOut");
+    } else {
+        p2.classList.remove("fadeOut");
+    }
     if (position < scroll_animation && transition_completed) {
         init_division_world(defaultArea, main_svg);
         init_division_country(area_country, main_svg);

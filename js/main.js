@@ -379,7 +379,7 @@
                 }
               },
               "color": {
-                "value": "#2b050b"
+                "value": "#4a290c"
               },
               "shape": {
                 "type": "circle",

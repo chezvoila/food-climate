@@ -58,7 +58,7 @@
 }
 
 #chain_co2 .informations {
-    width: 50%;
+    width: 100%;
     margin: 0 auto 0px auto;
     z-index: 100;
     opacity:0;
