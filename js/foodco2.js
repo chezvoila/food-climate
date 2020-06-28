@@ -5,7 +5,11 @@ async function foodco2(data, _, res) {
     /***** processing data *****/
 
     let dataCategory = [];
-    console.log(res)
+    // console.log(res)
+    if (res.length != 0) {
+        hightlight(res);
+        return
+    }
     data = data.map(d => {
         return {
             food: d["Food name"],
@@ -36,8 +40,8 @@ async function foodco2(data, _, res) {
         // cols = 12,
         padding = 20,
         boxH = 93,
-        boxW = 227,
-        outerBoxH = 118;
+        boxW = 160,
+        outerBoxH = 120;
     let cols = 12;
 
     let rowIndex = 0;
@@ -47,7 +51,7 @@ async function foodco2(data, _, res) {
         .attr("width", 1107)
         .attr("viewBox", "0 0 1107 3500")
         .append("g")
-        .attr("transform", "translate(0, 40)")
+        .attr("transform", "translate(60, 40)")
         .selectAll("g.other")
         .data(dataCategory)
         .enter()
@@ -69,6 +73,7 @@ async function foodco2(data, _, res) {
             .selectAll("g")
             .data(data_class)
             .enter().append("g")
+            .attr('id', d => d.id)
             .attr("class", d => d.food.toLowerCase().replace(/ +/g, ""))
             .classed("figure", true)
             .attr("transform", (d, i) => {
@@ -85,41 +90,41 @@ async function foodco2(data, _, res) {
             .on("mouseleave", function () {
                 changeColor(this);
             })
-            // .append("rect")
-            // .classed("container", true)
-            // .attr("width", "1")
-            // .attr("height", (d) => {
-            //     let colSize = d.sum / 12;
-            //     // console.log(d.sum, colSize)
-            //     // switch(colSize) {
+        // .append("rect")
+        // .classed("container", true)
+        // .attr("width", "1")
+        // .attr("height", (d) => {
+        //     let colSize = d.sum / 12;
+        //     // console.log(d.sum, colSize)
+        //     // switch(colSize) {
 
-            //     //     case (0):
-            //     //         return "40";
-            //     //         break;
+        //     //     case (0):
+        //     //         return "40";
+        //     //         break;
 
-            //     //     case 1:
-            //     //         return "60";
-            //     //         break;
-            //     //     case 2:
-            //     //         return "80";
-            //     //         break;
-            //     //     case 3:
-            //     //         return "100";
-            //     //         break;
+        //     //     case 1:
+        //     //         return "60";
+        //     //         break;
+        //     //     case 2:
+        //     //         return "80";
+        //     //         break;
+        //     //     case 3:
+        //     //         return "100";
+        //     //         break;
 
-            //     //     case 5:
-            //     //         return "113";
-            //     //         break;
-            //     // }
+        //     //     case 5:
+        //     //         return "113";
+        //     //         break;
+        //     // }
 
-            //     return "113";
-            // })
-            // .attr("fill", "transparent")
-            // .attr("x", -10)
-            // .attr("y", 10)
-            // .attr("stroke", _.colors.light2)
-            // .attr("stroke-width", "1px")
-            // .attr("stroke-dasharray", "0");
+        //     return "113";
+        // })
+        // .attr("fill", "transparent")
+        // .attr("x", -10)
+        // .attr("y", 10)
+        // .attr("stroke", _.colors.light2)
+        // .attr("stroke-width", "1px")
+        // .attr("stroke-dasharray", "0");
         // .style("outline", "1px solid black");
 
 
@@ -138,7 +143,7 @@ async function foodco2(data, _, res) {
 
     d3.selectAll("g.figure").nodes().forEach(el => {
         let className = d3.select(el).attr("class").replace(" figure", "");
-        if (className == 'beef(meatcows)') cols = 40;
+        if (className == 'beef(meatcows)') cols = 32;
         else cols = 12;
 
         d3.select(el).selectAll("rect")
@@ -201,7 +206,13 @@ async function foodco2(data, _, res) {
 //         .attr("fill", _.colors.dark2);
 //     }
 
-
+function hightlight(res) {
+    console.log(res)
+    d3.selectAll('.highlight').classed('highlight', false);
+    res.forEach(id => {
+        d3.select('#' + id).classed('highlight', true);
+    })
+}
 
 /********************* SCROLL ****************/
 
