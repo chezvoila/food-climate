@@ -44,3 +44,7 @@
     width: 20px;
     margin-bottom: -3px;
 }
+
+.figure.highlight rect {
+    fill: var(--color-dark3);
+}
