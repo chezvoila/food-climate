@@ -4,7 +4,7 @@ async function foodchoice(data, _) {
 
     /***** DOM *****/
     let a = document.querySelectorAll("#food_choice nav a");
-    let li = document.querySelectorAll("#food_choice > ul > li");
+    let li = document.querySelectorAll("#food_choice > ul > li:not(:first-child)");
     let btn = document.querySelector("#food_choice button");
     let categories = [];
     let ingredientsIDs = [];
@@ -36,11 +36,11 @@ async function foodchoice(data, _) {
 
 
     function selectDish(e) {
-        li.forEach(el => {
-            if(el != e.target) {
-                el.classList.remove("hover");
+        // li.forEach(el => {
+            if(e.target.classList.contains("hover")) {
+                e.target.classList.remove("hover");
             }
-        });
+        // });
         a.forEach(el => {
             el.classList.remove("hover");
             ingredientsIDs = [];
@@ -52,7 +52,7 @@ async function foodchoice(data, _) {
         categories = filterData[0].categories;
         filterData[0].ingredients.forEach((el, i) => {
             ingredientsIDs.push(filterData[0].ingredients[i].id);
-            console.log(filterData[0].ingredients[i].id)
+            console.log(ingredientsIDs)
         })
 
         if(e.target.classList.contains("hover")) {
