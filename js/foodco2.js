@@ -1,12 +1,18 @@
 "use strict";
 
-async function foodco2(data, _, res) {
+async function foodco2(data, _, res, isDish) {
 
     /***** processing data *****/
 
     let dataCategory = [];
+<<<<<<< HEAD
     if (res.length != 0) {
         hightlight(res);
+=======
+    // console.log(res)
+    if (res !== undefined) {
+        hightlight(res, isDish);
+>>>>>>> 960f88081b060a74f202250c4d7818370c1fb29f
         return
     }
     data = data.map(d => {
@@ -39,8 +45,8 @@ async function foodco2(data, _, res) {
         // cols = 12,
         padding = 20,
         boxH = 93,
-        boxW = 160,
-        outerBoxH = 120;
+        boxW = 100,
+        outerBoxH = 130;
     let cols = 12;
 
     let rowIndex = 0;
@@ -50,7 +56,7 @@ async function foodco2(data, _, res) {
         .attr("width", 1107)
         .attr("viewBox", "0 0 1107 3500")
         .append("g")
-        .attr("transform", "translate(60, 40)")
+        .attr("transform", "translate(100, 40)")
         .selectAll("g.other")
         .data(dataCategory)
         .enter()
@@ -99,7 +105,7 @@ async function foodco2(data, _, res) {
 
     d3.selectAll("g.figure").nodes().forEach(el => {
         let className = d3.select(el).attr("class").replace(" figure", "");
-        if (className == 'beef(meatcows)') cols = 32;
+        if (className == 'beef(meatcows)') cols = 28;
         else cols = 12;
 
         d3.select(el).selectAll("rect")
@@ -136,22 +142,43 @@ async function foodco2(data, _, res) {
     }
 }
 
+<<<<<<< HEAD
 function hightlight(res) {
+=======
+// function() {
+//     if(!(exceptionList[0] || exceptionList[1] || exceptionList[2])) {
+//         d3.select(this)
+//         .selectAll("rect:not(.container)")
+//         .attr("fill", _.colors.dark2);
+//         d3.select(this).select("text")
+//         .attr("fill", _.colors.dark2);
+//     }
+
+function hightlight(res, isDish) {
+>>>>>>> 960f88081b060a74f202250c4d7818370c1fb29f
     d3.selectAll('.highlight').classed('highlight', false);
-    res.forEach(id => {
-        d3.select('#' + id).classed('highlight', true);
-    })
+    if (isDish) {
+        res.forEach(id => {
+            d3.select('#food_co2 #' + id).classed('highlight', true);
+        })
+    }
+    else {
+        res.forEach(className => {
+            d3.select('#food_co2 .' + className).classed('highlight', true)
+        })
+    }
 }
 
 /********************* SCROLL ****************/
 
+var toTrigger = true;
 function food_co2_scroll(position) {
-    if (position > 0) {
+    if (toTrigger) {
         d3.selectAll("#food_co2 rect:not(:first-child)")
             .transition()
             .duration(200)
             .delay((d, i) => i * 5)
-            // .delay((d, i) => i * 15)
             .attr("opacity", 1);
+        toTrigger = false;
     }
 }
