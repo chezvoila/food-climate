@@ -102,10 +102,11 @@ body {
 body.intro {
         /* background-color: var(--color-main); */
         /* background-color: #d8552e; */
+        background-color: #e27c24;
 }
 
 body.food_choice {
-        /* background-color: var(--color-main); */
+        background-color: var(--color-main);
 }
 
 body.food_co2 {
