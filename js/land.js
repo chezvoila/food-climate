@@ -712,8 +712,7 @@ function reset() {
 /********************* SCROLL ****************/
 
 var transition_completed = false;
-var scroll_sticky = 2100; // TODO
-var scroll_animation = 2100;
+var scroll_animation = 4700;
 
 let textLand = document.getElementById("text_land"),
     p1 = textLand.querySelector("p"),
@@ -721,6 +720,7 @@ let textLand = document.getElementById("text_land"),
     p3 = p2.nextElementSibling;
 
 function land_scroll(position) {
+    console.log(position)
     if ((position > 500) && ((position <= 1500))) {
         p1.classList.add("fadeIn");
     } else {

@@ -86,7 +86,7 @@ async function foodco2(data, _) {
         .attr("width", "1")
         .attr("height", (d) => {
             let colSize = d.sum/ 12;
-            console.log(d.sum, colSize)
+            // console.log(d.sum, colSize)
             // switch(colSize) {
 
             //     case (0):
