@@ -1,4 +1,4 @@
-:root{
+:root {
     --color-dark-land: #260107;
     --color-main-land: #AD1C34;
     --color-light-land: #E88898;
@@ -30,17 +30,12 @@
     margin-left: 5px;
 }
 
-#land > h1:first-child {
+#land>h1:first-child {
     line-height: 1.9;
     margin-bottom: 500px;
 }
 
-
-#land svg image {
-    opacity: 0;
-}
-
-#land #to_stick{
+#land #to_stick {
     position: sticky;
     top: 140px;
 }
@@ -51,14 +46,13 @@
     max-width: 600px;
 }
 
-#land .icon_w, #land .icon_c{
+#land .icon {
     opacity: 0;
-    display: none;
+    transition: 0.4s;
 }
 
-#land .icon_w.show, #land .icon_c.show{
+#land .icon.show {
     opacity: 1;
-    display: initial;
 }
 
 #land svg {
@@ -79,7 +73,7 @@
     background-color: var(--color-dark-land);
 }
 
-#land #right_col{
+#land #right_col {
     width: 50%;
     display: table-cell;
     vertical-align: middle;
@@ -179,7 +173,7 @@
     line-height: 1.6em;
 }
 
-#land #charts{
+#land #charts {
     display: table;
 }
 
@@ -365,19 +359,16 @@
         max-width: 600px;
         margin: auto;
     }
-
     #land #right_col {
         width: 70%;
         margin: auto;
         display: block;
         vertical-align: top;
     }
-
-    #land #charts{
+    #land #charts {
         display: block;
     }
-
-    #land #details{
+    #land #details {
         margin: 100px auto 0 auto;
     }
 }

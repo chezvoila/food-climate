@@ -138,7 +138,7 @@ async function foodco2(data, _, res) {
 
     d3.selectAll("g.figure").nodes().forEach(el => {
         let className = d3.select(el).attr("class").replace(" figure", "");
-        if (className == 'beef(meat)') cols = 40;
+        if (className == 'beef(meatcows)') cols = 40;
         else cols = 12;
 
         d3.select(el).selectAll("rect")

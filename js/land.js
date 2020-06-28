@@ -100,6 +100,8 @@ function land(if_everyone, intake) {
     // add rects for world and country (first = true)
     init_division_world(defaultArea, main_svg, true)
     init_division_country(area_country, main_svg, true)
+    add_use_rect(main_svg)
+    init_icons(main_svg)
     // put the right square in front
     update_level_main(area_country, main_svg)
 
@@ -129,9 +131,14 @@ function land(if_everyone, intake) {
             transition_completed = false; // to divide on scroll again
             area_country = getAreaCountry(defaultArea, data_consumption, country);
             // form the initial square again
-            init_division_country(area_country, main_svg);
-            init_division_world(defaultArea, main_svg);
-            update_level_main(area_country, main_svg);
+            // init_division_country(area_country, main_svg);
+            // init_division_world(defaultArea, main_svg);
+            // update_level_main(area_country, main_svg);
+            // update the divides elements
+            chart_division_world(main_svg, data_intake, defaultArea);
+            chart_division_country(main_svg, data_intake, defaultArea, country);
+            update_levels(main_svg)
+            update_icons(main_svg)
             // empties the text sections
             reset();
         }
@@ -326,8 +333,6 @@ function init_division_world(init_area, svg, first = false) {
         })
         .attr('fill', 'var(--color-main-land)');
 
-    svg.selectAll('image')
-        .remove()
 }
 
 /**
@@ -385,23 +390,99 @@ function init_division_country(init_area, svg, first = false) {
             return `translate(${left},${top})`;
         })
         .attr('fill', 'var(--color-dark-land)');
-
-    svg.selectAll('image')
-        .remove()
 }
+
+
+function add_use_rect(svg) {
+    for (var i = 0; i < 4; i++) {
+        svg.append('use')
+            .classed('use', true)
+            .attr('id', 'use' + i)
+    }
+}
+
+
+function init_icons(svg) {
+    svg.selectAll('svg.icon')
+        .data([0, 0, 0, 0])
+        .enter()
+        .append('svg:image')
+        .classed('icon', true)
+        .classed('anchor_middle', true)
+        .attr('id', (d, i) => 'icon_' + i)
+        .attr('x', '50%')
+        .attr('y', '50%')
+        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg');
+}
+
+let factor = 3;
+let offset = 10;
+function update_icons(svg) {
+    var icon_sizes = []
+    console.log(world_sizes)
+    console.log(country_sizes)
+    for (let i = 0; i < 4; i++) {
+        var w = world_sizes[i], c = country_sizes[i];
+        var area = defaultArea * Math.min(w, c);
+        console.log(area)
+        var size = Math.sqrt(area);
+        var icon_size = size / factor + offset;
+        icon_sizes.push(icon_size);
+    }
+
+    svg.selectAll('image.icon')
+        .classed('show', true)
+        .transition()
+        .duration(300)
+        .attr('transform', (d, i) => {
+            var left,
+                top;
+            var icon_size = icon_sizes[i];
+            var size = (icon_sizes[i] - offset) * factor;
+            switch (i) {
+                case 0:
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
+                    break;
+                case 1:
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = - (size / 2 + margin_chart_land + icon_size / 2);
+                    break;
+                case 2:
+                    left = size / 2 + margin_chart_land - icon_size / 2;
+                    top = size / 2 + margin_chart_land - icon_size / 2;
+                    break;
+                case 3:
+                    left = - (size / 2 + margin_chart_land + icon_size / 2);
+                    top = size / 2 + margin_chart_land - icon_size / 2;
+                    break;
+            }
+            return `translate(${left},${top})`;
+        })
+        .attr('width', (d, i) => icon_sizes[i])
+        .attr('height', (d, i) => icon_sizes[i])
+}
+
+function hide_icons(svg) {
+    svg.selectAll('image.icon')
+        .classed('show', false)
+}
+
 
 
 // updates which big square should be put on top
 // for svg, it's the last appened element that is on top
 // we use a 'use' element that selects which element it should contain (selected by id) 
 function update_level_main(area, svg) {
-    svg.selectAll('use').remove();
+    // svg.selectAll('use').remove();
     // which one should be in front
     var front = area > defaultArea ? "world" : "country";
     for (var i = 0; i < 4; i++) {
-        svg.append('use')
-            .classed('use', true)
-            .attr('id', 'use' + i)
+        svg
+            .select('#use' + i)
+            // .append('use')
+            // .classed('use', true)
+            // .attr('id', 'use' + i)
             .attr('xlink:href', "#" + front + i);
     }
 }
@@ -410,6 +491,8 @@ function update_level_main(area, svg) {
 // updates which small square should be put on top for all 4 categories
 // also shows the icon for the element that is on top
 function update_levels(svg) {
+    // svg.selectAll('.show').classed('show_icon', false);
+    // svg.selectAll('.show').classed('show', false);
     for (var i = 0; i < 4; i++) {
         // which one should be in front
         var front = country_sizes[i] > world_sizes[i] ? "world" : "country";
@@ -466,7 +549,7 @@ function chart_division_world(svg, data_intake, init_area) {
         world_sizes[i] = cat.value;
     })
 
-    // add rects
+    // update rects
     svg.selectAll('rect.rect_world')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
@@ -507,49 +590,6 @@ function chart_division_world(svg, data_intake, init_area) {
             return `translate(${left},${top})`;
         });
 
-
-    // add icons
-    var icon_sizes = [];
-    svg.selectAll('svg.icon_w')
-        .data(categories)
-        .enter()
-        .append('svg:image')
-        .classed('icon_w', true)
-        .classed('anchor_middle', true)
-        .attr('id', (d, i) => 'icon_world' + i)
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .attr('transform', (d, i) => {
-            var left,
-                top,
-                area = init_area * d.value;
-            var size = Math.sqrt(area);
-            var icon_size = size / 3 + 10;
-            switch (i) {
-                case 0:
-                    left = - (size / 2 + margin_chart_land + icon_size / 2);
-                    top = - (size / 2 + margin_chart_land + icon_size / 2);
-                    break;
-                case 1:
-                    left = size / 2 + margin_chart_land - icon_size / 2;
-                    top = - (size / 2 + margin_chart_land + icon_size / 2);
-                    break;
-                case 2:
-                    left = size / 2 + margin_chart_land - icon_size / 2;
-                    top = size / 2 + margin_chart_land - icon_size / 2;
-                    break;
-                case 3:
-                    left = - (size / 2 + margin_chart_land + icon_size / 2);
-                    top = size / 2 + margin_chart_land - icon_size / 2;
-                    break;
-            }
-            icon_sizes.push(icon_size)
-            return `translate(${left},${top})`;
-        })
-        .attr('width', (d, i) => icon_sizes[i])
-        .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg')
-
 }
 
 
@@ -586,7 +626,7 @@ function chart_division_country(svg, data_intake, init_area, country) {
         country_sizes[i] = cat.value;
     })
 
-    // add rects
+    // update rects
     svg.selectAll('rect.rect_country')
         .on('mouseover', (d, i) => {
             var value = categories[i].value;
@@ -626,48 +666,6 @@ function chart_division_country(svg, data_intake, init_area, country) {
             }
             return `translate(${left},${top})`;
         })
-
-    // add icons
-    var icon_sizes = [];
-    svg.selectAll('svg.icon_c')
-        .data(categories)
-        .enter()
-        .append('svg:image')
-        .classed('icon_c', true)
-        .classed('anchor_middle', true)
-        .attr('id', (d, i) => 'icon_country' + i)
-        .attr('x', '50%')
-        .attr('y', '50%')
-        .attr('transform', (d, i) => {
-            var left,
-                top,
-                area = init_area * d.value;
-            var size = Math.sqrt(area);
-            var icon_size = size / 3 + 10;
-            switch (i) {
-                case 0:
-                    left = - (size / 2 + margin_chart_land + icon_size / 2);
-                    top = - (size / 2 + margin_chart_land + icon_size / 2);
-                    break;
-                case 1:
-                    left = size / 2 + margin_chart_land - icon_size / 2;
-                    top = - (size / 2 + margin_chart_land + icon_size / 2);
-                    break;
-                case 2:
-                    left = size / 2 + margin_chart_land - icon_size / 2;
-                    top = size / 2 + margin_chart_land - icon_size / 2;
-                    break;
-                case 3:
-                    left = - (size / 2 + margin_chart_land + icon_size / 2);
-                    top = size / 2 + margin_chart_land - icon_size / 2;
-                    break;
-            }
-            icon_sizes.push(icon_size)
-            return `translate(${left},${top})`;
-        })
-        .attr('width', (d, i) => icon_sizes[i])
-        .attr('height', (d, i) => icon_sizes[i])
-        .attr('xlink:href', (d, i) => 'img/' + cats[i].img + '.svg')
 }
 
 
@@ -720,7 +718,6 @@ let textLand = document.getElementById("text_land"),
     p3 = p2.nextElementSibling;
 
 function land_scroll(position) {
-    console.log(position)
     if ((position > 500) && ((position <= 1500))) {
         p1.classList.add("fadeIn");
     } else {
@@ -742,7 +739,8 @@ function land_scroll(position) {
     if (position < scroll_animation && transition_completed) {
         init_division_world(defaultArea, main_svg);
         init_division_country(area_country, main_svg);
-        update_level_main(area_country, main_svg)
+        update_level_main(area_country, main_svg);
+        hide_icons(main_svg)
         reset();
         transition_completed = false;
     }
@@ -751,6 +749,7 @@ function land_scroll(position) {
         chart_division_world(main_svg, data_intake, defaultArea);
         chart_division_country(main_svg, data_intake, defaultArea, country);
         update_levels(main_svg)
+        update_icons(main_svg)
         transition_completed = true;
     }
 }
