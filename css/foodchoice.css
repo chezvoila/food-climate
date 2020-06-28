@@ -505,10 +505,25 @@
         display: block;
 }
 
+@media only screen and (max-width: 1600px) {
+        #food_choice > nav figure {
+                height: 50% !important;
+        }
+
+        #food_choice a.oil figure, #food_choice a.vegetable figure,
+        #food_choice a.animal figure, #food_choice a.plant figure {
+                height: 40% !important;
+        }
+}
+
 @media only screen and (max-width: 1300px) {
-        /* #food_choice > nav > a {
+        #food_choice > nav {
+                width: 100%;
+        }
+
+        #food_choice > nav > a {
                 height: 150px;
-        } */
+        }
 
         #food_choice > ul {
                 float: none;
