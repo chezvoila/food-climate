@@ -24,10 +24,16 @@ function chainco2(data) {
     //resizable svg event
     if(!initialized){
         initialized = true;
+        
         window.addEventListener("resize", function() {
-            d3.select("#chain_co2 .chart").html("");
-            chainco2(data)});
-        }
+            //https://stackoverflow.com/questions/5489946/how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-action
+            clearTimeout(window.resizedFinished);
+            window.resizedFinished = setTimeout(function(){
+                d3.select("#chain_co2 .chart").html("");
+                chainco2(data)
+            }, 250);
+        });
+    }
 
     //define the settings for the donut chart. It will auto-adjust
     const donutSettings = {
