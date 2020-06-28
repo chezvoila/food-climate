@@ -682,7 +682,7 @@ function display_columns(value, details, columns, country) {
     g.select("#columns_percentage").text(perc.toFixed(2));
     var html = "";
     columns.forEach(d => {
-        html += d + "<br>"
+        html += '<span class="detailedItem">' + d + '</span>'
     })
     g.select("#columns").html(html);
     g.classed("display", true)

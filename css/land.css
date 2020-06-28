@@ -31,17 +31,14 @@
 }
 
 #land #to_stick{
-    position: relative;
-}
-
-#land #to_stick #charts {
     position: sticky;
     top: 140px;
 }
 
 #land_charts {
-    position: relative;
-    height: 600px;
+    display: table-cell;
+    width: 50%;
+    max-width: 600px;
 }
 
 #land .icon_w, #land .icon_c{
@@ -49,7 +46,7 @@
 }
 
 #land svg {
-    width: 600px;
+    width: 100%;
 }
 
 #land .legend i {
@@ -68,6 +65,12 @@
 
 #land .legend i~span {
     font-weight: bold;
+}
+
+#land #right_col{
+    width: 50%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #land #right_col p {
@@ -101,6 +104,11 @@
 #country, #value {
     font-size: 2.5rem;
     font-weight: bold;
+    background-color: var(--color-dark1);
+    padding: 5px 16px;
+    line-height: 4rem;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 
 #land text.anchor_middle {
@@ -110,6 +118,7 @@
 #land #div_columns {
     margin: auto;
     visibility: hidden;
+    width: fit-content;
 }
 
 #land #div_columns p {
@@ -127,7 +136,7 @@
     visibility: visible;
 }
 
-#land #div_columns h1 {
+#land #columns_percentage {
     font-weight: bold;
     font-size: 3rem;
 }
@@ -140,6 +149,7 @@
     width: 70%;
     margin: auto;
     font-size: 1.1rem;
+    clear: both;
 }
 
 #land #details p {
@@ -148,26 +158,30 @@
     line-height: 1.6em;
 }
 
+#land #charts{
+    display: table;
+}
+
 /* Search bar */
 
 .search {
     position: relative;
-    padding: 0 20%;
 }
 
 .search button {
     position: absolute;
     top: 0;
     right: 0;
-    background-color: transparent;
     color: white;
     border: none;
-    padding: 10px 0;
     outline: 0;
     flex-basis: 40px;
     cursor: pointer;
     transition: 0.2s;
     height: 60px;
+    width: 32px;
+    background: url(../img/search.svg) no-repeat center;
+    padding: 20px;
 }
 
 #land .search button:hover #search_icon {
@@ -319,13 +333,30 @@
         top: 35%;
     }
     #land {
-        height: 135vh;
         padding: 50px 10px;
     }
 }
 
-@media screen and (max-width:1200px) {
-    #land #div_columns {
-        display: none;
+@media screen and (max-width:980px) {
+    #land #land_charts {
+        display: table-cell;
+        width: 50%;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    #land #right_col {
+        width: 70%;
+        margin: auto;
+        display: block;
+        vertical-align: middle;
+    }
+
+    #land #charts{
+        display: block;
+    }
+
+    #land #details{
+        margin: 100px auto 0 auto;
     }
 }
