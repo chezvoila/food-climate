@@ -85,23 +85,8 @@ async function foodchoice(data, _) {
 
 /********************* SCROLL ****************/
 
-// let p = document.querySelector("#food_choice p:first-child");
-// let img = document.querySelector("#food_choice img");
 
 function food_choice_scroll(position) {
-    // if(position >= 0 && position < 1100) {
-    //     p.classList.add("sticky");
-    // } else {
-    //     p.classList.add("fadeOut");
-    // }
-
-    // if(position >= 1100 && position < 1900) {
-    //     img.classList.add("sticky");
-    // }
-
-    // if(position >= 1900) {
-    //     img.classList.add("left");
-    // }
 }
 
 

@@ -36,7 +36,7 @@ const cat2 = {
 }
 const cat3 = {
     name: "Extracted",
-    img: "oil",
+    img: "icon_oil",
     columns: ["oils", "sweeteners"]
 }
 const cat4 = {
