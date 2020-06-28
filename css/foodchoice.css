@@ -399,12 +399,10 @@ button:hover, button:active {
 }
 
 #food_choice > ul {
-        float: right;
-        text-align: right;
+        float: left;
 }
 
 #food_choice > ul > li {
-        text-align: right;
         font-size: 1.4em;
         font-family: Montserrat;
         color: var(--color-icon-hover);
@@ -417,20 +415,39 @@ button:hover, button:active {
         
 }
 
+#food_choice > ul > li:first-child {
+        font-size: 1.2em;
+}
+
+#food_choice > ul > li:first-child:before {
+        display: none;
+}
+
 #food_choice > ul > li:hover {
         background-color: var(--color-icon-bg);
         color: var(--color-dark3);
 }
 
+#food_choice > ul > li.hover {
+        background-color: var(--color-icon-hover);
+        color: var(--color-light2);
+}
+
+#food_choice > ul > li:first-child:hover {
+        background-color: transparent;
+        color: var(--color-icon-hover);
+        cursor: default;
+}
+
 #food_choice > ul > li:before {
         content: "";
         display: block;
-        margin-left: 10px;
+        margin-right: 10px;
         width: 20px;
         height: 20px;
         background-color: var(--color-icon-bg);
-        float: right;
-        margin-top: -8px;
+        float: left;
+        margin-top: -9px;
 
 }
 
@@ -438,17 +455,20 @@ button:hover, button:active {
         background-color: var(--color-dark2);
 }
 
+#food_choice > ul > li.hover:before {
+        background-color: var(--color-light2);
+}
+
 #food_choice > ul .ingredients {
         position: absolute;
         width: 150px;
-        padding: 10px 20px;
-        bottom: 75%;
-        right: 70%;
+        padding: 10px;
+        bottom: 87%;
+        left: 97%;
         z-index: 1;
         background-color: rgba(0, 0, 0, 0.7);
         opacity: 1;
         transition: 0.2s all ease-out;
-        text-align: right;
         display: none;
 }
 
@@ -458,11 +478,11 @@ button:hover, button:active {
         width: 0;
         height: 0;
         border-style: solid;
-        border-width: 10px 0 0 15px;
+        border-width: 10px 15px 0 0;
         border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
         position: absolute;
         bottom: -10px;
-        right: 0;
+        left: 0;
 
 }
 
@@ -473,11 +493,10 @@ button:hover, button:active {
 
 #food_choice > ul .ingredients li {
         margin-left: 5%;
-        display: inline;
         line-height: 1;
         font-size: 0.7em;
         font-variant: small-caps;
-        /* font-weight: 700; */
+        margin-bottom: 5px;
         color: #fff;
         
 }

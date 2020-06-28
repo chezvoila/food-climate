@@ -1,0 +1,13 @@
+[
+    {
+        "food": "Margherita Pizza",
+        "categories": [
+            "plant", "animal", "oil", "vegetable" 
+        ],
+        "ingredients": [
+            "wheat", "cheese", "olive oil", "veggies", "tomatos"
+        ]
+    },
+
+    {}
+]

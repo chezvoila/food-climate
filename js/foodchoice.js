@@ -4,6 +4,7 @@ async function foodchoice(_) {
 
     /***** DOM *****/
     let a = document.querySelectorAll("#food_choice nav a");
+    let li = document.querySelectorAll("#food_choice > ul > li");
 
     /***** bind events *****/
     a.forEach((el) => {
@@ -13,6 +14,21 @@ async function foodchoice(_) {
     function selectFoodCategory(e) {
         e.target.closest("A").classList.toggle("hover");
     }
+
+
+    li.forEach((el) => {
+        el.addEventListener("click", selectDish);
+    })
+
+    function selectDish(e) {
+        li.forEach(el => {
+            el.classList.remove("hover");
+        })
+        e.target.classList.toggle("hover");
+    }
+
+
+
 
 
 
