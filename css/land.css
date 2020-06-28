@@ -31,17 +31,15 @@
 }
 
 #land #to_stick{
-    position: relative;
-}
-
-#land #to_stick #charts {
     position: sticky;
     top: 140px;
 }
 
 #land_charts {
-    position: relative;
     height: 600px;
+    float: left;
+    width: 50%;
+    max-width: 600px;
 }
 
 #land .icon_w, #land .icon_c{
@@ -68,6 +66,11 @@
 
 #land .legend i~span {
     font-weight: bold;
+}
+
+#land #right_col{
+    width: 50%;
+    float: left;
 }
 
 #land #right_col p {
@@ -101,6 +104,11 @@
 #country, #value {
     font-size: 2.5rem;
     font-weight: bold;
+    background-color: var(--color-dark1);
+    padding: 5px 16px;
+    line-height: 4rem;
+    white-space: nowrap;
+    vertical-align: middle;
 }
 
 #land text.anchor_middle {
@@ -140,6 +148,7 @@
     width: 70%;
     margin: auto;
     font-size: 1.1rem;
+    clear: both;
 }
 
 #land #details p {
@@ -152,22 +161,22 @@
 
 .search {
     position: relative;
-    padding: 0 20%;
 }
 
 .search button {
     position: absolute;
     top: 0;
     right: 0;
-    background-color: transparent;
     color: white;
     border: none;
-    padding: 10px 0;
     outline: 0;
     flex-basis: 40px;
     cursor: pointer;
     transition: 0.2s;
     height: 60px;
+    width: 32px;
+    background: url(img/search.svg) no-repeat center;
+    padding: 20px;
 }
 
 #land .search button:hover #search_icon {
@@ -319,7 +328,6 @@
         top: 35%;
     }
     #land {
-        height: 135vh;
         padding: 50px 10px;
     }
 }
