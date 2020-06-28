@@ -36,8 +36,7 @@
 }
 
 #land_charts {
-    height: 600px;
-    float: left;
+    display: table-cell;
     width: 50%;
     max-width: 600px;
 }
@@ -47,7 +46,7 @@
 }
 
 #land svg {
-    width: 600px;
+    width: 100%;
 }
 
 #land .legend i {
@@ -70,7 +69,8 @@
 
 #land #right_col{
     width: 50%;
-    float: left;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #land #right_col p {
@@ -118,6 +118,7 @@
 #land #div_columns {
     margin: auto;
     visibility: hidden;
+    width: fit-content;
 }
 
 #land #div_columns p {
@@ -135,7 +136,7 @@
     visibility: visible;
 }
 
-#land #div_columns h1 {
+#land #columns_percentage {
     font-weight: bold;
     font-size: 3rem;
 }
@@ -157,6 +158,10 @@
     line-height: 1.6em;
 }
 
+#land #charts{
+    display: table;
+}
+
 /* Search bar */
 
 .search {
@@ -175,7 +180,7 @@
     transition: 0.2s;
     height: 60px;
     width: 32px;
-    background: url(img/search.svg) no-repeat center;
+    background: url(../img/search.svg) no-repeat center;
     padding: 20px;
 }
 
@@ -332,8 +337,26 @@
     }
 }
 
-@media screen and (max-width:1200px) {
-    #land #div_columns {
-        display: none;
+@media screen and (max-width:980px) {
+    #land #land_charts {
+        display: table-cell;
+        width: 50%;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    #land #right_col {
+        width: 70%;
+        margin: auto;
+        display: block;
+        vertical-align: middle;
+    }
+
+    #land #charts{
+        display: block;
+    }
+
+    #land #details{
+        margin: 100px auto 0 auto;
     }
 }
