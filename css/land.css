@@ -16,18 +16,13 @@
 #land h1 {
     text-align: center;
     width: 100%;
-    background: var(--color-dark2);
+    /* background: var(--color-dark2); */
     padding: 50px 0;
 }
 
 #land h1.sticky {
     top: -1px;
     z-index: 10;
-}
-
-
-#land svg image {
-    opacity: 0;
 }
 
 #land #to_stick{
@@ -42,7 +37,13 @@
 }
 
 #land .icon_w, #land .icon_c{
-    transition: 0.4s;
+    opacity: 0;
+    display: none;
+}
+
+#land .icon_w.show, #land .icon_c.show{
+    opacity: 1;
+    display: initial;
 }
 
 #land svg {
@@ -97,13 +98,13 @@
 }
 
 #land #text_land p {
-    font-size: 1.6rem;
+    /* font-size: 1.6rem; */
     margin-bottom: 500px;
 }
 
 #country, #value {
     font-size: 2.5rem;
-    font-weight: bold;
+    /* font-weight: bold; */
     background-color: var(--color-dark1);
     padding: 5px 16px;
     line-height: 4rem;
@@ -137,7 +138,7 @@
 }
 
 #land #columns_percentage {
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 3rem;
 }
 
