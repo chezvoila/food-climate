@@ -87,6 +87,7 @@
 
 #land #right_col p {
     margin: 50px 15px;
+    text-align: left;
 }
 
 /* #land svg image {
@@ -113,10 +114,11 @@
     position: sticky;
     top: 200px;
     margin-top: 1000px;
+    opacity: 0;
 }
 
-#land #text_land p.fadeOut {
-    opacity: 0;
+#land #text_land p.fadeIn {
+    opacity: 1;
 }
 
 #land p {
@@ -124,7 +126,7 @@
 }
 
 #country, #value {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     background-color: var(--color-dark1);
     padding: 5px 16px;
     line-height: 4rem;
@@ -368,7 +370,7 @@
         width: 70%;
         margin: auto;
         display: block;
-        /* vertical-align: middle; */
+        vertical-align: top;
     }
 
     #land #charts{

@@ -721,24 +721,24 @@ let textLand = document.getElementById("text_land"),
     p3 = p2.nextElementSibling;
 
 function land_scroll(position) {
-    if (position > 1600) {
-        p1.classList.add("fadeOut");
+    if ((position > 500) && ((position <= 1500))) {
+        p1.classList.add("fadeIn");
     } else {
-        p1.classList.remove("fadeOut");
+        p1.classList.remove("fadeIn");
     }
 
-    if (position > 2700) {
-        p2.classList.add("fadeOut");
+    if ((position > 1500) && (position <= 2500)) {
+        p2.classList.add("fadeIn");
     } else {
-        p2.classList.remove("fadeOut");
+        p2.classList.remove("fadeIn");
     }
 
-    if (position > 3800) {
-        p3.classList.add("fadeOut");
+    if ((position > 2500) && (position <= 3500)) {
+        p3.classList.add("fadeIn");
     } else {
-        p3.classList.remove("fadeOut");
+        p3.classList.remove("fadeIn");
     }
-    
+
     if (position < scroll_animation && transition_completed) {
         init_division_world(defaultArea, main_svg);
         init_division_country(area_country, main_svg);
