@@ -45,6 +45,6 @@
     margin-bottom: -3px;
 }
 
-.figure.highlight rect {
-    fill: var(--color-dark3);
+.figure.highlight rect, .figure.highlight text {
+    fill: var(--color-main);
 }
