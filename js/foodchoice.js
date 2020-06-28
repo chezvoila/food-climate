@@ -32,7 +32,7 @@ async function foodchoice(data, _) {
     function selectDish(e) {
         let li = e.target.closest("li");
         let food;
-        if (li) {
+        if (li && li.querySelector("span")) {
             let foodText = li.querySelector("span").innerHTML;
             food = data.filter(el => el.dish == foodText);
 

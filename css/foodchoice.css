@@ -506,6 +506,10 @@
 }
 
 @media only screen and (max-width: 1300px) {
+        /* #food_choice > nav > a {
+                height: 150px;
+        } */
+
         #food_choice > ul {
                 float: none;
                 margin-bottom: 20px;
