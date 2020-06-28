@@ -5,7 +5,6 @@ async function foodco2(data, _, res) {
     /***** processing data *****/
 
     let dataCategory = [];
-    // console.log(res)
     if (res.length != 0) {
         hightlight(res);
         return
@@ -82,50 +81,12 @@ async function foodco2(data, _, res) {
                     colIndex = i % 3;
                 return `translate(${colIndex * (boxW + 200)}, ${rowIndex * (outerBoxH + 40) + 50})`
             })
-            // .style("outline", "1px dashed #bd364c")
-            // .style("cursor", "pointer")
             .on("mouseenter", function () {
                 changeColor(this)
             })
             .on("mouseleave", function () {
                 changeColor(this);
             })
-        // .append("rect")
-        // .classed("container", true)
-        // .attr("width", "1")
-        // .attr("height", (d) => {
-        //     let colSize = d.sum / 12;
-        //     // console.log(d.sum, colSize)
-        //     // switch(colSize) {
-
-        //     //     case (0):
-        //     //         return "40";
-        //     //         break;
-
-        //     //     case 1:
-        //     //         return "60";
-        //     //         break;
-        //     //     case 2:
-        //     //         return "80";
-        //     //         break;
-        //     //     case 3:
-        //     //         return "100";
-        //     //         break;
-
-        //     //     case 5:
-        //     //         return "113";
-        //     //         break;
-        //     // }
-
-        //     return "113";
-        // })
-        // .attr("fill", "transparent")
-        // .attr("x", -10)
-        // .attr("y", 10)
-        // .attr("stroke", _.colors.light2)
-        // .attr("stroke-width", "1px")
-        // .attr("stroke-dasharray", "0");
-        // .style("outline", "1px solid black");
 
 
         d3.select(el).append("text")
@@ -135,11 +96,6 @@ async function foodco2(data, _, res) {
             .attr("y", 0)
     });
 
-
-    // let beef = {
-    //     category = "Beef Meat",
-    //     quantity = d3.range(data.filter(d => d.food.replace(/ +/g, "") == "beef").map(d => d.sum * 2.5))
-    // }
 
     d3.selectAll("g.figure").nodes().forEach(el => {
         let className = d3.select(el).attr("class").replace(" figure", "");
@@ -175,39 +131,12 @@ async function foodco2(data, _, res) {
             .attr("y", 0)
     });
 
-
-    // g.selectAll(`g.${exceptionList[0]} rect:not(.container),
-    //             g.${exceptionList[1]} rect:not(.container),
-    //             g.${exceptionList[2]} rect:not(.container)`)
-    // .attr("fill", _.colors.dark2);
-
-    // g.selectAll(`g.${exceptionList[0]} text,
-    //             g.${exceptionList[1]} text,
-    //             g.${exceptionList[2]} text`)
-    // .attr("fill", _.colors.dark2);
-
-
-    function changeColor(e) {
-        //     exceptionList.reduce(d => )
-        //    console.log(d3.select(e).attr("class").includes(""))
-    }
-
     return {
 
     }
 }
 
-// function() {
-//     if(!(exceptionList[0] || exceptionList[1] || exceptionList[2])) {
-//         d3.select(this)
-//         .selectAll("rect:not(.container)")
-//         .attr("fill", _.colors.dark2);
-//         d3.select(this).select("text")
-//         .attr("fill", _.colors.dark2);
-//     }
-
 function hightlight(res) {
-    console.log(res)
     d3.selectAll('.highlight').classed('highlight', false);
     res.forEach(id => {
         d3.select('#' + id).classed('highlight', true);

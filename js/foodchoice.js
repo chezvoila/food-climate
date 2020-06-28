@@ -24,6 +24,7 @@ async function foodchoice(data, _) {
     btn.addEventListener("click", function() {
     console.log(ingredientsIDs);
      foodco2(data[0], _, ingredientsIDs);
+     jumpNext(document.querySelector("#food_choice").parentNode.nextSibling);
     });
 
 
