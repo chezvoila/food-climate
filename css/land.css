@@ -52,7 +52,13 @@
 }
 
 #land .icon_w, #land .icon_c{
-    transition: 0.4s;
+    opacity: 0;
+    display: none;
+}
+
+#land .icon_w.show, #land .icon_c.show{
+    opacity: 1;
+    display: initial;
 }
 
 #land svg {
@@ -71,9 +77,6 @@
 
 #land .legend i#color_country {
     background-color: var(--color-dark-land);
-}
-
-#land .legend i~span {
 }
 
 #land #right_col{
@@ -364,7 +367,7 @@
         width: 70%;
         margin: auto;
         display: block;
-        vertical-align: middle;
+        /* vertical-align: middle; */
     }
 
     #land #charts{

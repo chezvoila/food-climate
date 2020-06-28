@@ -417,9 +417,7 @@ function update_levels(svg) {
             .classed('show_icon', true)
             .attr('xlink:href', "#" + front + i);
         svg.select('#icon_' + front + i)
-            .transition()
-            .duration(300)
-            .attr('style', 'opacity:1')
+            .classed('show', true)
     }
 }
 
