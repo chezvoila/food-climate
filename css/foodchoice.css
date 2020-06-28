@@ -505,6 +505,22 @@
         display: block;
 }
 
+@media only screen and (max-width: 1300px) {
+        #food_choice > ul {
+                float: none;
+                margin-bottom: 20px;
+        }
+
+        #food_choice > ul:after {
+                display: table;
+                clear: both;
+                content: "";
+        }
+
+        #food_choice > ul > li {
+                float: left;
+        }
+}
 
 @media only screen and (max-height: 950px) {
 
