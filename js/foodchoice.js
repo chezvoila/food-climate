@@ -22,6 +22,7 @@ async function foodchoice(data, _) {
     ul.addEventListener("click", selectDish);
 
     btn.addEventListener("click", function() {
+    console.log(ingredientsIDs);
      foodco2(data[0], _, ingredientsIDs);
     });
 
@@ -41,10 +42,6 @@ async function foodchoice(data, _) {
             let foodText = li.querySelector("span").innerHTML;
             food = data.filter(el => el.dish == foodText);
 
-            categories = food[0].categories;
-            food[0].ingredients.forEach((el, i) => {
-                ingredientsIDs.push(food[0].ingredients[i].id);
-            })
 
             ul.querySelectorAll("li").forEach(el => {
                 el.classList.remove("hover");
@@ -54,6 +51,11 @@ async function foodchoice(data, _) {
                 el.classList.remove("hover");
                 ingredientsIDs = [];
             });
+
+            categories = food[0].categories;
+            food[0].ingredients.forEach((el, i) => {
+                ingredientsIDs.push(food[0].ingredients[i].id);
+            })
 
             li.classList.toggle("hover");
             a.forEach(el => {
