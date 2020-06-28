@@ -16,13 +16,28 @@
 #land h1 {
     text-align: center;
     width: 100%;
-    /* background: var(--color-dark2); */
-    padding: 50px 0;
+    background: var(--color-dark2);
 }
 
 #land h1.sticky {
     top: -1px;
     z-index: 10;
+}
+
+#land #countryTitle {
+    padding: 10px;
+    background-color: var(--color-main-land);
+    margin-left: 5px;
+}
+
+#land > h1:first-child {
+    line-height: 1.9;
+    margin-bottom: 700px;
+}
+
+
+#land svg image {
+    opacity: 0;
 }
 
 #land #to_stick{
@@ -64,10 +79,6 @@
     background-color: var(--color-dark-land);
 }
 
-#land .legend i~span {
-    font-weight: bold;
-}
-
 #land #right_col{
     width: 50%;
     display: table-cell;
@@ -87,24 +98,22 @@
     width: 60%;
 }
 
-#land .sticky {
+#land p {
     position: sticky;
-    top: 50px;
+    top: 100px;
 }
 
 #land p {
-    font-size: 1.4rem;
     margin: 15px;
 }
 
 #land #text_land p {
-    /* font-size: 1.6rem; */
     margin-bottom: 500px;
+    text-align: center;
 }
 
 #country, #value {
     font-size: 2.5rem;
-    /* font-weight: bold; */
     background-color: var(--color-dark1);
     padding: 5px 16px;
     line-height: 4rem;
@@ -123,7 +132,6 @@
 }
 
 #land #div_columns p {
-    font-size: 1.2rem;
     line-height: 1.3rem;
 }
 
@@ -138,7 +146,6 @@
 }
 
 #land #columns_percentage {
-    /* font-weight: bold; */
     font-size: 3rem;
 }
 
@@ -350,7 +357,7 @@
         width: 70%;
         margin: auto;
         display: block;
-        vertical-align: middle;
+        /* vertical-align: middle; */
     }
 
     #land #charts{

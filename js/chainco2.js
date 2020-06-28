@@ -280,7 +280,7 @@ function chain_co2_scroll(position) {
 
     //Title animations
     if(position >= positions.title && position < positions.chart2){
-        d3.select("#chain_co2 h1")
+        d3.select("#chain_co2 h2")
           .classed("sticky", true)
           .classed("fadein", true)
           .classed("fadeout", false);
