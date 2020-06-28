@@ -519,10 +519,20 @@
 
         #food_choice > ul > li {
                 float: left;
+                padding: 10px 0;
+                margin-top: 0;
+                font-size: 1.2em;
+                margin-right: 10px;
         }
 }
 
 @media only screen and (max-height: 950px) {
+
+        #food_choice > ul > li {
+                padding: 10px 0;
+                margin-top: 0;
+                font-size: 1.2em;
+        }
 
         #food_choice nav {
                 width: auto;
