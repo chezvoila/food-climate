@@ -7,23 +7,23 @@
         "ingredients": [
             {
                 "food": "wheat",
-                "id" : "1"
+                "id" : "wheat"
             },
             {
                 "food": "cheese",
-                "id" : "1"
+                "id" : "cheese"
             },
             {
                 "food": "olive oil",
-                "id" : "1"
+                "id" : "olive"
             },
             {
                 "food": "veggies",
-                "id" : "1"
+                "id" : "veggies"
             },
             {
-                "food": "tomatos",
-                "id" : "1"
+                "food": "tomatoes",
+                "id" : "tomatoes"
             }
         ]
     },
@@ -35,43 +35,307 @@
         "ingredients": [
             {
                 "food": "rice",
-                "id" : "1"
+                "id" : "rice"
             },
             {
                 "food": "fish",
-                "id" : "1"
+                "id" : "fish"
             },
             {
                 "food": "soybean oil",
-                "id" : "1"
+                "id" : "soyb"
             }
         ]
     },
     {
-        "dish": "Margherita Pizza",
+        "dish": "Noodle",
         "categories": [
-            "plant", "animal", "oil", "vegetable" 
+            "plant", "animal", "oil" 
         ],
         "ingredients": [
             {
                 "food": "wheat",
-                "id" : "1"
+                "id" : "wheat"
+            },
+            {
+                "food": "eggs",
+                "id" : "eggs"
+            },
+            {
+                "food": "rapeseed oil",
+                "id" : "rapeseed"
+            }
+        ]
+    },
+    {
+        "dish": "Poutine",
+        "categories": [
+            "plant", "meat", "oil", "animal"
+        ],
+        "ingredients": [
+            {
+                "food": "potatoes",
+                "id" : "potatoes"
+            },
+            {
+                "food": "beef",
+                "id" : "beefm"
+            },
+            {
+                "food": "rapeseed oil",
+                "id" : "rapeseed"
             },
             {
                 "food": "cheese",
-                "id" : "1"
+                "id" : "cheese"
+            }
+        ]
+    },
+    {
+        "dish": "Tacos",
+        "categories": [
+            "plant", "meat", "animal", "veggies"
+        ],
+        "ingredients": [
+            {
+                "food": "corn",
+                "id" : "corn"
+            },
+            {
+                "food": "beef",
+                "id" : "beefm"
+            },
+            {
+                "food": "cheese",
+                "id" : "cheese"
+            },
+            {
+                "food": "onion",
+                "id" : "onions"
+            },
+            {
+                "food": "tomatoes",
+                "id" : "tomatoes"
+            }
+        ]
+    },
+    {
+        "dish": "Fish 'n Chips",
+        "categories": [
+            "meat", "plant", "oil", "animal"
+        ],
+        "ingredients": [
+            {
+                "food": "fish",
+                "id" : "fish"
+            },
+            {
+                "food": "potatoes",
+                "id" : "potatoes"
+            },
+            {
+                "food": "wheat",
+                "id" : "wheat"
+            },
+            {
+                "food": "eggs",
+                "id" : "eggs"
+            },
+            {
+                "food": "milk",
+                "id" : "milk"
+            },
+            {
+                "food": "sunflower oil",
+                "id" : "sun"
+            }
+        ]
+    },
+    {
+        "dish": "Chicken Curry",
+        "categories": [
+            "meat", "plant", "oil", "veggies"
+        ],
+        "ingredients": [
+            {
+                "food": "chicken",
+                "id" : "chicken"
             },
             {
                 "food": "olive oil",
-                "id" : "1"
+                "id" : "olive"
+            },
+            {
+                "food": "onion",
+                "id" : "onions"
+            },
+            {
+                "food": "tomatoes",
+                "id" : "tomatoes"
+            },
+            {
+                "food": "rice",
+                "id" : "rice"
+            }
+        ]
+    },
+    {
+        "dish": "Apple Pie",
+        "categories": [
+            "plant", "other", "veggies", "animal"
+        ],
+        "ingredients": [
+            {
+                "food": "wheat",
+                "id" : "wheat"
+            },
+            {
+                "food": "sugar",
+                "id" : "cane"
+            },
+            {
+                "food": "apple",
+                "id" : "apples"
+            },
+            {
+                "food": "eggs",
+                "id" : "eggs"
+            }
+        ]
+    },
+    {
+        "dish": "BBQ",
+        "categories": [
+            "meat", "oil", "veggies"
+        ],
+        "ingredients": [
+            {
+                "food": "beef",
+                "id" : "beefm"
+            },
+            {
+                "food": "olive oil",
+                "id" : "olive"
+            },
+            {
+                "food": "oinion",
+                "id" : "onions"
+            }
+        ]
+    },
+    {
+        "dish": "Cheese Burger",
+        "categories": [
+            "plant", "meat", "animal", "oil", "veggies"
+        ],
+        "ingredients": [
+            {
+                "food": "wheat",
+                "id" : "wheat"
+            },
+            {
+                "food": "beef",
+                "id" : "beefm"
+            },
+            {
+                "food": "cheese",
+                "id" : "cheese"
+            },
+            {
+                "food": "palm oil",
+                "id" : "palmoil"
+            },
+            {
+                "food": "onion",
+                "id" : "onions"
+            }
+        ]
+    },
+    {
+        "dish": "Salad",
+        "categories": [
+            "veggies", "oil", "animal"
+        ],
+        "ingredients": [
+            {
+                "food": "cabbage",
+                "id" : "cabbage"
             },
             {
                 "food": "veggies",
-                "id" : "1"
+                "id" : "veggies"
             },
             {
-                "food": "tomatos",
-                "id" : "1"
+                "food": "carrot",
+                "id" : "carrot"
+            },
+            {
+                "food": "tomato",
+                "id" : "tomatoes"
+            },
+            {
+                "food": "olive oil",
+                "id" : "olive"
+            },
+            {
+                "food": "cheese",
+                "id" : "cheese"
+            }
+        ]
+    },
+    {
+        "dish": "Paella",
+        "categories": [
+            "plant", "meat", "animal", "veggies"
+        ],
+        "ingredients": [
+            {
+                "food": "rice",
+                "id" : "rice"
+            },
+            {
+                "food": "chicken",
+                "id" : "chicken"
+            },
+            {
+                "food": "shrimp",
+                "id" : "shrimp"
+            },
+            {
+                "food": "onion",
+                "id" : "onions"
+            },
+            {
+                "food": "tomatoes",
+                "id" : "tomatoes"
+            }
+        ]
+    },
+    {
+        "dish": "Chocolate Chip Cookie",
+        "categories": [
+            "other", "plant", "animal"
+        ],
+        "ingredients": [
+            {
+                "food": "chocolate",
+                "id" : "chocolate"
+            },
+            {
+                "food": "wheat",
+                "id" : "wheat"
+            },
+            {
+                "food": "sugar",
+                "id" : "cane"
+            },
+            {
+                "food": "eggs",
+                "id" : "eggs"
+            },
+            {
+                "food": "nuts",
+                "id" : "nuts"
             }
         ]
     }

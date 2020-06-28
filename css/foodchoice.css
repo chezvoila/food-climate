@@ -393,7 +393,7 @@
         cursor: pointer;
 }
 
-button:hover, button:active {
+#food_choice button:hover, #food_choice button:active {
         background-color: var(--color-icon-hover);
         color: #fff;
 }

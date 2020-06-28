@@ -25,6 +25,7 @@
 
     /***** Loading data *****/
     var promises = [];
+    var food_choice_result;
     promises.push(d3.csv("./data/foodco2.csv"));
     // promises.push(d3.csv("./data/globalwarming.csv"));
     promises.push(d3.csv("./data/globalwarming_emissions.csv"));
@@ -36,6 +37,7 @@
     promises.push(d3.csv("./data/land_intake_country.csv"));
     // http://www.fao.org/faostat/en/#data/FBS
     // data from 2017
+    promises.push(d3.json("./data/dishes.json"));
 
 
     Promise.all(promises)
@@ -43,8 +45,8 @@
         .then(function (data) {
             d3.select('#loader').classed('loaded',true)
             d3.select('#frame').classed('loaded',true)
-            foodchoice(_);
-            foodco2(data[0], _);
+            foodchoice(data[6],_);
+            foodco2(data[0], _, []);
             const data_GW = globalwarming(data[1], data[2]);
             chainco2(data[3]);
             const data_land = land(data[4], data[5]);

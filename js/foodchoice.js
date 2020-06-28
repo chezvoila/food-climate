@@ -1,10 +1,13 @@
 "use strict";
 
-async function foodchoice(_) {
+async function foodchoice(data, _) {
 
     /***** DOM *****/
     let a = document.querySelectorAll("#food_choice nav a");
     let li = document.querySelectorAll("#food_choice > ul > li");
+    let btn = document.querySelector("#food_choice button");
+    let categories = [];
+    let ingredientsIDs = [];
 
     /***** bind events *****/
     a.forEach((el) => {
@@ -20,11 +23,47 @@ async function foodchoice(_) {
         el.addEventListener("click", selectDish);
     })
 
+    btn.addEventListener("click", function() {
+     foodco2(data[0], _, ingredientsIDs);
+    });
+
+
+
+
+
+
+
+
+
     function selectDish(e) {
         li.forEach(el => {
+            if(el != e.target) {
+                el.classList.remove("hover");
+            }
+        });
+        a.forEach(el => {
             el.classList.remove("hover");
-        })
+            ingredientsIDs = [];
+        });
         e.target.classList.toggle("hover");
+
+        let food = e.target.closest("li").querySelector("span").innerHTML;
+        let filterData = data.filter(el => el.dish == food);
+        categories = filterData[0].categories;
+        filterData[0].ingredients.forEach((el, i) => {
+            ingredientsIDs.push(filterData[0].ingredients[i].id);
+            console.log(filterData[0].ingredients[i].id)
+        })
+
+        if(e.target.classList.contains("hover")) {
+            a.forEach(el => {
+                categories.forEach(j => {
+                    if(el.classList.value == j) {
+                        el.classList.add("hover");
+                    }
+                })
+            })
+        }
     }
 
 
@@ -39,7 +78,6 @@ async function foodchoice(_) {
     
 
     return {
-        
     }
 }
 

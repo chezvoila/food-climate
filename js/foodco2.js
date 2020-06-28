@@ -1,11 +1,11 @@
 "use strict";
 
-async function foodco2(data, _) {
+async function foodco2(data, _, res) {
 
     /***** processing data *****/
 
     let dataCategory = [];
-
+    console.log(res)
     data = data.map(d => {
         return {
             food: d["Food name"],
