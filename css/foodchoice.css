@@ -449,6 +449,7 @@ button:hover, button:active {
         opacity: 1;
         transition: 0.2s all ease-out;
         text-align: right;
+        display: none;
 }
 
 #food_choice > ul .ingredients:after {
@@ -479,6 +480,10 @@ button:hover, button:active {
         /* font-weight: 700; */
         color: #fff;
         
+}
+
+#food_choice > ul li:hover .ingredients {
+        display: block;
 }
 
 
