@@ -158,10 +158,25 @@
      opacity: 1;
  }
 
-
  @media only screen and (max-width: 1300px) {
+
+    #intro > h1 {
+        font-size: 2em;
+    }
+
     #intro > figure {
         width: 100%;
+    }
+
+    #intro > figure:first-of-type {
+        float: none;
+        margin: auto;
+        top: 200px;
+        max-width: 600px;
+    }
+
+    #intro > figure + p {
+        /* width: 100%; */
     }
  }
 
