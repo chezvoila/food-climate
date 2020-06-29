@@ -176,7 +176,7 @@
     }
 
     #intro > figure + p {
-        /* width: 100%; */
+        width: 100%;
     }
  }
 
