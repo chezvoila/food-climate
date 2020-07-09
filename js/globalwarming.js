@@ -2,19 +2,19 @@
 "use strict";
 
 /****************** STATIC VARIABLES ******************/
-let text_GW_1 = "As shown in the previous section, each type of food releases a different amount of CO2.\
-                 But why is it important to monitor the CO2 emissions ? The reason is that CO2 emissions\
-                 directly affect the temperature on earth and therefore contributes to climate changes.\
-                 <br/><br/>Data on the average temperature at the earth surface and the amount of CO2 emissions\
-                 released were collected each year from 1961 to 2015.\
+let text_GW_1 = "As shown in the previous section, each type of food releases a different amount of CO₂.\
+                But why is it important to monitor CO₂ emissions? The reason is that CO₂ emissions \
+                directly affect the temperature on earth and therefore contribute to climate changes.\
+                 <br/><br/>Here is the average temperature at the earth's surface and the amount of CO₂ \
+                 emissions released for the years 1961 to 2015\
                  <br/><br/>Each dot represents a single year.",
-    text_GW_2 = "The interest here is to view the relation between the temperature and the amount of CO2 released.\
-                 For this reason, the dots are grouped into zones of equal size to ease the view of the trend.",
+    text_GW_2 = "The interest here is to see the relationship between temperature and the amount of CO₂ released, \
+    so the dots are grouped into zones of equal size to make the trend obvious.",
     text_GW_3 = "Each zone is now colored based on the density of dots in each zone. The more points there is in\
                  a zone, the more saturation this zone has.",
-    text_GW_4 = "As we can see, there is a trend showing that more CO2 emissions tends to rise the temperature on the\
-                 surface of the earth. This is due to the increasing human activities such as electricity production,\
-                 industries, heating, transportation and of course the food industry.";
+    text_GW_4 = "As we can see, there is a trend showing that more CO₂ emissions correlates with higher \
+    surface temperatures on Earth. This is due to the increasing human \
+    activities such as electricity production, industries, heating, transportation and <b>of course the food industry</b>.";
 
 
 let data_GW;
@@ -138,7 +138,7 @@ function create_GW() {
     var svg = d3.select("#global_warming .container")
         .append("svg")
         .classed("sticky", true)
-        .attr("viewBox", `0 0 ${width_GW + margin_GW.left + margin_GW.right} ${height_GW + margin_GW.top + margin_GW.bottom + text_height_GW +30}`)
+        .attr("viewBox", `0 0 ${width_GW + margin_GW.left + margin_GW.right} ${height_GW + margin_GW.top + margin_GW.bottom + text_height_GW + 30}`)
         .append("g")
         .attr("transform",
             "translate(" + margin_GW.left + "," + margin_GW.top + ")");
@@ -351,5 +351,5 @@ function global_warming_scroll(position) {
     if (position < 1600 && transition_GW) {
         chart_GW(svg_GW, x_GW, y_GW, data_GW, false);
         transition_GW = false;
-    }  
+    }
 }
