@@ -12,7 +12,7 @@
 }
 
 #intro h1:first-child {
-    margin-bottom: 200px;
+    margin-bottom: 25px;
 }
 
 #intro h1:not(:first-child) {
@@ -25,6 +25,12 @@
 
 #intro h1.fadeIn:not(:first-child) {
     opacity: 1;
+}
+
+#intro h1 + p {
+    font-style: italic;
+    font-size: 1em;
+    margin-bottom: 150px;
 }
 
 #intro figure + p {
@@ -67,7 +73,6 @@
 }
 
 #intro >  div {
-    top: 100px;
     width: 100vw;
     height: 400px;
     margin-left: -100px;
