@@ -57,21 +57,10 @@ function chainco2(data) {
         }
     }
 
-    //define tooltip
-    let tip = d3.tip()
-        .attr("class", "d3-tip")
-        .html(function (d) { 
-            let desc = d.value == data.level1[d.index].v ? data.level1[d.index].desc : data.level2[d.index].desc
-            let html = (d.value * 100).toFixed(1) + "%";
-            desc.split(",").forEach(v => html += "<br/>"+ v)
-            return html; 
-        });
-
     //define the group that will be used to draw the donut chart
     let g = svg.append("g")
         .attr("transform", `translate(${donutSettings.position.x}, ${donutSettings.position.y})`)
-        .call(tip)
-
+    
     //draw level 1 with specified angles settings
     const anglesLevel1 = {
         startAngle: -Math.PI / 2,
@@ -88,6 +77,54 @@ function chainco2(data) {
 
     //draw the dashed line
     drawSeparatingLine(svg, donutSettings, data);
+
+    let tooltip = svg.append("g")
+    .classed("d3-tip", true)
+    tooltip.append("rect")
+    .classed("d3-tip-background", true)
+    .attr("width", 200)
+    .attr("height", 120)
+    .attr("rx","5")
+    tooltip.append("text")
+}
+
+/**
+ * triggers custom tooltip over the chart
+ *
+ * @param radius          the radius of the level being hovered
+ * @param settings        The settings object containing position, base radius and thickness.
+ * @param data            The data from this specific level. (data.levelx)
+ * @param d               The current hovered arc informations
+ * @param show            Boolean visibility of the tooltip
+ *
+ */
+function tooltip(radius, settings, data, d, show = false){
+    let tooltip = d3.select("#chain_co2 .chart .d3-tip");
+    let textLength = 0;
+    let textHeight = 1;
+    tooltip.select("text").html(function () { 
+        let desc = data[d.index].desc
+        let html = (d.value * 100).toFixed(1) + "%";
+        desc.split(",").forEach(v => { html += '<tspan dy="1em" x="20">'+v+"</tspan>"; 
+                                       textLength = v.length > textLength ?  v.length : textLength;
+                                       textHeight += 1; })
+        return html; 
+    })
+    .attr("x", 20)
+    .attr("y", 40)
+
+    const width = 50+textLength*12;
+    tooltip.select("rect")
+           .attr("width", width)
+           .attr("height", 20+textHeight*30)
+
+    const angle = Math.PI/2 + d.startAngle+((d.endAngle-d.startAngle)/2)
+    
+    let side = angle < Math.PI ? -1 : settings.thickness;
+    tooltip.attr("transform", 'translate('+(settings.position.x +side*Math.cos(angle)*radius + side*width)+','+
+    (settings.position.y - Math.sin(angle)*radius - settings.thickness)+')')
+    .style("visibility", show ? "visible" : "hidden")
+
 }
 
 /**
@@ -142,11 +179,12 @@ function plotLevel(g, settings, angles, level, data, tip) {
         .style('stroke-width', 1)
         .style("opacity", 0.85)
         .on('mouseout', function (d, _) {
-            tip.hide(d, this);
+            tooltip(radius, settings, data, d, false);
+            
             d3.select(this).style("opacity", 0.85)
         })
         .on('mouseover', function (d, _) {
-            tip.show(d, this);
+            tooltip(radius, settings, data, d, true);
             d3.select(this).style("opacity", 100)
         }
         )
@@ -157,13 +195,14 @@ function plotLevel(g, settings, angles, level, data, tip) {
         .data(data)
         .enter()
         .append("text")
-        .attr("dx", 20)
-        .attr("dy", -15)
+        .attr("dy", "-15px")
+        .attr("text-anchor", "middle")
         .append("textPath")
         .classed("text", true)
         .attr("xlink:href", (_, i) => `#level${level}_${i}`)
         .text(d => d.showtitle ? d.name : "")
         .classed("donutLabel", true)
+        .attr("startOffset", "17%")
 }
 
 /**
