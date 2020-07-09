@@ -20,7 +20,7 @@ let h2 = introSection.querySelector("h2");
 let imgLast = introSection.querySelector("h2 + figure");
 
 function intro_scroll(position) {
-    if(position >= 900 && position < 3200) {
+    if(position >= 700 && position < 3200) {
         h1.classList.add("fadeIn");
     } else {
         h1.classList.remove("fadeIn");
