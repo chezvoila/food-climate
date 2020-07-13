@@ -4,7 +4,7 @@ async function foodchoice(data, _) {
 
     /***** DOM *****/
     let a = document.querySelectorAll("#food_choice nav a");
-    let ul = document.querySelector("#food_choice > ul");
+    let ul = document.querySelector("#food_choice main > ul");
     let btn = document.querySelector("#food_choice button");
     let categories = [];
     let ingredientsIDs = [];
