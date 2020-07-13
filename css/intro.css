@@ -166,11 +166,11 @@
  @media only screen and (max-width: 1300px) {
 
     #intro > h1 {
-        font-size: 2em;
+        /* font-size: 2em; */
     }
 
     #intro h1:not(:first-child) {
-        font-size: 2em;
+        /* font-size: 2em; */
         top: 50px;
     }
 
@@ -191,7 +191,7 @@
     }
 
     #intro > h2 {
-        font-size: 1.5em;
+        /* font-size: 1.5em; */
     }
 
  }
@@ -209,7 +209,7 @@
 
     #intro > figure + p {
         top: 500px;
-        font-size: 1.2em;
+        /* font-size: 1.2em; */
     }
  }
 
