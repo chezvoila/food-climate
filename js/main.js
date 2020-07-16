@@ -90,15 +90,15 @@
         /******* Init *******/
 
         page.forEach(el => {
-            el.addEventListener("wheel", isScrollDown);
-            el.addEventListener("wheel", wheelFunc);
+            el.addEventListener("wheel", isScrollDown, { passive: true });
+            el.addEventListener("wheel", wheelFunc, { passive: true });
 
-            el.addEventListener("touchmove", isTouchDown);
+            el.addEventListener("touchmove", isTouchDown, { passive: true });
             el.addEventListener("touchstart", function(e) {
                 touchStart = e.touches[0].clientY;
-            });
-            el.addEventListener("touchend", isTouchDown);
-            el.addEventListener("touchmove", touchFunc);
+            }, { passive: true });
+            el.addEventListener("touchend", isTouchDown, { passive: true });
+            el.addEventListener("touchmove", touchFunc, { passive: true });
         });
 
         page.forEach(el => {
