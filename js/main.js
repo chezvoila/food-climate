@@ -41,6 +41,7 @@
 
 
     Promise.all(promises)
+    
         /***** functions *****/
         .then(function (data) {
             d3.select('#loader').classed('loaded',true)
