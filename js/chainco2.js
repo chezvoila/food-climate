@@ -27,11 +27,13 @@ function chainco2(data) {
         
         window.addEventListener("resize", function() {
             //https://stackoverflow.com/questions/5489946/how-to-wait-for-the-end-of-resize-event-and-only-then-perform-an-action
-            clearTimeout(window.resizedFinished);
-            window.resizedFinished = setTimeout(function(){
-                d3.select("#chain_co2 .chart").html("");
-                chainco2(data)
-            }, 250);
+            if(document.body.classList.contains("chain_co2")) {
+                clearTimeout(window.resizedFinished);
+                window.resizedFinished = setTimeout(function(){
+                    d3.select("#chain_co2 .chart").html("");
+                    chainco2(data)
+                }, 250);
+            }
         });
     }
 

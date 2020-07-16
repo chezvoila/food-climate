@@ -46,7 +46,7 @@
     position: sticky;
     top: 400px;
     float: left;
-    width: calc(60% - 100px);
+    width: calc(100% - 684px - 100px);
 }
 
 #intro figure + p.fadeOut {
@@ -79,6 +79,7 @@
 }
 
 #intro >  div {
+    width: 100%;
     width: 100vw;
     height: 400px;
     margin-left: -100px;
@@ -136,7 +137,8 @@
 }
 
 #intro > figure {
-    width: 40%;
+    /* width: 40%; */
+    width: 684px;
     margin-left: 100px;
     height: 400px;
     margin: auto auto;
@@ -144,7 +146,8 @@
 }
 
 #intro > figure img {
-    width: 100%;
+    /* width: 100%; */
+    width: 684px;
 }
 
 #intro > figure:first-of-type {
@@ -171,12 +174,31 @@
 
  @media only screen and (max-width: 1300px) {
 
+    #intro {
+        padding: 50px;
+        padding-top: 10vh;
+    }
+
     #intro > h1 {
-        /* font-size: 2em; */
+        width: 100%;
+    }
+
+    #intro > div {
+        margin-left: -50px;
+    }
+
+    #intro h1 + p {
+        width: 100%;
+        /* position: relative;
+        top: 5vh; */
+        margin-bottom: 15vh;
+    }
+
+    #intro h1:first-child {
+        margin-bottom: 3vh;
     }
 
     #intro h1:not(:first-child) {
-        /* font-size: 2em; */
         top: 50px;
     }
 
@@ -197,7 +219,6 @@
     }
 
     #intro > h2 {
-        /* font-size: 1.5em; */
     }
 
  }
@@ -205,7 +226,21 @@
  @media only screen and (max-width:700px) {
 
     #intro {
-        padding: 50px;
+        padding: 20px;
+        padding-top: 15vh;
+    }
+
+    #intro h1:first-child {
+        margin-bottom: 3vh;
+    }
+
+    #intro h1 + p {
+        margin-bottom: 15vh;
+        font-size: 0.8em;
+    }
+
+    #intro > div {
+        margin-left: -20px;
     }
 
     #intro > figure:first-of-type {
