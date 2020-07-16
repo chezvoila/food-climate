@@ -78,7 +78,6 @@
         let direction = undefined;
         let flag = true;
         let scrollPosition = undefined;
-        // let lastTouchY;
         let touchStart;
 
 
@@ -89,11 +88,6 @@
 
 
         /******* Init *******/
-        // setTimeout(function() {
-        //     pages.forEach(el => {
-        //         sectionCalculate(el);
-        //     });
-        // }, 1000);
 
         page.forEach(el => {
             el.addEventListener("wheel", isScrollDown);
@@ -120,15 +114,6 @@
 
 
         /******* Functions *******/
-
-        // function sectionCalculate(sectionId) {
-        //     let el = document.getElementById(sectionId);
-        //     let height = window.getComputedStyle(el, null).getPropertyValue("height");
-        //     pos.push({
-        //         section: el,
-        //         height: height
-        //     });
-        // }
 
         function isTouchDown(event) {
             if(flag) {
@@ -170,7 +155,6 @@
                     food_choice_scroll(scrollPosition);
                     break;
                 case 3:
-                    food_co2_scroll(scrollPosition);
                     break;
                 case 4:
                     global_warming_scroll(scrollPosition);
@@ -195,7 +179,7 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 6) && flag) {    
+                if((total >= element.clientHeight) && (index < 6) && flag  && (index != 1)) {    
                     jumpNext(el.nextElementSibling);
                     change_page_scroll(index + 1);
                 }
@@ -213,7 +197,7 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 6) && flag) {    
+                if((total >= element.clientHeight) && (index < 6) && flag && (index != 1)) {    
                     jumpNext(el.nextElementSibling);
                     change_page_scroll(index + 1);
                 }
@@ -254,6 +238,7 @@
 
         document.querySelector("#food_choice button").addEventListener("click", function () {
             jumpNext(document.querySelector("#food_choice").parentNode.nextElementSibling)
+            food_co2_scroll(scrollPosition);
         });
 
 
@@ -266,9 +251,6 @@
             }, 700);
             if(currentIndex == 2) {
                 jumpPrev(el.previousElementSibling)
-                // setTimeout(function() {
-                //     document.querySelector("#food_choice_transition").style.display = "block";
-                // }, 1000);
             } 
         }
 
@@ -314,20 +296,6 @@
 
 
 
-
-
-
-
-        // document.body.onkeydown = function(e) {
-        //     var code = e.keyCode;
-        //     if(code === 40) { // key code for down arrow
-        //         let string  = `#${document.body.classList.value}`;
-        //         let element = document.querySelector(string);
-        //         console.log(element)
-        //         element.scrollTop = element.scollTop + 5;
-        //         onWheel(true, currentIndex, element);
-        //     }
-        // };
 
         /*************************** SCROLLING  *************************/
 

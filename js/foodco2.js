@@ -152,14 +152,10 @@ function hightlight(res, isDish) {
 
 /********************* SCROLL ****************/
 
-var toTrigger = true;
 function food_co2_scroll(position) {
-    if (toTrigger) {
         d3.selectAll("#food_co2 rect:not(:first-child)")
             .transition()
             .duration(200)
             .delay((d, i) => i * 5)
             .attr("opacity", 1);
-        toTrigger = false;
-    }
 }
