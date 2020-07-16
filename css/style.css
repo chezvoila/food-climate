@@ -88,6 +88,8 @@
 /*  */
 
 html {
+        position: relative;
+        overflow: hidden;
         /* position: absolute; */
 }
 
