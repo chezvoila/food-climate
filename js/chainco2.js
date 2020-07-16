@@ -68,14 +68,14 @@ function chainco2(data) {
         startAngle: -Math.PI / 2,
         endAngle: Math.PI / 2
     }
-    plotLevel(g, donutSettings, anglesLevel1, 1, data.level1, tip)
+    plotLevel(g, donutSettings, anglesLevel1, 1, data.level1)
 
     //draw level 2 with specified angles settings
     const anglesLevel2 = {
         startAngle: -Math.PI / 2,
         endAngle: -Math.PI / 2 + Math.PI * data.level1[0].v
     }
-    plotLevel(g, donutSettings, anglesLevel2, 2, data.level2, tip)
+    plotLevel(g, donutSettings, anglesLevel2, 2, data.level2)
 
     //draw the dashed line
     drawSeparatingLine(svg, donutSettings, data);
@@ -140,7 +140,7 @@ function tooltip(radius, settings, data, d, show = false){
  * @param tip             The D3 tooltip to display information
  *
  */
-function plotLevel(g, settings, angles, level, data, tip) {
+function plotLevel(g, settings, angles, level, data) {
 
     //Define the color scale
     let colorFill = d3.scaleOrdinal();
