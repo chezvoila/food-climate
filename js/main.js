@@ -99,12 +99,12 @@
             el.addEventListener("wheel", isScrollDown);
             el.addEventListener("wheel", wheelFunc);
 
-            // el.addEventListener("touchmove", isTouchDown);
-            // el.addEventListener("touchstart", function(e) {
-            //     touchStart = e.touches[0].clientY;
-            // });
-            // el.addEventListener("touchend", isTouchDown);
-            // el.addEventListener("touchmove", touchFunc);
+            el.addEventListener("touchmove", isTouchDown);
+            el.addEventListener("touchstart", function(e) {
+                touchStart = e.touches[0].clientY;
+            });
+            el.addEventListener("touchend", isTouchDown);
+            el.addEventListener("touchmove", touchFunc);
         });
 
         page.forEach(el => {
