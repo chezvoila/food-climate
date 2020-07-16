@@ -133,9 +133,9 @@
         function isTouchDown(event) {
             if(flag) {
                 let touchEnd = event.changedTouches[0].clientY;
-                if((touchStart > touchEnd+5)){
+                if((touchStart > touchEnd+1)){
                     direction = true;
-                }else if((touchStart < touchEnd-5)){
+                }else if((touchStart < touchEnd-1)){
                     direction = false;
                 }
                 return direction;
