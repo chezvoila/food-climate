@@ -59,18 +59,22 @@
     width: 100%;
 }
 
-#land .legend i {
+#land .legend a {
     border: 1px solid var(--color-light2);
-    padding: 0 12px;
-    margin: 20px;
-    display: inline;
+    /* padding: 0 12px;
+    margin: 20px; */
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 10px 20px 0 0;
+    vertical-align: text-bottom;
 }
 
-#land .legend i#color_world {
+#land .legend a#color_world {
     background-color: var(--color-main-land);
 }
 
-#land .legend i#color_country {
+#land .legend a#color_country {
     background-color: var(--color-dark-land);
 }
 
