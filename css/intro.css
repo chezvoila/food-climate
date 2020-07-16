@@ -28,9 +28,15 @@
 }
 
 #intro h1 + p {
-    font-style: italic;
     font-size: 1em;
     margin-bottom: 150px;
+}
+
+#intro h1 + p a {
+    font-weight: 700;
+    padding: 2px 7px;
+    color: #F3E600;
+    background-color: #000;
 }
 
 #intro figure + p {
