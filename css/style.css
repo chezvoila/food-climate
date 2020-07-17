@@ -106,18 +106,21 @@ body.intro {
 }
 
 body.food_choice {
-        background-color: var(--color-main);
+        /* background-color: var(--color-main); */
 }
 
 body.food_co2 {
         /* background-color: var(--color-icon-bg);
         background-color: #50121c; */
-        /* transition: none;
-        background-color: #50121c; */
+        /* transition: none; */
+        /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+        background-color: #50121c;
 }
 
 body.global_warming {
         /* background-color: var(--color-light2); */
+        /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+        background-color: var( --color-light2);
 }
 
 body.chain_co2 {
@@ -126,6 +129,8 @@ body.chain_co2 {
 
 body.land {
         /* background-color: var(--color-dark3); */
+        /* transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+        background-color: var(--color-dark2);
 }
 
 h1, h2, h3 {
@@ -207,6 +212,10 @@ input,
 }
 
 @media only screen and (max-width: 950px) {
+        body {
+                transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
         h1 {
                 font-size: 1.9em;
         }

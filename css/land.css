@@ -10,7 +10,7 @@
     color: white;
     text-align: justify;
     padding: 200px 50px 300px;
-    background-color: var(--color-dark2);
+    /* background-color: var(--color-dark2); */
 }
 
 #land h1 {

@@ -191,6 +191,9 @@
                 if((el.scrollTop == 0) && (index != 0) && flag) {
                     jumpPrev(el.previousElementSibling);
                     change_page_scroll(index - 1);
+                    if(index == 3) {
+                        change_page_scroll(1);
+                    }
                 }
             }
         }
@@ -209,6 +212,9 @@
                 if((el.scrollTop == 0) && (index != 0) && flag) {
                     jumpPrev(el.previousElementSibling);
                     change_page_scroll(index - 1);
+                    if(index == 3) {
+                        change_page_scroll(1);
+                    }
                 }
             }
         }
@@ -242,6 +248,7 @@
 
         document.querySelector("#food_choice button").addEventListener("click", function () {
             jumpNext(document.querySelector("#food_choice").parentNode.nextElementSibling)
+            change_page_scroll(3);
             food_co2_scroll(scrollPosition);
         });
 
@@ -255,7 +262,7 @@
             }, 700);
             if(currentIndex == 2) {
                 jumpPrev(el.previousElementSibling)
-            } 
+            }
         }
 
 
