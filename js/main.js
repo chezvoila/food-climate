@@ -90,8 +90,8 @@
 
         /******* Init *******/
 
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${window.scrollY}px`; 
+        document.getElementById("frame").style.position = 'fixed';
+        document.getElementById("frame").style.top = `-${window.scrollY}px`; 
 
         page.forEach(el => {
             el.addEventListener("wheel", isScrollDown, { passive: true });
@@ -122,9 +122,9 @@
         function isTouchDown(event) {
             if(flag) {
                 let touchEnd = event.changedTouches[0].clientY;
-                if((touchStart > touchEnd+1)){
+                if((touchStart > touchEnd+5)){
                     direction = true;
-                }else if((touchStart < touchEnd-1)){
+                }else if((touchStart < touchEnd-5)){
                     direction = false;
                 }
                 return direction;

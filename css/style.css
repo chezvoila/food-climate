@@ -112,6 +112,8 @@ body.food_choice {
 body.food_co2 {
         /* background-color: var(--color-icon-bg);
         background-color: #50121c; */
+        /* transition: none;
+        background-color: #50121c; */
 }
 
 body.global_warming {
