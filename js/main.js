@@ -90,6 +90,9 @@
 
         /******* Init *******/
 
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${window.scrollY}px`; 
+
         page.forEach(el => {
             el.addEventListener("wheel", isScrollDown, { passive: true });
             el.addEventListener("wheel", wheelFunc, { passive: true });
