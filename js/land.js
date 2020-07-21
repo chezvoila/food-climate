@@ -129,7 +129,7 @@ function land(if_everyone, intake) {
         onSelect: function (e, term, item) {
             country = term;
             area_country = getAreaCountry(defaultArea, data_consumption, country);
-            
+
             // transition_completed = false; // to divide on scroll again
             // form the initial square again
             // init_division_country(area_country, main_svg);
@@ -268,6 +268,7 @@ function getAreaCountry(defaultArea, data_consumption, country) {
     var scale = element.Percentage / 100;
     // update text display
     d3.select("#country").text(country);
+    d3.select("#country2").text(country);
     d3.select("#countryTitle").html(country);
     d3.select("#country_legend").html(country);
     d3.select("#value").text(scale.toFixed(2));
@@ -706,6 +707,9 @@ function display_details(array) {
 function reset() {
     d3.select("#details").html('');
     d3.select("#div_columns").classed("display", false);
+
+    d3.select(".text_diet").attr('style', 'display:none;');
+    d3.select(".text_compare").attr('style', 'display:block;');
 }
 
 
@@ -748,6 +752,8 @@ function land_scroll(position) {
     }
     if (position > scroll_animation && !transition_completed) {
         d3.select("#details").html(text_animation);
+        d3.select(".text_diet").attr('style', 'display:block;');
+        d3.select(".text_compare").attr('style', 'display:none;');
         chart_division_world(main_svg, data_intake, defaultArea);
         chart_division_country(main_svg, data_intake, defaultArea, country);
         update_levels(main_svg)

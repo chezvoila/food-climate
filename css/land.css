@@ -83,7 +83,7 @@
 }
 
 #land #right_col p {
-    margin: 50px 15px;
+    margin: 50px 0;
     text-align: left;
 }
 
@@ -122,7 +122,7 @@
     margin: 15px;
 }
 
-#country, #value {
+#country, #country2, #value {
     font-size: 2.0rem;
     background-color: var(--color-dark1);
     padding: 5px 16px;
