@@ -37,7 +37,8 @@
     margin-bottom: 1000px;
     transition: all 0.3s ease-out;
     position: sticky;
-    top: 400px;
+    /* top: 400px; */
+    top: 45vh;
     float: left;
     width: calc(100% - 684px - 100px);
 }
@@ -148,7 +149,8 @@
     margin-left: 100px;
     margin-bottom: 1000px;
     position: sticky;
-    top: 400px;
+    /* top: 400px; */
+    top: 45vh;
     transition: all 0.3s ease-out;
 }
 
@@ -163,6 +165,22 @@
 
  #intro > figure.fadeIn:last-of-type {
      opacity: 1;
+ }
+
+ @media only screen and (max-width: 1600px) and (min-width: 1301px) {
+
+    #intro > figure:first-of-type {
+        width: 513px;
+        height: 350px;
+    }
+    #intro > figure:first-of-type img {
+        width: 513px;
+        height: 350px;
+    }
+
+    #intro figure + p {
+        width: calc((100% - 513px) - 100px);
+    }
  }
 
  @media only screen and (max-width: 1300px) {
@@ -202,13 +220,19 @@
     #intro > figure:first-of-type {
         float: none;
         margin: auto;
-        top: 130px;
-        max-width: 600px;
+        /* top: 130px; */
+        top: 15vh;
+        max-width: 684px;
     }
 
     #intro > figure + p {
-        width: 100%;
-        top: 500px;
+        float: none;
+        width: 60%;
+        min-width: 684px;
+        padding: 20px;
+        background-color: rgba(0,0,0, 0.8);
+        color: #fff;
+        top: calc(15vh + 400px + 20px);
     }
 
     #intro > h2 {
@@ -216,7 +240,7 @@
 
  }
 
- @media only screen and (max-width:700px) {
+ @media only screen and (max-width:784px) {
 
     #intro {
         padding: 20px;
@@ -237,12 +261,22 @@
     }
 
     #intro > figure:first-of-type {
-        top: 150px;
-        max-width: 600px;
+        /* top: 150px; */
+        top: 35vh;
+        /* max-width: 600px; */
+        width: 100%;
+        height: auto;
+    }
+
+    #intro > figure:first-of-type img {
+        width: 100%;
+        height: auto;
     }
 
     #intro > figure + p {
-        top: 500px;
+        /* top: 500px; */
+        min-width: 100%;
+        top: calc(35vh);
         /* font-size: 1.2em; */
     }
  }

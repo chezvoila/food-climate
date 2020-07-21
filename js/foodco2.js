@@ -15,10 +15,10 @@ async function foodco2(data, _, res, isDish) {
             id: d.id,
             category: d.Category,
             sum: Object.keys(d).filter(el => ((el != "Food product") && (el != "Food name") && (el != "Category") && (el != "id")))
-                .reduce((sum, key) => sum + parseFloat(d[key] || 0), 0)
+            .reduce((sum, key) => sum + parseFloat(d[key] || 0), 0)
         }
     });
-
+    
     const categoryType = key => [...new Set(data.map(o => o[key]))],
         categoryList = categoryType("category"),
         categoryNo = categoryList.length;
@@ -48,7 +48,7 @@ async function foodco2(data, _, res, isDish) {
     let g = d3.select("#food_co2")
         .append("svg")
         .attr("width", 1107)
-        .attr("viewBox", "0 0 1107 3500")
+        .attr("viewBox", "0 0 1107 2600")
         .append("g")
         .attr("transform", "translate(100, 40)")
         .selectAll("g.other")
@@ -79,7 +79,7 @@ async function foodco2(data, _, res, isDish) {
                 if (className == "meat" && i > 0) i++;
                 let rowIndex = Math.floor(i / 3),
                     colIndex = i % 3;
-                return `translate(${colIndex * (boxW + 200)}, ${rowIndex * (outerBoxH + 40) + 50})`
+                return `translate(${colIndex * (boxW + 200)}, ${rowIndex * (outerBoxH + 70) + 50})`
             })
             .on("mouseenter", function () {
                 // changeColor(this)
@@ -103,7 +103,7 @@ async function foodco2(data, _, res, isDish) {
         else cols = 12;
 
         d3.select(el).selectAll("rect")
-            .data(d3.range(data.filter(d => d.food.replace(/ +/g, "") == className).map(d => d.sum * 2.9)))
+            .data(d3.range(data.filter(d => d.food.replace(/ +/g, "") == className).map(d => d.sum * 3.33)))
             .enter()
             .append("rect")
             .attr("width", sqrSize)
@@ -130,6 +130,44 @@ async function foodco2(data, _, res, isDish) {
             .attr("x", 0)
             .attr("y", 0)
     });
+    
+    d3.select("#food_co2 g.oil").attr("transform", "translate(0, 630)");
+    d3.select("#food_co2 g.animal").attr("transform", "translate(0, 980)");
+    d3.select("#food_co2 g.other").attr("transform", "translate(0, 1320)");
+    d3.select("#food_co2 g.plant").attr("transform", "translate(0, 1800)");
+    d3.select("#food_co2 g.vegetable").attr("transform", "translate(0, 2230)");
+
+
+    d3.select("#food_co2 g#chicken").attr("transform", "translate(0, 415)");
+    d3.select("#food_co2 g#fish").attr("transform", "translate(300, 415)");
+
+    d3.select("#food_co2 g#rapeseed").attr("transform", "translate(0, 155)");
+    d3.select("#food_co2 g#sun").attr("transform", "translate(300, 155)");
+
+    d3.select("#food_co2 g#cane").attr("transform", "translate(0, 215)");
+    d3.select("#food_co2 g#beet").attr("transform", "translate(300, 215)");
+    d3.select("#food_co2 g#wine").attr("transform", "translate(600, 215)");
+    d3.select("#food_co2 g#beer").attr("transform", "translate(0, 285)");
+    d3.select("#food_co2 g#soym").attr("transform", "translate(300, 285)");
+
+    d3.select("#food_co2 g#pulses").attr("transform", "translate(0, 140)");
+    d3.select("#food_co2 g#wheat").attr("transform", "translate(300, 140)");
+    d3.select("#food_co2 g#corn").attr("transform", "translate(600, 140)");
+    d3.select("#food_co2 g#cassava").attr("transform", "translate(0, 215)");
+    d3.select("#food_co2 g#peas").attr("transform", "translate(300, 215)");
+    d3.select("#food_co2 g#potatoes").attr("transform", "translate(600, 215)");
+    d3.select("#food_co2 g#nuts").attr("transform", "translate(0, 285)");
+
+    d3.select("#food_co2 g#fruit").attr("transform", "translate(0, 125)");
+    d3.select("#food_co2 g#veggies").attr("transform", "translate(300, 125)");
+    d3.select("#food_co2 g#cabbage").attr("transform", "translate(600, 125)");
+    d3.select("#food_co2 g#onions").attr("transform", "translate(0, 200)");
+    d3.select("#food_co2 g#carrot").attr("transform", "translate(300, 200)");
+    d3.select("#food_co2 g#apples").attr("transform", "translate(600, 200)");
+    d3.select("#food_co2 g#citrus").attr("transform", "translate(0, 260)");
+
+    
+    
 
     return {
 
