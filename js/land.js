@@ -157,6 +157,7 @@ function land(if_everyone, intake) {
  */
 function get_data_land(if_everyone, intake) {
 
+    // data coming from https://ourworldindata.org/agricultural-land-by-global-diets
     var data_consumption = if_everyone.map(d => {
         return {
             key: d.Entity,

@@ -5,7 +5,7 @@
 let text_GW_1 = "As shown in the previous section, each type of food releases a different amount of CO₂.\
                 But why is it important to monitor CO₂ emissions? The reason is that CO₂ emissions \
                 directly affect the temperature on earth and therefore contribute to climate changes.\
-                 <br/><br/>Here is the average temperature at the earth's surface and the amount of CO₂ \
+                 <br/><br/>Here is the average temperature at the Earth's surface and the amount of CO₂ \
                  emissions released for the years 1961 to 2015\
                  <br/><br/>Each dot represents a single year.",
     text_GW_2 = "The interest here is to see the relationship between temperature and the amount of CO₂ released, \
