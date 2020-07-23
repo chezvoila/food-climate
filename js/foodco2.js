@@ -131,9 +131,9 @@ async function foodco2(data, _, res, isDish) {
             .attr("y", 0)
     });
     
-    d3.select("#food_co2 g.oil").attr("transform", "translate(0, 630)");
-    d3.select("#food_co2 g.animal").attr("transform", "translate(0, 980)");
-    d3.select("#food_co2 g.other").attr("transform", "translate(0, 1320)");
+    d3.select("#food_co2 g.animal").attr("transform", "translate(0, 630)");
+    d3.select("#food_co2 g.other").attr("transform", "translate(0, 970)");
+    d3.select("#food_co2 g.oil").attr("transform", "translate(0, 1440)");
     d3.select("#food_co2 g.plant").attr("transform", "translate(0, 1800)");
     d3.select("#food_co2 g.vegetable").attr("transform", "translate(0, 2230)");
 
