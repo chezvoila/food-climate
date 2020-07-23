@@ -307,7 +307,7 @@ function hexa(svg, data, x, y) {
         .domain([0, 6])
         .range(["#bd1a37", "#f9aab7", "#e2647a", "#ed8a9b", "#900b23"]);
         //  3(249, 170, 183)  nothing  2(201, 93, 109)1(190, 30, 59)4(153, 8, 35)
-        //.range(["#f9aab7", "#ed8a9b", "#c95d6f", "#be1e3b", "#990823"])
+        //.range(["#f9aab7", "#ed8a9b", "#c95d6f", "#be1e3b", "#990823"]);
 
     var hexbin = d3.hexbin()
         .radius(30) // size of the bin in px
