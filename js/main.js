@@ -183,7 +183,7 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 6) && flag  && (index != 1)) {    
+                if((total >= element.clientHeight - 1) && (index < 6) && flag  && (index != 1)) {    
                     jumpNext(el.nextElementSibling);
                     change_page_scroll(index + 1);
                 }
@@ -204,7 +204,7 @@
             let element = el.querySelector("section");
             if(dir) {
                 total = el.scrollTop + el.clientHeight;
-                if((total >= element.clientHeight) && (index < 6) && flag && (index != 1)) {    
+                if((total >= element.clientHeight - 1) && (index < 6) && flag && (index != 1)) {    
                     jumpNext(el.nextElementSibling);
                     change_page_scroll(index + 1);
                 }
